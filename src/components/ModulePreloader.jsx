@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
-const lines = [
-  'INITIALIZING ABOUT MODULE //',
-  'loading profile.data',
-  'reading academic background',
-  'mapping skills and interests',
-  'connecting hardware + software experience',
-  'rendering saish_gondkar.about',
-  'status: ready'
-];
-
-const AboutPreloader = ({ onComplete }) => {
+const ModulePreloader = ({ lines = [], onComplete, speed = 250 }) => {
   const [visibleLines, setVisibleLines] = useState([]);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    let timeouts = [];
+    if (lines.length === 0) {
+      onComplete();
+      return;
+    }
 
-    // Timing logic to spread the 7 lines over ~2.5 seconds
-    // 0ms, 400ms, 800ms, 1200ms, 1600ms, 2000ms, 2400ms
-    lines.forEach((line, index) => {
+    let timeouts = [];
+    const allLines = [...lines, 'status: ready'];
+
+    allLines.forEach((line, index) => {
       const timeout = setTimeout(() => {
         setVisibleLines(prev => [...prev, line]);
         
         // If this is the last line ("status: ready"), trigger the fade out after a brief hold
-        if (index === lines.length - 1) {
+        if (index === allLines.length - 1) {
           setTimeout(() => {
             setIsFadingOut(true);
             setTimeout(onComplete, 500); // 500ms fade out duration
-          }, 600); // Hold for 600ms so user can read "status: ready"
+          }, 400); // Hold for 400ms so user can read "status: ready"
         }
-      }, index * 350); // Reveal a new line every 350ms
+      }, index * speed); // Reveal a new line based on speed
       
       timeouts.push(timeout);
     });
@@ -38,7 +32,7 @@ const AboutPreloader = ({ onComplete }) => {
     return () => {
       timeouts.forEach(clearTimeout);
     };
-  }, [onComplete]);
+  }, [lines, onComplete, speed]);
 
   const handleSkip = () => {
     setIsFadingOut(true);
@@ -63,7 +57,7 @@ const AboutPreloader = ({ onComplete }) => {
       {/* Terminal Output Area (Top Left) */}
       <div className="relative z-10 max-w-2xl">
         {visibleLines.map((line, index) => {
-          const isLastLine = index === lines.length - 1;
+          const isLastLine = index === lines.length; // The extra 'status: ready' line
           return (
             <div 
               key={index} 
@@ -93,4 +87,4 @@ const AboutPreloader = ({ onComplete }) => {
   );
 };
 
-export default AboutPreloader;
+export default ModulePreloader;
