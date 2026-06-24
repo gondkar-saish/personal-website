@@ -9,7 +9,7 @@ const HardwareSystems = () => {
       status: 'In Progress',
       tech: 'ESP32, sensors, OLED display, Arduino IDE, embedded C/C++',
       description: 'An embedded IoT system built around the ESP32 to monitor real-time room conditions using sensors and display modules.',
-      image: '/esp32-image.jpg'
+      image: `${import.meta.env.BASE_URL}images/esp32-image.jpg`
     },
     {
       id: 'de10',
@@ -17,7 +17,7 @@ const HardwareSystems = () => {
       status: 'Built',
       tech: 'DE-10 Lite FPGA board, Verilog/VHDL, digital logic, seven-segment',
       description: 'An FPGA-based calculator implemented on the DE-10 Lite board using digital logic design. Demonstrates hardware-level computation.',
-      image: '/de10-lite-image.jpg'
+      image: `${import.meta.env.BASE_URL}images/de10-lite-image.jpg`
     },
     {
       id: 'arduino',
@@ -25,7 +25,7 @@ const HardwareSystems = () => {
       status: 'Upcoming',
       tech: 'Arduino, ultrasonic sensor, servo motor, embedded C/C++',
       description: 'A planned Arduino-based radar scanner using an ultrasonic sensor and servo motor to detect nearby objects.',
-      image: '/arduino-image.jpg'
+      image: `${import.meta.env.BASE_URL}images/arduino-image.jpg`
     }
   ];
 

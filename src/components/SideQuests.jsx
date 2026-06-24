@@ -13,7 +13,7 @@ const cards = [
     title: 'Captain Jack Sparrow',
     color: '#FACC15',
     bg: '#1a1505',
-    image: '/jack-sparrow.jpg',
+    image: `${import.meta.env.BASE_URL}images/jack-sparrow.jpg`,
     emoji: '🏴‍☠️',
     description: 'Chaos, confidence, humor, and unpredictable energy.',
   },
@@ -21,7 +21,7 @@ const cards = [
     title: 'Po, the Dragon Warrior',
     color: '#38BDF8',
     bg: '#051520',
-    image: '/po.jpg',
+    image: `${import.meta.env.BASE_URL}images/po.jpg`,
     emoji: '🐼',
     description: 'Growth, strength, humor, and becoming better one step at a time.',
   },
@@ -175,7 +175,7 @@ const SideQuests = () => {
             position: 'relative',
           }}>
             <img
-              src="/jack-sparrow.jpg"
+              src={`${import.meta.env.BASE_URL}images/jack-sparrow.jpg`}
               alt="Captain Jack Sparrow"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
             />
@@ -219,7 +219,7 @@ const SideQuests = () => {
             position: 'relative',
           }}>
             <img
-              src="/po.jpg"
+              src={`${import.meta.env.BASE_URL}images/po.jpg`}
               alt="Po the Dragon Warrior"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
             />
@@ -265,13 +265,13 @@ const SideQuests = () => {
           }}>
             {/* Three minions side by side */}
             <div style={{ flex: 1, overflow: 'hidden' }}>
-              <img src="/minion1.jpg" alt="Minion 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={`${import.meta.env.BASE_URL}images/minion1.jpg`} alt="Minion 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ flex: 1, overflow: 'hidden', borderLeft: '2px solid #1a1800', borderRight: '2px solid #1a1800' }}>
-              <img src="/minion2.jpg" alt="Minion 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={`${import.meta.env.BASE_URL}images/minion2.jpg`} alt="Minion 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ flex: 1, overflow: 'hidden' }}>
-              <img src="/minion3.jpg" alt="Minion 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={`${import.meta.env.BASE_URL}images/minion3.jpg`} alt="Minion 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </div>
           <div style={{ padding: '28px 24px' }}>
