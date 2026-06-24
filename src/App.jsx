@@ -17,6 +17,15 @@ import SideQuestsPage from './pages/SideQuestsPage';
 function App() {
   const [showIntro, setShowIntro] = useState(false);
 
+  // Set custom cursor CSS variables using the base URL
+  useEffect(() => {
+    const faceUrl = `url("${import.meta.env.BASE_URL}cursors/spiderman-face.svg") 16 16, auto`;
+    const handUrl = `url("${import.meta.env.BASE_URL}cursors/spiderman-hand.svg") 16 16, pointer`;
+    
+    document.documentElement.style.setProperty('--cursor-face', faceUrl);
+    document.documentElement.style.setProperty('--cursor-hand', handUrl);
+  }, []);
+
   useEffect(() => {
     // TEMPORARILY DISABLED for testing: check if intro has already been played
     // const introPlayed = sessionStorage.getItem('introPlayed');

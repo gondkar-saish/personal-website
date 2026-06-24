@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Wrist cuff -->
+  <path d="M12 26 L20 26 L18 31 L14 31 Z" fill="#E53E3E" stroke="#1A202C" stroke-width="1.5" />
+  <!-- Hand Palm -->
+  <path d="M10 16 C10 12, 22 12, 22 16 L22 25 L10 25 Z" fill="#E53E3E" stroke="#1A202C" stroke-width="1.5" />
+  <!-- Folded Middle and Ring fingers in center -->
+  <path d="M13.5 16 C13.5 19, 15 20, 16 20 C17 20, 18.5 19, 18.5 16" fill="none" stroke="#1A202C" stroke-width="2" stroke-linecap="round" />
+  <circle cx="14.5" cy="18" r="1.5" fill="#FFFFFF" stroke="#1A202C" stroke-width="0.75" />
+  <circle cx="17.5" cy="18" r="1.5" fill="#FFFFFF" stroke="#1A202C" stroke-width="0.75" />
+  <!-- Extended Pinky Finger (Right side) -->
+  <path d="M21 16 L26 9 C26.5 8, 28 9, 27 11 L22 18" fill="#E53E3E" stroke="#1A202C" stroke-width="1.5" stroke-linejoin="round" />
+  <!-- Extended Index Finger (Left side) -->
+  <path d="M11 16 L6 9 C5.5 8, 4 9, 5 11 L10 18" fill="#E53E3E" stroke="#1A202C" stroke-width="1.5" stroke-linejoin="round" />
+  <!-- Extended Thumb (pointing left) -->
+  <path d="M10 17 L3 17 C2 17, 2 15, 4 14.5 L10 15" fill="#E53E3E" stroke="#1A202C" stroke-width="1.5" stroke-linejoin="round" />
+  
+  <!-- Webbing details on hand back -->
+  <path d="M11 20 H21 M10 23 H22" stroke="#1A202C" stroke-width="0.75" opacity="0.5" />
+</svg>

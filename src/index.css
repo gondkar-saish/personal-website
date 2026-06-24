@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Custom Spiderman Cursors */
+:root {
+  --cursor-face: auto;
+  --cursor-hand: pointer;
+}
+
+html, body {
+  cursor: var(--cursor-face);
+}
+
+a, button, .nav-link, .project-card, .side-quest-card, .sci-fi-card, .engineering-card,
+.engineering-button-primary, .engineering-button-secondary, [role="button"], [style*="cursor: pointer"],
+a *, button *, [role="button"] * {
+  cursor: var(--cursor-hand) !important; /* Force custom cursor on hover */
+}
+
 @theme {
   --color-primary: #00E0A4; /* Accent teal */
   --color-secondary: #38BDF8; /* Accent cyan */
