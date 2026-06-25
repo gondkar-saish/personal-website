@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isBlackHoleActive, setIsBlackHoleActive] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -124,8 +126,16 @@ const Navbar = () => {
             </div>
             <Link 
               to="/" 
-              onClick={() => setIsOpen(false)} 
-              className="text-lg md:text-xl font-extrabold text-nav-text-main tracking-wide hover:opacity-80 transition-all duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                if (isBlackHoleActive) return;
+                setIsBlackHoleActive(true);
+                setIsOpen(false);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
+              }} 
+              className="text-lg md:text-xl font-extrabold text-nav-text-main tracking-wide hover:opacity-80 transition-all duration-300 relative z-50"
             >
               Saish Gondkar
             </Link>
@@ -214,6 +224,63 @@ const Navbar = () => {
           </Link>
         </div>
       )}
+
+      {/* Black Hole Animation Overlay */}
+      {isBlackHoleActive && createPortal(
+        <div className="fixed inset-0 z-[99999] pointer-events-none flex items-center justify-center overflow-hidden">
+          <style>{`
+            #root {
+               animation: suck-into-void 2s cubic-bezier(0.5, 0, 0.1, 1) forwards !important;
+               transform-origin: center top;
+            }
+            @keyframes suck-into-void {
+               0% { filter: blur(0px); transform: scale(1) rotate(0deg) translate(0, 0); opacity: 1; }
+               40% { filter: blur(4px); transform: scale(0.8) rotate(5deg) translate(0, -5vh); opacity: 0.8; }
+               100% { filter: blur(20px); transform: scale(0) rotate(180deg) translate(0, -100vh); opacity: 0; }
+            }
+            @keyframes black-hole-expand {
+               0% { transform: scale(0); opacity: 0; }
+               20% { transform: scale(1); opacity: 1; }
+               80% { transform: scale(1.5); box-shadow: 0 0 100px 50px rgba(0, 224, 164, 0.8), 0 0 200px 100px rgba(0,0,0,1); }
+               100% { transform: scale(50); opacity: 1; background: black; }
+            }
+            @keyframes accretion-spin {
+               0% { transform: rotate(0deg) scale(1); }
+               50% { transform: rotate(180deg) scale(1.2); }
+               100% { transform: rotate(360deg) scale(0); }
+            }
+          `}</style>
+          
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100000]">
+            {/* The Black Hole */}
+            <div 
+              className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-black relative flex items-center justify-center"
+              style={{
+                animation: 'black-hole-expand 2s cubic-bezier(0.5, 0, 0.1, 1) forwards',
+                boxShadow: '0 0 40px 10px rgba(0, 224, 164, 0.6), inset 0 0 20px black'
+              }}
+            >
+              {/* Accretion Disk / Glow Ring */}
+              <div 
+                className="absolute inset-[-100%] rounded-full border-[3px] border-accent-primary opacity-80 mix-blend-screen"
+                style={{
+                  animation: 'accretion-spin 1.5s linear infinite',
+                  boxShadow: '0 0 30px rgba(0,224,164,0.8), inset 0 0 20px rgba(0,224,164,0.5)'
+                }}
+              ></div>
+              <div 
+                className="absolute inset-[-150%] rounded-full border-[2px] border-[#0284C7] opacity-60 mix-blend-screen"
+                style={{
+                  animation: 'accretion-spin 1.2s linear infinite reverse',
+                  boxShadow: '0 0 40px rgba(2,132,199,0.6)'
+                }}
+              ></div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
     </nav>
   );
 };
