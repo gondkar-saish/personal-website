@@ -1209,7 +1209,7 @@ export default function SkillsCube() {
   }, []);
 
   return (
-    <section id="skills" style={{ minHeight: '100vh', padding: '120px 24px 80px', position: 'relative', background: 'transparent', fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
+    <section id="skills" style={{ minHeight: '100vh', padding: '80px 24px 60px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', background: 'transparent', fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
       <style>{`
         .sk-layout { display: flex; align-items: center; justify-content: center; gap: 80px; max-width: 1200px; margin: 0 auto; }
         .sk-canvas { flex: 0 0 480px; height: 480px; position: relative; cursor: grab; border-radius: 24px; overflow: hidden; }
@@ -1226,32 +1226,29 @@ export default function SkillsCube() {
       `}</style>
 
       {/* Header */}
-      <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '24px' }}>
         <span style={{
           display: 'inline-block', fontFamily: 'monospace', fontSize: '11px',
           color: '#00E0A4', border: '1px solid rgba(0,224,164,0.3)', borderRadius: '4px',
           padding: '4px 14px', letterSpacing: '0.2em', background: 'rgba(0,224,164,0.05)',
-          textTransform: 'uppercase', marginBottom: '16px',
+          textTransform: 'uppercase', marginBottom: '12px',
         }}>
           // TECHNICAL SKILLS NODE
         </span>
         <h2 style={{
           fontSize: 'clamp(1.9rem, 5vw, 3.2rem)', fontWeight: 900,
           textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1.1,
-          marginBottom: '12px', textShadow: '0 0 40px rgba(56,189,248,0.12)',
-          margin: '0 0 12px',
+          textShadow: '0 0 40px rgba(56,189,248,0.12)',
+          margin: '0',
         }} className="text-white">
           Skill Set Matrix
         </h2>
-        <p style={{ fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: 0 }}>
-          DRAG CORE TO ROTATE // SELECT A TAB TO EXPLORE NODE
-        </p>
       </div>
 
       {/* Tabs - Centered Above the Layout Blocks */}
-      <div style={{ marginBottom: '44px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <FaceTabs activeFace={activeFace} setActiveFace={setActiveFace} />
-        <p style={{ textAlign: 'center', marginTop: '18px', fontFamily: 'monospace', fontSize: '10px', color: 'rgba(100,116,139,0.5)', letterSpacing: '0.12em' }}>
+        <p style={{ textAlign: 'center', marginTop: '16px', fontFamily: 'monospace', fontSize: '10px', color: 'rgba(100,116,139,0.5)', letterSpacing: '0.12em' }}>
           CLICK + DRAG TO INSPECT ARTIFACT // CLICK TABS TO SWAP TECHNOLOGY NODES
         </p>
       </div>
