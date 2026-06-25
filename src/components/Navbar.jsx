@@ -133,7 +133,7 @@ const Navbar = () => {
                 setIsOpen(false);
                 setTimeout(() => {
                   window.location.reload();
-                }, 2000);
+                }, 1200);
               }} 
               className="text-lg md:text-xl font-extrabold text-nav-text-main tracking-wide hover:opacity-80 transition-all duration-300 relative z-50"
             >
@@ -230,13 +230,13 @@ const Navbar = () => {
         <div className="fixed inset-0 z-[99999] pointer-events-none flex items-center justify-center overflow-hidden">
           <style>{`
             #root {
-               animation: suck-into-void 2s cubic-bezier(0.5, 0, 0.1, 1) forwards !important;
+               will-change: transform, opacity, filter;
+               animation: suck-into-void 1.1s cubic-bezier(0.5, 0, 0.1, 1) forwards !important;
                transform-origin: center top;
             }
             @keyframes suck-into-void {
-               0% { filter: blur(0px); transform: scale(1) rotate(0deg) translate(0, 0); opacity: 1; }
-               40% { filter: blur(4px); transform: scale(0.8) rotate(5deg) translate(0, -5vh); opacity: 0.8; }
-               100% { filter: blur(20px); transform: scale(0) rotate(180deg) translate(0, -100vh); opacity: 0; }
+               0% { filter: blur(0px); transform: translate3d(0, 0, 0) scale(1) rotate(0deg); opacity: 1; }
+               100% { filter: blur(10px); transform: translate3d(0, -100vh, 0) scale(0) rotate(180deg); opacity: 0; }
             }
             @keyframes black-hole-expand {
                0% { transform: scale(0); opacity: 0; }
@@ -246,32 +246,53 @@ const Navbar = () => {
             }
             @keyframes accretion-spin {
                0% { transform: rotate(0deg) scale(1); }
-               50% { transform: rotate(180deg) scale(1.2); }
                100% { transform: rotate(360deg) scale(0); }
+            }
+            @media (max-width: 768px) {
+               @keyframes suck-into-void {
+                  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+                  100% { transform: translate3d(0, -50vh, 0) scale(0); opacity: 0; }
+               }
+               .black-hole-expand-layer {
+                  box-shadow: 0 0 20px 5px rgba(0, 224, 164, 0.8) !important;
+               }
+               .black-hole-ring {
+                  box-shadow: none !important;
+                  border-width: 1px !important;
+               }
+            }
+            @media (prefers-reduced-motion: reduce) {
+               #root {
+                  animation: simple-fade 1.1s ease forwards !important;
+               }
+               @keyframes simple-fade {
+                  to { opacity: 0; }
+               }
+               .bh-container { display: none !important; }
             }
           `}</style>
           
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100000]">
+          <div className="bh-container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100000]">
             {/* The Black Hole */}
             <div 
-              className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-black relative flex items-center justify-center"
+              className="black-hole-expand-layer w-16 h-16 md:w-24 md:h-24 rounded-full bg-black relative flex items-center justify-center will-change-transform"
               style={{
-                animation: 'black-hole-expand 2s cubic-bezier(0.5, 0, 0.1, 1) forwards',
+                animation: 'black-hole-expand 1.1s cubic-bezier(0.5, 0, 0.1, 1) forwards',
                 boxShadow: '0 0 40px 10px rgba(0, 224, 164, 0.6), inset 0 0 20px black'
               }}
             >
               {/* Accretion Disk / Glow Ring */}
               <div 
-                className="absolute inset-[-100%] rounded-full border-[3px] border-accent-primary opacity-80 mix-blend-screen"
+                className="black-hole-ring absolute inset-[-100%] rounded-full border-[3px] border-accent-primary opacity-80 mix-blend-screen will-change-transform"
                 style={{
-                  animation: 'accretion-spin 1.5s linear infinite',
+                  animation: 'accretion-spin 0.8s linear infinite',
                   boxShadow: '0 0 30px rgba(0,224,164,0.8), inset 0 0 20px rgba(0,224,164,0.5)'
                 }}
               ></div>
               <div 
-                className="absolute inset-[-150%] rounded-full border-[2px] border-[#0284C7] opacity-60 mix-blend-screen"
+                className="black-hole-ring absolute inset-[-150%] rounded-full border-[2px] border-[#0284C7] opacity-60 mix-blend-screen will-change-transform"
                 style={{
-                  animation: 'accretion-spin 1.2s linear infinite reverse',
+                  animation: 'accretion-spin 0.6s linear infinite reverse',
                   boxShadow: '0 0 40px rgba(2,132,199,0.6)'
                 }}
               ></div>
