@@ -20,7 +20,7 @@ function App() {
   // Set custom cursor CSS variables using the base URL
   useEffect(() => {
     const faceUrl = `url("${import.meta.env.BASE_URL}cursors/ironman-cursor.png") 16 16, auto`;
-    const handUrl = `url("${import.meta.env.BASE_URL}cursors/ironman-cursor.png") 16 16, pointer`;
+    const handUrl = `url("${import.meta.env.BASE_URL}cursors/arcreactor-cursor.png") 16 16, pointer`;
     
     document.documentElement.style.setProperty('--cursor-face', faceUrl);
     document.documentElement.style.setProperty('--cursor-hand', handUrl);
