@@ -32,6 +32,20 @@ const Navbar = () => {
           from { transform: translateX(0); }
           to { transform: translateX(-400px); }
         }
+        @keyframes orb-liquid-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes orb-glow-pulse {
+          0%, 100% { 
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), inset -2px -2px 6px rgba(0,0,0,0.6), inset 2px 2px 6px rgba(255,255,255,0.3);
+            border-color: rgba(56, 189, 248, 0.3);
+          }
+          50% { 
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.6), inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.4);
+            border-color: rgba(168, 85, 247, 0.5);
+          }
+        }
       `}</style>
 
       {/* Glass Base (Blurs page content) */}
@@ -83,13 +97,41 @@ const Navbar = () => {
       <div className="relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-[72px] md:h-[80px]">
           
-          {/* Logo Brand */}
+          {/* Logo Brand with 4D Glass Orb */}
           <div className="flex-shrink-0 flex items-center gap-3">
-            <img 
-              src={`${import.meta.env.BASE_URL}logo.png`} 
-              alt="Saish Gondkar Logo" 
-              className="w-7 h-7 object-contain" 
-            />
+            <div 
+              className="relative w-[30px] h-[30px] rounded-full overflow-hidden border flex-shrink-0 hover:scale-110 transition-transform duration-300"
+              style={{
+                animation: 'orb-glow-pulse 4s infinite ease-in-out',
+                background: 'rgba(8, 12, 24, 0.8)',
+              }}
+            >
+              {/* Swirling Liquid Core */}
+              <div 
+                className="absolute -inset-[50%] rounded-full opacity-90 filter blur-[2px]"
+                style={{
+                  background: 'conic-gradient(from 0deg, #00E0A4, #38BDF8, #818CF8, #A78BFA, #EC4899, #00E0A4)',
+                  animation: 'orb-liquid-spin 6s linear infinite',
+                }}
+              ></div>
+              
+              {/* Secondary Shimmer Accent */}
+              <div 
+                className="absolute inset-0 rounded-full opacity-50 mix-blend-color-dodge"
+                style={{
+                  background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 60%)',
+                }}
+              ></div>
+
+              {/* Glossy Reflection Highlight (Static top-left crescent) */}
+              <div 
+                className="absolute top-[1px] left-[2px] w-[80%] h-[35%] rounded-full pointer-events-none z-10"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%)',
+                  transform: 'rotate(-15deg)',
+                }}
+              ></div>
+            </div>
             <Link 
               to="/" 
               onClick={() => setIsOpen(false)} 
