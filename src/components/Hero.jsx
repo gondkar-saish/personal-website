@@ -1,4 +1,5 @@
 import React from 'react';
+import { FileText, Download } from 'lucide-react';
 import ChipTileHeroBackground from './ChipTileHeroBackground';
 
 const Hero = () => {
@@ -20,6 +21,18 @@ const Hero = () => {
         <h2 className="font-transformers text-base md:text-lg lg:text-xl font-bold uppercase tracking-widest text-text-muted opacity-60 mb-12 drop-shadow-sm" style={{ letterSpacing: '0.3em' }}>
           Built for Systems.
         </h2>
+        
+        {/* CV Actions */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 w-full max-w-md mx-auto">
+          <a href="#" className="engineering-button-primary w-full sm:w-auto gap-2">
+            <Download className="h-4 w-4" />
+            Download CV
+          </a>
+          <a href="#" className="engineering-button-secondary w-full sm:w-auto gap-2">
+            <FileText className="h-4 w-4" />
+            View Online
+          </a>
+        </div>
       </div>
     </section>
   );

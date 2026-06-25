@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import About from '../components/About';
-import Resume from '../components/Resume';
 import ModulePreloader from '../components/ModulePreloader';
 
 const AboutPage = () => {
@@ -47,7 +46,6 @@ const AboutPage = () => {
         contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}>
         <About />
-        <Resume />
       </div>
     </>
   );

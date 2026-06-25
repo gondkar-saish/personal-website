@@ -696,7 +696,7 @@ const About = () => {
                   <span className="text-white">{'//'}</span> {card.title}
                 </h4>
                 
-                <p className="text-accent-secondary text-sm leading-relaxed font-sans">
+                <p className="text-text-muted text-sm leading-relaxed font-sans">
                   {card.content}
                 </p>
               </div>

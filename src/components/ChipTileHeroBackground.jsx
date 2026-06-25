@@ -32,7 +32,7 @@ const ChipTileHeroBackground = () => {
       `}</style>
       
       {/* Tile Grid */}
-      <div className="absolute inset-[-5%] w-[110%] h-[110%] opacity-[0.08]">
+      <div className="absolute inset-[-5%] w-[110%] h-[110%] opacity-15">
         <div className="w-full h-full grid grid-cols-10 md:grid-cols-16 lg:grid-cols-24 auto-rows-fr gap-2 p-2">
            {tiles.map((tile) => {
              const hasGlow = Math.random() > 0.85; // Randomly assign a subtle cyan edge to some tiles
@@ -58,7 +58,7 @@ const ChipTileHeroBackground = () => {
                   )}
 
                   {/* Subtle hover effect (interactive!) */}
-                  <div className="absolute inset-0 bg-accent-primary opacity-0 group-hover:opacity-5 transition-opacity duration-300 mix-blend-screen"></div>
+                  <div className="absolute inset-0 bg-accent-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300 mix-blend-screen"></div>
                </div>
              );
            })}
@@ -67,7 +67,7 @@ const ChipTileHeroBackground = () => {
 
       {/* Lighting / Vignette Overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_var(--bg-base)_80%)] pointer-events-none z-10"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-primary/5 rounded-full blur-[140px] opacity-40 pointer-events-none z-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-primary/5 rounded-full blur-[140px] opacity-60 pointer-events-none z-10"></div>
       
     </div>
   );
