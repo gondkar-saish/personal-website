@@ -53,196 +53,693 @@ const FACES = [
   },
 ];
 
-// Target rotations for each face to face the camera (front = +Z)
-const FACE_ROTATIONS = [
-  [0, 0, 0],                       // Face 0: Backend  → front face
-  [0, Math.PI / 2, 0],             // Face 1: Mobile   → right face rotated left
-  [-Math.PI / 2, 0, 0],            // Face 2: Hardware → top face rotated down
-  [0, -Math.PI / 2, 0],            // Face 3: Tools    → left face rotated right
-];
+// ─── Procedural 3D Logo Components ──────────────────────────────────────────
 
-// ─── Titanium Edge Lines ──────────────────────────────────────────────────────
-function TitaniumFrame() {
-  const ref = useRef();
-  const geo = new THREE.EdgesGeometry(new THREE.BoxGeometry(2.04, 2.04, 2.04));
-  useFrame(({ clock }) => {
-    if (ref.current) {
-      ref.current.material.opacity = 0.22 + Math.sin(clock.getElapsedTime() * 0.4) * 0.04;
-    }
-  });
-  return (
-    <lineSegments ref={ref} geometry={geo}>
-      <lineBasicMaterial color="#7FA2B8" transparent opacity={0.22} />
-    </lineSegments>
-  );
-}
-
-// ─── Corner Accent Spheres ────────────────────────────────────────────────────
-function CornerBolts() {
-  const corners = [];
-  for (let x of [-1, 1]) for (let y of [-1, 1]) for (let z of [-1, 1]) corners.push([x, y, z]);
+function JavaLogo() {
   return (
     <group>
-      {corners.map(([x, y, z], i) => (
-        <mesh key={i} position={[x, y, z]}>
-          <sphereGeometry args={[0.032, 10, 10]} />
-          <meshStandardMaterial
-            color="#E2E8F0"
-            metalness={0.95}
-            roughness={0.12}
-            emissive="#000000"
-            emissiveIntensity={0.0}
-          />
+      {/* Cup Body */}
+      <mesh>
+        <cylinderGeometry args={[0.07, 0.06, 0.12, 16]} />
+        <meshStandardMaterial color="#F3F4F6" metalness={0.2} roughness={0.3} />
+      </mesh>
+      {/* Cup Handle */}
+      <mesh position={[0.06, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <torusGeometry args={[0.035, 0.012, 8, 16]} />
+        <meshStandardMaterial color="#F3F4F6" metalness={0.2} roughness={0.3} />
+      </mesh>
+      {/* Cup Rim Top */}
+      <mesh position={[0, 0.06, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.068, 0.008, 8, 16]} />
+        <meshStandardMaterial color="#E5E7EB" metalness={0.2} roughness={0.3} />
+      </mesh>
+      {/* Steam lines */}
+      <group position={[0, 0.08, 0]}>
+        <mesh position={[-0.02, 0.02, 0]} rotation={[0, 0, 0.1]}>
+          <boxGeometry args={[0.008, 0.04, 0.008]} />
+          <meshBasicMaterial color="#7DD3FC" transparent opacity={0.6} />
         </mesh>
-      ))}
+        <mesh position={[0.02, 0.03, 0]} rotation={[0, 0, -0.1]}>
+          <boxGeometry args={[0.008, 0.04, 0.008]} />
+          <meshBasicMaterial color="#7DD3FC" transparent opacity={0.6} />
+        </mesh>
+      </group>
     </group>
   );
 }
 
-// ─── Face Panel (frosted dark backing) ────────────────────────────────────────
-function FacePanel({ position, rotation, color, isActive }) {
-  const ref = useRef();
-  useFrame(() => {
-    if (!ref.current) return;
-    // Active face: highly opaque dark panel for contrast. Inactive: dimmer, slightly transparent.
-    ref.current.material.opacity = isActive ? 0.96 : 0.82;
+function SpringBootLogo() {
+  const leafShape = React.useMemo(() => {
+    const shape = new THREE.Shape();
+    shape.moveTo(0, -0.09);
+    shape.quadraticCurveTo(0.08, -0.04, 0.08, 0.03);
+    shape.quadraticCurveTo(0.05, 0.10, 0, 0.12);
+    shape.quadraticCurveTo(-0.05, 0.10, -0.08, 0.03);
+    shape.quadraticCurveTo(-0.08, -0.04, 0, -0.09);
+    return shape;
+  }, []);
+
+  return (
+    <group>
+      <mesh>
+        <shapeGeometry args={[leafShape]} />
+        <meshBasicMaterial color="#10B981" side={THREE.DoubleSide} />
+      </mesh>
+      {/* Leaf stem/vein */}
+      <mesh position={[0, 0.01, 0.005]}>
+        <boxGeometry args={[0.01, 0.14, 0.005]} />
+        <meshBasicMaterial color="#34D399" />
+      </mesh>
+    </group>
+  );
+}
+
+function MySqlLogo() {
+  return (
+    <group>
+      {/* 3 Stacked Cylinders */}
+      <mesh position={[0, 0.05, 0]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
+        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
+        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, -0.05, 0]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
+        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+      </mesh>
+      {/* Database indicators */}
+      <mesh position={[0, 0.05, 0.081]}>
+        <boxGeometry args={[0.015, 0.015, 0.005]} />
+        <meshBasicMaterial color="#FACC15" />
+      </mesh>
+      <mesh position={[0, 0, 0.081]}>
+        <boxGeometry args={[0.015, 0.015, 0.005]} />
+        <meshBasicMaterial color="#FACC15" />
+      </mesh>
+    </group>
+  );
+}
+
+function HibernateLogo() {
+  return (
+    <group>
+      {/* 3D H Shape */}
+      <mesh position={[-0.045, 0, 0]}>
+        <boxGeometry args={[0.024, 0.12, 0.024]} />
+        <meshStandardMaterial color="#C2410C" metalness={0.3} roughness={0.4} />
+      </mesh>
+      <mesh position={[0.045, 0, 0]}>
+        <boxGeometry args={[0.024, 0.12, 0.024]} />
+        <meshStandardMaterial color="#C2410C" metalness={0.3} roughness={0.4} />
+      </mesh>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.07, 0.024, 0.024]} />
+        <meshStandardMaterial color="#C2410C" metalness={0.3} roughness={0.4} />
+      </mesh>
+    </group>
+  );
+}
+
+function RestApiLogo() {
+  return (
+    <group>
+      {/* Network hub node */}
+      <mesh>
+        <sphereGeometry args={[0.04, 16, 16]} />
+        <meshBasicMaterial color="#06B6D4" />
+      </mesh>
+      {/* 2 Satellite nodes */}
+      <mesh position={[-0.07, 0.05, 0]}>
+        <sphereGeometry args={[0.022, 8, 8]} />
+        <meshBasicMaterial color="#06B6D4" />
+      </mesh>
+      <mesh position={[0.07, -0.05, 0]}>
+        <sphereGeometry args={[0.022, 8, 8]} />
+        <meshBasicMaterial color="#06B6D4" />
+      </mesh>
+      {/* Connecting bars */}
+      <mesh position={[-0.035, 0.025, 0]} rotation={[0, 0, -Math.PI / 5]}>
+        <cylinderGeometry args={[0.005, 0.005, 0.08, 8]} />
+        <meshBasicMaterial color="#0891B2" transparent opacity={0.6} />
+      </mesh>
+      <mesh position={[0.035, -0.025, 0]} rotation={[0, 0, -Math.PI / 5]}>
+        <cylinderGeometry args={[0.005, 0.005, 0.08, 8]} />
+        <meshBasicMaterial color="#0891B2" transparent opacity={0.6} />
+      </mesh>
+    </group>
+  );
+}
+
+// ─── Security Shield Geometry Helper ──────────────────────────────────────────
+function getShieldShape() {
+  const shape = new THREE.Shape();
+  shape.moveTo(0, 0.06);
+  shape.quadraticCurveTo(0.05, 0.06, 0.06, 0.03);
+  shape.quadraticCurveTo(0.06, -0.02, 0, -0.07);
+  shape.quadraticCurveTo(-0.06, -0.02, -0.06, 0.03);
+  shape.quadraticCurveTo(-0.05, 0.06, 0, 0.06);
+  return shape;
+}
+
+function JwtLogo() {
+  const shieldShape = React.useMemo(() => getShieldShape(), []);
+  return (
+    <group>
+      {/* 3D Shield */}
+      <mesh>
+        <extrudeGeometry args={[shieldShape, { depth: 0.025, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.008, bevelThickness: 0.008 }]} />
+        <meshStandardMaterial color="#C084FC" metalness={0.5} roughness={0.3} />
+      </mesh>
+      {/* Glowing core in center of shield */}
+      <mesh position={[0, 0, 0.02]}>
+        <sphereGeometry args={[0.02, 8, 8]} />
+        <meshBasicMaterial color="#F472B6" />
+      </mesh>
+    </group>
+  );
+}
+
+function ReactNativeLogo() {
+  const ringRef1 = useRef();
+  const ringRef2 = useRef();
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (ringRef1.current) ringRef1.current.rotation.x = t * 1.2;
+    if (ringRef2.current) ringRef2.current.rotation.y = t * 0.8;
   });
   return (
-    <mesh ref={ref} position={position} rotation={rotation}>
-      <planeGeometry args={[1.92, 1.92]} />
-      <meshPhysicalMaterial
-        color={isActive ? '#090e18' : '#020408'}
-        roughness={0.75}
-        metalness={0.12}
-        transmission={0.3}
-        thickness={0.05}
-        ior={1.1}
-        transparent
-        opacity={0.82}
-        side={THREE.DoubleSide}
-        depthWrite={false}
-      />
+    <group>
+      <mesh>
+        <sphereGeometry args={[0.035, 16, 16]} />
+        <meshBasicMaterial color="#38BDF8" />
+      </mesh>
+      <mesh ref={ringRef1} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+        <torusGeometry args={[0.1, 0.006, 8, 32]} />
+        <meshBasicMaterial color="#38BDF8" transparent opacity={0.8} />
+      </mesh>
+      <mesh ref={ringRef2} rotation={[-Math.PI / 4, Math.PI / 4, 0]}>
+        <torusGeometry args={[0.1, 0.006, 8, 32]} />
+        <meshBasicMaterial color="#38BDF8" transparent opacity={0.8} />
+      </mesh>
+    </group>
+  );
+}
+
+function ExpoLogo() {
+  return (
+    <mesh rotation={[Math.PI / 2, 0, 0]}>
+      <coneGeometry args={[0.07, 0.11, 3]} />
+      <meshStandardMaterial color="#DDD6FE" metalness={0.3} roughness={0.4} />
     </mesh>
   );
 }
 
-// ─── Subtle colored border glow around active face ───────────────────────────
-function FaceBorderGlow({ position, rotation, color, isActive }) {
-  if (!isActive) return null;
-  const geo = new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.94, 1.94));
+function JavaScriptLogo() {
   return (
-    <lineSegments position={position} rotation={rotation} geometry={geo}>
-      <lineBasicMaterial color={color} transparent opacity={0.65} />
-    </lineSegments>
-  );
-}
-
-// ─── Face Tech Labels ─────────────────────────────────────────────────────────
-function FaceContent({ position, rotation, face, isActive }) {
-  const techs = face.techs;
-  const cols = techs.length <= 3 ? techs.length : 3;
-  const rows = Math.ceil(techs.length / cols);
-  const colGap = techs.length <= 3 ? 0.50 : 0.60;
-  const rowGap = 0.35;
-  const centerY = -0.12;
-
-  // Active face is ultra-bright and crisp, inactive is beautifully subtle
-  const labelColor = isActive ? '#FFFFFF' : face.accentColor;
-  const dividerOpacity = isActive ? 0.8 : 0.3;
-
-  return (
-    <group position={position} rotation={rotation}>
-      {/* Category label at top */}
-      <Text
-        position={[0, 0.72, 0.005]}
-        fontSize={isActive ? 0.175 : 0.155}
-        color={labelColor}
-        anchorX="center"
-        anchorY="middle"
-        letterSpacing={0.16}
-        fontWeight={isActive ? 800 : 600}
-        outlineWidth={isActive ? 0.008 : 0.005}
-        outlineColor="#000308"
-      >
-        {face.label}
-      </Text>
-      {/* Divider line */}
-      <mesh position={[0, 0.54, 0.003]}>
-        <planeGeometry args={[1.4, 0.01]} />
-        <meshBasicMaterial color={face.accentColor} transparent opacity={dividerOpacity} />
+    <group>
+      <mesh>
+        <boxGeometry args={[0.11, 0.11, 0.015]} />
+        <meshStandardMaterial color="#FBBF24" metalness={0.0} roughness={0.4} />
       </mesh>
-      {/* Tech items */}
-      {techs.map((tech, i) => {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-        const x = ((col - (cols - 1) / 2)) * colGap;
-        const y = centerY + ((rows - 1) / 2 - row) * rowGap;
-        return (
-          <Text
-            key={tech}
-            position={[x, y, 0.005]}
-            fontSize={isActive ? 0.115 : 0.092}
-            color={isActive ? '#FFFFFF' : '#8A9FAD'}
-            anchorX="center"
-            anchorY="middle"
-            fontWeight={isActive ? 700 : 500}
-            outlineWidth={isActive ? 0.007 : 0.004}
-            outlineColor="#000308"
-          >
-            {tech}
-          </Text>
-        );
-      })}
+      <Text position={[0.015, -0.018, 0.009]} fontSize={0.065} color="#000000" fontWeight="bold">
+        JS
+      </Text>
     </group>
   );
 }
 
-// ─── Cube with Drag + Parallax ────────────────────────────────────────────────
-function SkillCube({ activeFace, mouseRef }) {
+function MicrochipLogo() {
+  return (
+    <group>
+      {/* Board */}
+      <mesh>
+        <boxGeometry args={[0.14, 0.1, 0.015]} />
+        <meshStandardMaterial color="#065F46" roughness={0.8} />
+      </mesh>
+      {/* CPU Chip */}
+      <mesh position={[0, 0, 0.009]}>
+        <boxGeometry args={[0.06, 0.06, 0.01]} />
+        <meshStandardMaterial color="#1F2937" metalness={0.1} roughness={0.5} />
+      </mesh>
+      {/* Golden Pins */}
+      <mesh position={[-0.048, 0, 0.009]}>
+        <boxGeometry args={[0.01, 0.08, 0.004]} />
+        <meshStandardMaterial color="#D97706" metalness={0.9} roughness={0.15} />
+      </mesh>
+      <mesh position={[0.048, 0, 0.009]}>
+        <boxGeometry args={[0.01, 0.08, 0.004]} />
+        <meshStandardMaterial color="#D97706" metalness={0.9} roughness={0.15} />
+      </mesh>
+    </group>
+  );
+}
+
+function SensorLogo() {
+  return (
+    <group>
+      {/* Base */}
+      <mesh position={[0, -0.03, 0]}>
+        <boxGeometry args={[0.1, 0.03, 0.1]} />
+        <meshStandardMaterial color="#64748B" roughness={0.5} />
+      </mesh>
+      {/* Sensor dome */}
+      <mesh position={[0, 0.015, 0]}>
+        <sphereGeometry args={[0.054, 16, 16]} />
+        <meshStandardMaterial color="#E2E8F0" metalness={0.2} roughness={0.1} />
+      </mesh>
+    </group>
+  );
+}
+
+function GitLogo() {
+  return (
+    <group>
+      {/* 3 nodes in branch */}
+      <mesh position={[0, -0.05, 0]}>
+        <sphereGeometry args={[0.024, 8, 8]} />
+        <meshBasicMaterial color="#EF5B3C" />
+      </mesh>
+      <mesh position={[0, 0.05, 0]}>
+        <sphereGeometry args={[0.024, 8, 8]} />
+        <meshBasicMaterial color="#EF5B3C" />
+      </mesh>
+      <mesh position={[0.045, 0, 0]}>
+        <sphereGeometry args={[0.024, 8, 8]} />
+        <meshBasicMaterial color="#EF5B3C" />
+      </mesh>
+      {/* Branching lines */}
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.005, 0.005, 0.1, 8]} />
+        <meshBasicMaterial color="#F97316" />
+      </mesh>
+      <mesh position={[0.0225, -0.025, 0]} rotation={[0, 0, -Math.PI / 4]}>
+        <cylinderGeometry args={[0.005, 0.005, 0.07, 8]} />
+        <meshBasicMaterial color="#F97316" />
+      </mesh>
+    </group>
+  );
+}
+
+function GitHubLogo() {
+  return (
+    <group>
+      <mesh>
+        <cylinderGeometry args={[0.075, 0.075, 0.015, 16]} />
+        <meshStandardMaterial color="#1F2937" metalness={0.7} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0, 0.009]}>
+        <sphereGeometry args={[0.035, 16, 16]} />
+        <meshBasicMaterial color="#FFFFFF" />
+      </mesh>
+    </group>
+  );
+}
+
+function IntelliJLogo() {
+  return (
+    <group>
+      <mesh>
+        <boxGeometry args={[0.1, 0.1, 0.015]} />
+        <meshStandardMaterial color="#030712" roughness={0.5} />
+      </mesh>
+      <mesh position={[0, 0, 0.009]}>
+        <boxGeometry args={[0.088, 0.088, 0.003]} />
+        <meshStandardMaterial color="#8B5CF6" metalness={0.8} roughness={0.2} />
+      </mesh>
+      <Text position={[0, 0, 0.012]} fontSize={0.052} color="#FFFFFF" fontWeight="bold">
+        IJ
+      </Text>
+    </group>
+  );
+}
+
+function VsCodeLogo() {
+  return (
+    <group>
+      <mesh rotation={[0, 0, Math.PI / 4]}>
+        <boxGeometry args={[0.09, 0.045, 0.015]} />
+        <meshStandardMaterial color="#0284C7" metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh rotation={[0, 0, -Math.PI / 4]}>
+        <boxGeometry args={[0.09, 0.045, 0.015]} />
+        <meshStandardMaterial color="#0284C7" metalness={0.6} roughness={0.2} />
+      </mesh>
+    </group>
+  );
+}
+
+function PostmanLogo() {
+  return (
+    <group>
+      {/* Rocket Body */}
+      <mesh position={[0, 0.015, 0]}>
+        <cylinderGeometry args={[0.03, 0.03, 0.09, 12]} />
+        <meshStandardMaterial color="#FF6C37" metalness={0.4} roughness={0.3} />
+      </mesh>
+      {/* Nose Cone */}
+      <mesh position={[0, 0.075, 0]}>
+        <coneGeometry args={[0.03, 0.038, 12]} />
+        <meshStandardMaterial color="#FF6C37" />
+      </mesh>
+      {/* Fins */}
+      <mesh position={[-0.03, -0.02, 0]} rotation={[0, 0, Math.PI / 6]}>
+        <boxGeometry args={[0.01, 0.038, 0.03]} />
+        <meshStandardMaterial color="#E2E8F0" />
+      </mesh>
+      <mesh position={[0.03, -0.02, 0]} rotation={[0, 0, -Math.PI / 6]}>
+        <boxGeometry args={[0.01, 0.038, 0.03]} />
+        <meshStandardMaterial color="#E2E8F0" />
+      </mesh>
+      {/* Engine flame */}
+      <mesh position={[0, -0.04, 0]}>
+        <coneGeometry args={[0.015, 0.02, 8]} />
+        <meshBasicMaterial color="#FBBF24" />
+      </mesh>
+    </group>
+  );
+}
+
+function MySqlWorkbenchLogo() {
+  return (
+    <group>
+      <mesh position={[0, -0.02, 0]}>
+        <boxGeometry args={[0.1, 0.015, 0.1]} />
+        <meshStandardMaterial color="#64748B" metalness={0.8} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0.02, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.05, 12]} />
+        <meshStandardMaterial color="#00758F" metalness={0.5} roughness={0.2} />
+      </mesh>
+    </group>
+  );
+}
+
+function TechLogo3D({ techName }) {
+  const normalized = techName.toLowerCase();
+
+  if (normalized.includes('java') && !normalized.includes('script') && !normalized.includes('spring')) {
+    return <JavaLogo />;
+  }
+  if (normalized.includes('spring')) {
+    return <SpringBootLogo />;
+  }
+  if (normalized.includes('mysql') && !normalized.includes('workbench')) {
+    return <MySqlLogo />;
+  }
+  if (normalized.includes('hibernate')) {
+    return <HibernateLogo />;
+  }
+  if (normalized.includes('rest')) {
+    return <RestApiLogo />;
+  }
+  if (normalized.includes('jwt')) {
+    return <JwtLogo />;
+  }
+  if (normalized.includes('react')) {
+    return <ReactNativeLogo />;
+  }
+  if (normalized.includes('expo')) {
+    return <ExpoLogo />;
+  }
+  if (normalized.includes('javascript') || normalized === 'js') {
+    return <JavaScriptLogo />;
+  }
+  if (normalized.includes('esp32') || normalized.includes('arduino')) {
+    return <MicrochipLogo />;
+  }
+  if (normalized.includes('dht11') || normalized.includes('pir') || normalized.includes('ldr') || normalized.includes('sensor')) {
+    return <SensorLogo />;
+  }
+  if (normalized === 'git') {
+    return <GitLogo />;
+  }
+  if (normalized.includes('github')) {
+    return <GitHubLogo />;
+  }
+  if (normalized.includes('intellij')) {
+    return <IntelliJLogo />;
+  }
+  if (normalized.includes('vs code') || normalized.includes('vscode')) {
+    return <VsCodeLogo />;
+  }
+  if (normalized.includes('postman')) {
+    return <PostmanLogo />;
+  }
+  if (normalized.includes('workbench')) {
+    return <MySqlWorkbenchLogo />;
+  }
+
+  // Fallback
+  return (
+    <group>
+      <mesh>
+        <boxGeometry args={[0.1, 0.1, 0.1]} />
+        <meshStandardMaterial color="#00E0A4" metalness={0.8} roughness={0.2} />
+      </mesh>
+      <Text position={[0, 0, 0.055]} fontSize={0.065} color="#FFFFFF" fontWeight="bold">
+        {techName.charAt(0).toUpperCase()}
+      </Text>
+    </group>
+  );
+}
+
+// ─── Central Tech Core (Arc Reactor) ──────────────────────────────────────────
+function TechCore({ activeFace }) {
+  const coreRef = useRef();
+  const ringRef1 = useRef();
+  const ringRef2 = useRef();
+  const colorObj = useRef(new THREE.Color('#38BDF8'));
+
+  const targetColor = FACES[activeFace]?.accentColor || '#38BDF8';
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+
+    // Gentle breathing vertical floating
+    if (coreRef.current) {
+      coreRef.current.position.y = Math.sin(t * 1.3) * 0.08;
+      coreRef.current.rotation.y = t * 0.4;
+    }
+
+    // Concentric gyroscopic rings spinning on different axes
+    if (ringRef1.current) {
+      ringRef1.current.rotation.x = t * 0.5;
+      ringRef1.current.rotation.y = t * 0.25;
+    }
+    if (ringRef2.current) {
+      ringRef2.current.rotation.y = -t * 0.6;
+      ringRef2.current.rotation.z = t * 0.3;
+    }
+
+    // Lerp the accent color
+    colorObj.current.lerp(new THREE.Color(targetColor), 0.08);
+  });
+
+  return (
+    <group ref={coreRef}>
+      {/* Octahedron Energy Crystal Core */}
+      <mesh>
+        <octahedronGeometry args={[0.38]} />
+        <meshStandardMaterial
+          color={targetColor}
+          emissive={targetColor}
+          emissiveIntensity={1.3}
+          roughness={0.1}
+          metalness={0.9}
+        />
+      </mesh>
+
+      <pointLight distance={1.8} intensity={1.2} color={targetColor} />
+
+      {/* Ring 1 */}
+      <group ref={ringRef1}>
+        <mesh>
+          <torusGeometry args={[0.56, 0.04, 12, 48]} />
+          <meshStandardMaterial color="#0F172A" metalness={0.9} roughness={0.15} />
+        </mesh>
+        <mesh>
+          <torusGeometry args={[0.56, 0.012, 8, 48]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.7} />
+        </mesh>
+      </group>
+
+      {/* Ring 2 */}
+      <group ref={ringRef2}>
+        <mesh>
+          <torusGeometry args={[0.72, 0.035, 10, 48]} />
+          <meshStandardMaterial color="#1E293B" metalness={0.95} roughness={0.2} />
+        </mesh>
+        <mesh>
+          <torusGeometry args={[0.72, 0.01, 6, 48]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.6} />
+        </mesh>
+      </group>
+
+      {/* Outer Hexagonal Cage structural plates */}
+      <group>
+        {/* Top Hex Cap */}
+        <mesh position={[0, 0.54, 0]} rotation={[0, Math.PI / 6, 0]}>
+          <cylinderGeometry args={[0.42, 0.42, 0.04, 6]} />
+          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0.561, 0]} rotation={[0, Math.PI / 6, 0]}>
+          <cylinderGeometry args={[0.36, 0.36, 0.01, 6]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.5} />
+        </mesh>
+
+        {/* Bottom Hex Cap */}
+        <mesh position={[0, -0.54, 0]} rotation={[0, Math.PI / 6, 0]}>
+          <cylinderGeometry args={[0.42, 0.42, 0.04, 6]} />
+          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, -0.561, 0]} rotation={[0, Math.PI / 6, 0]}>
+          <cylinderGeometry args={[0.36, 0.36, 0.01, 6]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.5} />
+        </mesh>
+
+        {/* Hex Connecting Pillars */}
+        {Array.from({ length: 6 }).map((_, i) => {
+          const angle = (i * Math.PI) / 3;
+          const r = 0.4;
+          const x = r * Math.cos(angle);
+          const z = r * Math.sin(angle);
+          return (
+            <mesh key={i} position={[x, 0, z]}>
+              <cylinderGeometry args={[0.014, 0.014, 1.08, 8]} />
+              <meshStandardMaterial color="#334155" metalness={0.8} roughness={0.3} />
+            </mesh>
+          );
+        })}
+      </group>
+    </group>
+  );
+}
+
+// ─── Orbiting Holographic Technology Node ────────────────────────────────────
+function TechNode({ techName, index, total, isTargetActive, color }) {
+  const ref = useRef();
+  const currentPos = useRef(new THREE.Vector3(0, 0, 0));
+  const currentScale = useRef(0);
+
+  const radius = 2.25;
+  const angle = (index * 2 * Math.PI) / total;
+
+  // Orbit target position in space surrounding the core
+  const targetPos = isTargetActive
+    ? new THREE.Vector3(radius * Math.cos(angle), radius * Math.sin(angle), 0)
+    : new THREE.Vector3(0, 0, 0);
+
+  const targetScale = isTargetActive ? 1.0 : 0.0;
+
+  useFrame(() => {
+    if (!ref.current) return;
+
+    // Smooth position lerping from/to center core
+    currentPos.current.lerp(targetPos, 0.08);
+    ref.current.position.copy(currentPos.current);
+
+    // Smooth scale lerping
+    currentScale.current += (targetScale - currentScale.current) * 0.1;
+    ref.current.scale.setScalar(currentScale.current);
+
+    // Optimize rendering by toggling visibility based on scale
+    const isVisible = currentScale.current > 0.01;
+    if (ref.current.visible !== isVisible) {
+      ref.current.visible = isVisible;
+    }
+  });
+
+  return (
+    <group ref={ref}>
+      {/* Glass HUD panel plate */}
+      <mesh>
+        <planeGeometry args={[0.55, 0.55]} />
+        <meshPhysicalMaterial
+          color="#060c18"
+          roughness={0.7}
+          metalness={0.1}
+          transmission={0.4}
+          thickness={0.03}
+          transparent
+          opacity={0.88}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Premium thin glowing border outline */}
+      <lineSegments>
+        <edgesGeometry args={[new THREE.PlaneGeometry(0.55, 0.55)]} />
+        <lineBasicMaterial color={color} transparent opacity={0.45} />
+      </lineSegments>
+
+      {/* 3D Logo Component */}
+      <group position={[0, 0.03, 0.03]}>
+        <TechLogo3D techName={techName} />
+      </group>
+
+      {/* High-legibility Text Label */}
+      <Text
+        position={[0, -0.38, 0.03]}
+        fontSize={0.082}
+        color="#FFFFFF"
+        anchorX="center"
+        anchorY="middle"
+        fontWeight={700}
+        outlineWidth={0.005}
+        outlineColor="#000308"
+      >
+        {techName}
+      </Text>
+    </group>
+  );
+}
+
+// ─── Scene Container & Inertial Drag ──────────────────────────────────────────
+function ArtifactScene({ activeFace, mouseRef }) {
   const group = useRef();
   const isDragging = useRef(false);
   const prevMouse = useRef({ x: 0, y: 0 });
   const manualOffset = useRef({ x: 0, y: 0 });
   const velocity = useRef({ x: 0, y: 0 });
 
-  // Face positions and rotations
-  const faces = [
-    { pos: [0, 0, 1.02],  rot: [0, 0, 0],             id: 0 },
-    { pos: [0, 0, -1.02], rot: [Math.PI, 0, 0],        id: 0 }, // back
-    { pos: [-1.02, 0, 0], rot: [0, Math.PI / 2, 0],    id: 1 },
-    { pos: [1.02, 0, 0],  rot: [0, -Math.PI / 2, 0],   id: 3 },
-    { pos: [0, 1.02, 0],  rot: [-Math.PI / 2, 0, 0],   id: 2 },
-    { pos: [0, -1.02, 0], rot: [Math.PI / 2, 0, 0],    id: 2 },
-  ];
+  const accent = FACES[activeFace]?.accentColor || '#38BDF8';
+  const pulseRef = useRef();
 
   useFrame(({ clock }) => {
     if (!group.current) return;
 
-    // Target from active face
-    const [tx, ty, tz] = FACE_ROTATIONS[activeFace];
-
-    // Apply velocity (inertia from drag)
+    // Apply drag inertial physics
     if (!isDragging.current) {
-      velocity.current.x *= 0.92;
-      velocity.current.y *= 0.92;
+      velocity.current.x *= 0.91;
+      velocity.current.y *= 0.91;
       manualOffset.current.x += velocity.current.x;
       manualOffset.current.y += velocity.current.y;
 
-      // Lerp manual offset back to 0 when idle
-      manualOffset.current.x *= 0.97;
-      manualOffset.current.y *= 0.97;
+      // Gently lerp back to 0 when idle so text aligns front-facing for readability
+      manualOffset.current.x *= 0.95;
+      manualOffset.current.y *= 0.95;
     }
 
-    // Mouse parallax (gentle)
-    const mx = mouseRef.current.x * 0.18;
-    const my = mouseRef.current.y * 0.18;
+    // Subtle mouse parallax
+    const mx = mouseRef.current.x * 0.12;
+    const my = mouseRef.current.y * 0.12;
 
-    const finalX = tx + manualOffset.current.x - my;
-    const finalY = ty + manualOffset.current.y + mx;
+    const finalX = manualOffset.current.x - my;
+    const finalY = manualOffset.current.y + mx;
 
-    group.current.rotation.x += (finalX - group.current.rotation.x) * 0.055;
-    group.current.rotation.y += (finalY - group.current.rotation.y) * 0.055;
-    group.current.rotation.z += (tz - group.current.rotation.z) * 0.055;
+    // Apply rotation
+    group.current.rotation.x += (finalX - group.current.rotation.x) * 0.07;
+    group.current.rotation.y += (finalY - group.current.rotation.y) * 0.07;
+    group.current.rotation.z += (0 - group.current.rotation.z) * 0.07;
+
+    // Breath glow on the point light
+    if (pulseRef.current) {
+      pulseRef.current.intensity = 0.25 + Math.sin(clock.getElapsedTime() * 0.4) * 0.06;
+    }
   });
 
   const handlePointerDown = useCallback((e) => {
@@ -256,10 +753,10 @@ function SkillCube({ activeFace, mouseRef }) {
       if (!isDragging.current) return;
       const dx = e.clientX - prevMouse.current.x;
       const dy = e.clientY - prevMouse.current.y;
-      velocity.current.x = dy * 0.007;
-      velocity.current.y = dx * 0.007;
-      manualOffset.current.x += dy * 0.007;
-      manualOffset.current.y += dx * 0.007;
+      velocity.current.x = dy * 0.006;
+      velocity.current.y = dx * 0.006;
+      manualOffset.current.x += dy * 0.006;
+      manualOffset.current.y += dx * 0.006;
       prevMouse.current = { x: e.clientX, y: e.clientY };
     };
     const onUp = () => { isDragging.current = false; };
@@ -272,98 +769,45 @@ function SkillCube({ activeFace, mouseRef }) {
   }, []);
 
   return (
-    <Float speed={1.3} floatIntensity={0.2} rotationIntensity={0} floatingRange={[-0.07, 0.07]}>
-      <group ref={group} onPointerDown={handlePointerDown}>
-        {/* Dark core block for solid background contrast */}
-        <mesh>
-          <boxGeometry args={[1.98, 1.98, 1.98]} />
-          <meshStandardMaterial
-            color="#03060d"
-            metalness={0.1}
-            roughness={0.9}
-            transparent
-            opacity={0.98}
-            side={THREE.DoubleSide}
-            depthWrite={true}
-          />
-        </mesh>
-
-        {/* Titanium frame */}
-        <TitaniumFrame />
-        <CornerBolts />
-
-        {/* Dark frosted face panels (solid backing for text contrast) */}
-        {faces.map((fc, i) => (
-          <FacePanel
-            key={i}
-            position={fc.pos}
-            rotation={fc.rot}
-            color={FACES[fc.id].accentColor}
-            isActive={activeFace === fc.id}
-          />
-        ))}
-
-        {/* Subtle colored border glow on active face only */}
-        {faces.map((fc, i) => (
-          <FaceBorderGlow
-            key={i + '-glow'}
-            position={fc.pos.map((v) => v * 1.001)}
-            rotation={fc.rot}
-            color={FACES[fc.id].accentColor}
-            isActive={activeFace === fc.id}
-          />
-        ))}
-
-        {/* Tech content on each face — positioned in front of panel for 100% legibility */}
-        {faces.map((fc, i) => (
-          <FaceContent
-            key={i + '-content'}
-            position={fc.pos.map((v) => v * 1.015)}
-            rotation={fc.rot}
-            face={FACES[fc.id]}
-            isActive={activeFace === fc.id}
-          />
-        ))}
-      </group>
-    </Float>
-  );
-}
-
-// ─── Scene ────────────────────────────────────────────────────────────────────
-function Scene({ activeFace, mouseRef }) {
-  const accent = FACES[activeFace]?.accentColor || '#38BDF8';
-  const pulseRef = useRef();
-
-  useFrame(({ clock }) => {
-    if (pulseRef.current) {
-      // Gentle, low-frequency breath with zero hotspots
-      pulseRef.current.intensity = 0.3 + Math.sin(clock.getElapsedTime() * 0.4) * 0.08;
-    }
-  });
-
-  return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={40} />
 
-      {/* Soft, even, high-contrast ambient lighting */}
-      <ambientLight intensity={0.85} color="#1d273a" />
-      <directionalLight position={[3, 4, 5]} intensity={0.45} color="#e6f0fa" />
-      <directionalLight position={[-3, -2, -3]} intensity={0.1} color="#08101e" />
+      {/* Clean high-contrast ambient lighting */}
+      <ambientLight intensity={0.8} color="#1c2538" />
+      <directionalLight position={[3, 4, 5]} intensity={0.55} color="#eaf2fa" />
+      <directionalLight position={[-3, -2, -3]} intensity={0.1} color="#08101c" />
 
-      {/* Extremely subtle accent wash — very low intensity, no hotspots */}
-      <pointLight ref={pulseRef} position={[0, 0, 3.0]} intensity={0.3} color={accent} distance={6} decay={2} />
+      {/* Subtle colored point light wash */}
+      <pointLight ref={pulseRef} position={[0, 0, 2.6]} intensity={0.3} color={accent} distance={6} decay={2} />
 
-      {/* Dim, elegant sparkles for depth — completely unobtrusive */}
-      <Sparkles count={20} scale={8} size={0.4} speed={0.08} color="#38BDF8" opacity={0.08} />
-      <Sparkles count={10} scale={6} size={0.3} speed={0.05} color="#00E0A4" opacity={0.04} />
+      {/* Unobtrusive sparkles for deep space feel */}
+      <Sparkles count={20} scale={8} size={0.35} speed={0.06} color="#38BDF8" opacity={0.06} />
+      <Sparkles count={10} scale={6} size={0.25} speed={0.04} color="#00E0A4" opacity={0.03} />
 
-      <SkillCube activeFace={activeFace} mouseRef={mouseRef} />
+      {/* Rotating scene group */}
+      <group ref={group} onPointerDown={handlePointerDown}>
+        {/* Core Centerpiece */}
+        <TechCore activeFace={activeFace} />
 
-      {/* NO Environment map — removes all reflections */}
+        {/* Orbiting Technology Nodes from all categories, lerping to their active state */}
+        {FACES.map((face, faceIdx) => {
+          const isCategoryActive = activeFace === faceIdx;
+          return face.techs.map((tech, techIdx) => (
+            <TechNode
+              key={face.id + '-' + tech}
+              techName={tech}
+              index={techIdx}
+              total={face.techs.length}
+              isTargetActive={isCategoryActive}
+              color={face.accentColor}
+            />
+          ));
+        })}
+      </group>
 
-      {/* Very subtle bloom only to prevent text bleed */}
+      {/* Subtle bloom postprocessing */}
       <EffectComposer>
-        <Bloom luminanceThreshold={0.65} luminanceSmoothing={0.95} intensity={0.15} />
+        <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.95} intensity={0.12} />
       </EffectComposer>
     </>
   );
@@ -570,11 +1014,11 @@ export default function SkillsCube() {
           Skill Set Matrix
         </h2>
         <p style={{ color: 'rgba(148,163,184,0.7)', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: 0 }}>
-          DRAG CUBE TO ROTATE // SELECT A TAB TO INSPECT EACH FACE
+          DRAG CORE TO ROTATE // SELECT A TAB TO EXPLORE NODE
         </p>
       </div>
 
-      {/* Main */}
+      {/* Main Layout */}
       <div className="sk-layout" ref={containerRef}>
         {/* Canvas */}
         <div className="sk-canvas">
@@ -591,12 +1035,12 @@ export default function SkillsCube() {
             style={{ background: 'transparent' }}
           >
             <Suspense fallback={null}>
-              <Scene activeFace={activeFace} mouseRef={mouseRef} />
+              <ArtifactScene activeFace={activeFace} mouseRef={mouseRef} />
             </Suspense>
           </Canvas>
         </div>
 
-        {/* Detail panel */}
+        {/* Detail Panel */}
         <div className="sk-panel">
           <DetailPanel face={FACES[activeFace]} />
         </div>
@@ -607,7 +1051,7 @@ export default function SkillsCube() {
         <FaceTabs activeFace={activeFace} setActiveFace={setActiveFace} />
       </div>
       <p style={{ textAlign: 'center', marginTop: '18px', fontFamily: 'monospace', fontSize: '10px', color: 'rgba(100,116,139,0.5)', letterSpacing: '0.12em' }}>
-        CLICK + DRAG THE CUBE TO ROTATE // CLICK TABS TO FOCUS A FACE
+        CLICK + DRAG TO INSPECT ARTIFACT // CLICK TABS TO SWAP TECHNOLOGY NODES
       </p>
     </section>
   );
