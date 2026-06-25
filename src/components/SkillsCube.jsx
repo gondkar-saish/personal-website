@@ -257,6 +257,293 @@ function ExpoLogo() {
   );
 }
 
+// ─── Visual 3D Centerpiece Implementations by Division ──────────────────────
+
+function BackendCore({ targetColor }) {
+  const dbRef = useRef();
+  const ringRef = useRef();
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (dbRef.current) {
+      dbRef.current.rotation.y = t * 0.35;
+    }
+    if (ringRef.current) {
+      ringRef.current.rotation.x = t * 0.55;
+      ringRef.current.rotation.y = -t * 0.25;
+    }
+  });
+
+  return (
+    <group>
+      {/* 3-Tier Server Database Tower */}
+      <group ref={dbRef}>
+        {/* Tier 1 */}
+        <mesh position={[0, 0.16, 0]}>
+          <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
+          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0.16, 0.221]}>
+          <boxGeometry args={[0.045, 0.045, 0.01]} />
+          <meshBasicMaterial color={targetColor} />
+        </mesh>
+
+        {/* Tier 2 */}
+        <mesh position={[0, 0, 0]}>
+          <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
+          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0, 0.221]}>
+          <boxGeometry args={[0.045, 0.045, 0.01]} />
+          <meshBasicMaterial color={targetColor} />
+        </mesh>
+
+        {/* Tier 3 */}
+        <mesh position={[0, -0.16, 0]}>
+          <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
+          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, -0.16, 0.221]}>
+          <boxGeometry args={[0.045, 0.045, 0.01]} />
+          <meshBasicMaterial color={targetColor} />
+        </mesh>
+
+        {/* Framing pillars */}
+        <mesh position={[-0.23, 0, 0]}>
+          <boxGeometry args={[0.02, 0.46, 0.04]} />
+          <meshStandardMaterial color="#475569" />
+        </mesh>
+        <mesh position={[0.23, 0, 0]}>
+          <boxGeometry args={[0.02, 0.46, 0.04]} />
+          <meshStandardMaterial color="#475569" />
+        </mesh>
+      </group>
+
+      {/* Outer Data Orbit Ring */}
+      <group ref={ringRef}>
+        <mesh>
+          <torusGeometry args={[0.48, 0.022, 8, 32]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.5} />
+        </mesh>
+        <mesh position={[0.48, 0, 0]}>
+          <sphereGeometry args={[0.042, 8, 8]} />
+          <meshBasicMaterial color="#FFFFFF" />
+        </mesh>
+        <mesh position={[-0.48, 0, 0]}>
+          <sphereGeometry args={[0.042, 8, 8]} />
+          <meshBasicMaterial color="#FFFFFF" />
+        </mesh>
+      </group>
+
+      {/* Hex base plates */}
+      <mesh position={[0, -0.36, 0]}>
+        <cylinderGeometry args={[0.36, 0.36, 0.03, 6]} />
+        <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0.36, 0]}>
+        <cylinderGeometry args={[0.36, 0.36, 0.03, 6]} />
+        <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+      </mesh>
+    </group>
+  );
+}
+
+function MobileCore({ targetColor }) {
+  const phoneRef = useRef();
+  const atomRef = useRef();
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (phoneRef.current) {
+      phoneRef.current.rotation.y = Math.sin(t * 0.6) * 0.35;
+    }
+    if (atomRef.current) {
+      atomRef.current.rotation.y = t * 1.4;
+    }
+  });
+
+  return (
+    <group>
+      {/* Floating high-tech smartphone screen frame */}
+      <group ref={phoneRef}>
+        {/* Phone Bezel */}
+        <mesh>
+          <boxGeometry args={[0.42, 0.74, 0.032]} />
+          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.15} />
+        </mesh>
+        {/* Glass Screen */}
+        <mesh position={[0, 0, 0.017]}>
+          <planeGeometry args={[0.38, 0.7]} />
+          <meshPhysicalMaterial
+            color="#091128"
+            roughness={0.1}
+            transmission={0.4}
+            thickness={0.02}
+            transparent
+            opacity={0.86}
+          />
+        </mesh>
+
+        {/* 3D Animated React Atom inside screen */}
+        <group ref={atomRef} position={[0, 0, 0.06]}>
+          <mesh>
+            <sphereGeometry args={[0.03, 12, 12]} />
+            <meshBasicMaterial color={targetColor} />
+          </mesh>
+          <mesh rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+            <torusGeometry args={[0.09, 0.005, 6, 24]} />
+            <meshBasicMaterial color={targetColor} transparent opacity={0.7} />
+          </mesh>
+          <mesh rotation={[-Math.PI / 4, Math.PI / 4, 0]}>
+            <torusGeometry args={[0.09, 0.005, 6, 24]} />
+            <meshBasicMaterial color={targetColor} transparent opacity={0.7} />
+          </mesh>
+        </group>
+
+        {/* Notch and bar */}
+        <mesh position={[0, 0.33, 0.018]}>
+          <boxGeometry args={[0.11, 0.022, 0.002]} />
+          <meshBasicMaterial color="#020408" />
+        </mesh>
+        <mesh position={[0, -0.34, 0.018]}>
+          <boxGeometry args={[0.09, 0.008, 0.002]} />
+          <meshBasicMaterial color="#64748B" />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+function HardwareCore({ targetColor }) {
+  const boardRef = useRef();
+  const gearRef = useRef();
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (boardRef.current) {
+      boardRef.current.rotation.x = Math.sin(t * 0.45) * 0.15;
+      boardRef.current.rotation.y = t * 0.3;
+    }
+    if (gearRef.current) {
+      gearRef.current.rotation.z = -t * 0.45;
+    }
+  });
+
+  return (
+    <group>
+      {/* Cybernetic IoT Processor Board */}
+      <group ref={boardRef}>
+        {/* Board Plate */}
+        <mesh>
+          <boxGeometry args={[0.46, 0.32, 0.02]} />
+          <meshStandardMaterial color="#045f47" roughness={0.8} />
+        </mesh>
+        {/* Silicon chip */}
+        <mesh position={[0, 0, 0.015]}>
+          <boxGeometry args={[0.13, 0.13, 0.02]} />
+          <meshStandardMaterial color="#111827" metalness={0.2} roughness={0.5} />
+        </mesh>
+        {/* Metallic processor cap */}
+        <mesh position={[0, 0, 0.026]}>
+          <boxGeometry args={[0.09, 0.09, 0.004]} />
+          <meshStandardMaterial color="#94a3b8" metalness={0.9} roughness={0.1} />
+        </mesh>
+        {/* Glowing green circuit traces */}
+        <mesh position={[0.09, 0.06, 0.012]}>
+          <boxGeometry args={[0.01, 0.13, 0.004]} />
+          <meshBasicMaterial color={targetColor} />
+        </mesh>
+        <mesh position={[-0.09, -0.06, 0.012]}>
+          <boxGeometry args={[0.01, 0.13, 0.004]} />
+          <meshBasicMaterial color={targetColor} />
+        </mesh>
+        {/* Solder Capacitors */}
+        {[-0.15, -0.09, 0.09, 0.15].map((x, i) => (
+          <mesh key={i} position={[x, 0.09, 0.02]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.02, 0.02, 0.042, 8]} />
+            <meshStandardMaterial color="#EF4444" metalness={0.5} roughness={0.3} />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Background physical rotating brass gear */}
+      <group ref={gearRef} position={[0, 0, -0.16]}>
+        <mesh>
+          <torusGeometry args={[0.44, 0.03, 8, 32]} />
+          <meshStandardMaterial color="#d97706" metalness={0.9} roughness={0.2} />
+        </mesh>
+        {/* Gear teeth */}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * Math.PI) / 6;
+          const x = 0.44 * Math.cos(angle);
+          const y = 0.44 * Math.sin(angle);
+          return (
+            <mesh key={i} position={[x, y, 0]} rotation={[0, 0, angle]}>
+              <boxGeometry args={[0.06, 0.04, 0.04]} />
+              <meshStandardMaterial color="#d97706" metalness={0.9} roughness={0.2} />
+            </mesh>
+          );
+        })}
+      </group>
+    </group>
+  );
+}
+
+function ToolsCore({ targetColor }) {
+  const gear1Ref = useRef();
+  const gear2Ref = useRef();
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    if (gear1Ref.current) {
+      gear1Ref.current.rotation.z = t * 0.45;
+    }
+    if (gear2Ref.current) {
+      gear2Ref.current.rotation.z = -t * 0.45;
+    }
+  });
+
+  return (
+    <group>
+      {/* Primary Tool Gear */}
+      <group ref={gear1Ref} position={[-0.14, 0.08, 0]}>
+        <mesh>
+          <cylinderGeometry args={[0.26, 0.26, 0.05, 12]} />
+          <meshStandardMaterial color="#475569" metalness={0.8} roughness={0.25} />
+        </mesh>
+        <mesh position={[0, 0.03, 0]}>
+          <cylinderGeometry args={[0.18, 0.18, 0.06, 12]} />
+          <meshStandardMaterial color="#0F172A" metalness={0.2} roughness={0.8} />
+        </mesh>
+        <mesh>
+          <cylinderGeometry args={[0.2, 0.2, 0.052, 12]} />
+          <meshBasicMaterial color={targetColor} transparent opacity={0.4} />
+        </mesh>
+      </group>
+
+      {/* Intermeshed Secondary Gear */}
+      <group ref={gear2Ref} position={[0.22, -0.12, 0]}>
+        <mesh>
+          <cylinderGeometry args={[0.16, 0.16, 0.045, 8]} />
+          <meshStandardMaterial color="#8ABED8" metalness={0.9} roughness={0.2} />
+        </mesh>
+        <mesh>
+          <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
+          <meshStandardMaterial color="#0F172A" />
+        </mesh>
+      </group>
+
+      {/* HUD network grid backdrop */}
+      <mesh position={[0, 0, -0.1]}>
+        <ringGeometry args={[0.45, 0.46, 32]} />
+        <meshBasicMaterial color={targetColor} transparent opacity={0.35} />
+      </mesh>
+    </group>
+  );
+}
+
+// ─── Technology Logo Geometries ──────────────────────────────────────────────
+
 function JavaScriptLogo() {
   return (
     <group>
@@ -506,114 +793,26 @@ function TechLogo3D({ techName }) {
   );
 }
 
-// ─── Central Tech Core (Arc Reactor) ──────────────────────────────────────────
+// ─── Central Tech Core Selector ──────────────────────────────────────────────
 function TechCore({ activeFace }) {
   const coreRef = useRef();
-  const ringRef1 = useRef();
-  const ringRef2 = useRef();
-  const colorObj = useRef(new THREE.Color('#38BDF8'));
-
   const targetColor = FACES[activeFace]?.accentColor || '#38BDF8';
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-
-    // Gentle breathing vertical floating
+    // Gentle overall core float breathing
     if (coreRef.current) {
       coreRef.current.position.y = Math.sin(t * 1.3) * 0.08;
-      coreRef.current.rotation.y = t * 0.4;
     }
-
-    // Concentric gyroscopic rings spinning on different axes
-    if (ringRef1.current) {
-      ringRef1.current.rotation.x = t * 0.5;
-      ringRef1.current.rotation.y = t * 0.25;
-    }
-    if (ringRef2.current) {
-      ringRef2.current.rotation.y = -t * 0.6;
-      ringRef2.current.rotation.z = t * 0.3;
-    }
-
-    // Lerp the accent color
-    colorObj.current.lerp(new THREE.Color(targetColor), 0.08);
   });
 
+  // Render thematic centerpiece depending on active face division
   return (
     <group ref={coreRef}>
-      {/* Octahedron Energy Crystal Core */}
-      <mesh>
-        <octahedronGeometry args={[0.38]} />
-        <meshStandardMaterial
-          color={targetColor}
-          emissive={targetColor}
-          emissiveIntensity={1.3}
-          roughness={0.1}
-          metalness={0.9}
-        />
-      </mesh>
-
-      <pointLight distance={1.8} intensity={1.2} color={targetColor} />
-
-      {/* Ring 1 */}
-      <group ref={ringRef1}>
-        <mesh>
-          <torusGeometry args={[0.56, 0.04, 12, 48]} />
-          <meshStandardMaterial color="#0F172A" metalness={0.9} roughness={0.15} />
-        </mesh>
-        <mesh>
-          <torusGeometry args={[0.56, 0.012, 8, 48]} />
-          <meshBasicMaterial color={targetColor} transparent opacity={0.7} />
-        </mesh>
-      </group>
-
-      {/* Ring 2 */}
-      <group ref={ringRef2}>
-        <mesh>
-          <torusGeometry args={[0.72, 0.035, 10, 48]} />
-          <meshStandardMaterial color="#1E293B" metalness={0.95} roughness={0.2} />
-        </mesh>
-        <mesh>
-          <torusGeometry args={[0.72, 0.01, 6, 48]} />
-          <meshBasicMaterial color={targetColor} transparent opacity={0.6} />
-        </mesh>
-      </group>
-
-      {/* Outer Hexagonal Cage structural plates */}
-      <group>
-        {/* Top Hex Cap */}
-        <mesh position={[0, 0.54, 0]} rotation={[0, Math.PI / 6, 0]}>
-          <cylinderGeometry args={[0.42, 0.42, 0.04, 6]} />
-          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
-        </mesh>
-        <mesh position={[0, 0.561, 0]} rotation={[0, Math.PI / 6, 0]}>
-          <cylinderGeometry args={[0.36, 0.36, 0.01, 6]} />
-          <meshBasicMaterial color={targetColor} transparent opacity={0.5} />
-        </mesh>
-
-        {/* Bottom Hex Cap */}
-        <mesh position={[0, -0.54, 0]} rotation={[0, Math.PI / 6, 0]}>
-          <cylinderGeometry args={[0.42, 0.42, 0.04, 6]} />
-          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
-        </mesh>
-        <mesh position={[0, -0.561, 0]} rotation={[0, Math.PI / 6, 0]}>
-          <cylinderGeometry args={[0.36, 0.36, 0.01, 6]} />
-          <meshBasicMaterial color={targetColor} transparent opacity={0.5} />
-        </mesh>
-
-        {/* Hex Connecting Pillars */}
-        {Array.from({ length: 6 }).map((_, i) => {
-          const angle = (i * Math.PI) / 3;
-          const r = 0.4;
-          const x = r * Math.cos(angle);
-          const z = r * Math.sin(angle);
-          return (
-            <mesh key={i} position={[x, 0, z]}>
-              <cylinderGeometry args={[0.014, 0.014, 1.08, 8]} />
-              <meshStandardMaterial color="#334155" metalness={0.8} roughness={0.3} />
-            </mesh>
-          );
-        })}
-      </group>
+      {activeFace === 0 && <BackendCore targetColor={targetColor} />}
+      {activeFace === 1 && <MobileCore targetColor={targetColor} />}
+      {activeFace === 2 && <HardwareCore targetColor={targetColor} />}
+      {activeFace === 3 && <ToolsCore targetColor={targetColor} />}
     </group>
   );
 }
@@ -624,7 +823,8 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
   const currentPos = useRef(new THREE.Vector3(0, 0, 0));
   const currentScale = useRef(0);
 
-  const radius = 2.25;
+  // Decreased orbit radius to 1.70 to guarantee nodes stay inside the visible frame area
+  const radius = 1.70;
   const angle = (index * 2 * Math.PI) / total;
 
   // Orbit target position in space surrounding the core
@@ -654,9 +854,9 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
 
   return (
     <group ref={ref}>
-      {/* Glass HUD panel plate */}
+      {/* Slightly smaller glass HUD panel plate to prevent overlapping */}
       <mesh>
-        <planeGeometry args={[0.55, 0.55]} />
+        <planeGeometry args={[0.48, 0.48]} />
         <meshPhysicalMaterial
           color="#060c18"
           roughness={0.7}
@@ -672,19 +872,19 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
 
       {/* Premium thin glowing border outline */}
       <lineSegments>
-        <edgesGeometry args={[new THREE.PlaneGeometry(0.55, 0.55)]} />
+        <edgesGeometry args={[new THREE.PlaneGeometry(0.48, 0.48)]} />
         <lineBasicMaterial color={color} transparent opacity={0.45} />
       </lineSegments>
 
-      {/* 3D Logo Component */}
-      <group position={[0, 0.03, 0.03]}>
+      {/* 3D Logo Component - scaled down slightly to fit new panel size */}
+      <group position={[0, 0.04, 0.03]} scale={0.88}>
         <TechLogo3D techName={techName} />
       </group>
 
-      {/* High-legibility Text Label */}
+      {/* Highly legible, slightly tighter Text Label */}
       <Text
-        position={[0, -0.38, 0.03]}
-        fontSize={0.082}
+        position={[0, -0.34, 0.03]}
+        fontSize={0.072}
         color="#FFFFFF"
         anchorX="center"
         anchorY="middle"
@@ -770,7 +970,8 @@ function ArtifactScene({ activeFace, mouseRef }) {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={40} />
+      {/* Camera moved back to position Z = 6.4 to provide a wide, safe viewport */}
+      <PerspectiveCamera makeDefault position={[0, 0, 6.4]} fov={40} />
 
       {/* Clean high-contrast ambient lighting */}
       <ambientLight intensity={0.8} color="#1c2538" />
@@ -786,7 +987,7 @@ function ArtifactScene({ activeFace, mouseRef }) {
 
       {/* Rotating scene group */}
       <group ref={group} onPointerDown={handlePointerDown}>
-        {/* Core Centerpiece */}
+        {/* Thematic centerpiece matching current active division */}
         <TechCore activeFace={activeFace} />
 
         {/* Orbiting Technology Nodes from all categories, lerping to their active state */}
