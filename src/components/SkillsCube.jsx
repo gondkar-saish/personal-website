@@ -892,7 +892,7 @@ function TechNode({ techName, index, total, isTargetActive, color, isLight }) {
       </lineSegments>
 
       {/* 3D Logo Component - scaled up to 1.45x for high prominence and detail */}
-      <group position={[0, 0.08, 0.04]} scale={1.45}>
+      <group position={[0, 0.08, 0.04]} scale={2.0}>
         <TechLogo3D techName={techName} isLight={isLight} />
       </group>
 
@@ -990,13 +990,13 @@ function ArtifactScene({ activeFace, mouseRef, isLight }) {
       {/* Camera moved back to Z = 7.8 to provide a wide, safe viewport for larger nodes */}
       <PerspectiveCamera makeDefault position={[0, 0, 7.8]} fov={40} />
 
-      {/* Clean high-contrast ambient lighting - bright neutral slate in light mode, deep blue-slate in dark mode */}
-      <ambientLight intensity={isLight ? 0.95 : 0.8} color={isLight ? '#F1F5F9' : '#1c2538'} />
-      <directionalLight position={[3, 4, 5]} intensity={isLight ? 0.65 : 0.55} color={isLight ? '#CBD5E1' : '#eaf2fa'} />
-      <directionalLight position={[-3, -2, -3]} intensity={0.1} color={isLight ? '#E2E8F0' : '#08101c'} />
+      {/* Clean high-contrast ambient lighting */}
+      <ambientLight intensity={isLight ? 1.0 : 1.8} color={isLight ? '#FFFFFF' : '#334466'} />
+      <directionalLight position={[3, 4, 5]} intensity={isLight ? 0.8 : 1.5} color="#FFFFFF" />
+      <directionalLight position={[-3, -2, -3]} intensity={0.2} color={isLight ? '#E2E8F0' : '#112233'} />
 
       {/* Subtle colored point light wash - dim in light mode */}
-      <pointLight ref={pulseRef} position={[0, 0, 2.6]} intensity={isLight ? 0.15 : 0.3} color={accent} distance={6} decay={2} />
+      <pointLight ref={pulseRef} position={[0, 0, 2.6]} intensity={isLight ? 0.15 : 0.5} color={accent} distance={6} decay={2} />
 
       {/* Unobtrusive sparkles for depth - dim in light mode */}
       <Sparkles count={20} scale={8} size={0.35} speed={0.06} color="#38BDF8" opacity={isLight ? 0.03 : 0.06} />
@@ -1211,7 +1211,7 @@ export default function SkillsCube() {
   return (
     <section id="skills" style={{ minHeight: '100vh', padding: '120px 24px 80px', position: 'relative', background: 'transparent', fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
       <style>{`
-        .sk-layout { display: flex; align-items: center; justify-content: center; gap: 52px; max-width: 1200px; margin: 0 auto; }
+        .sk-layout { display: flex; align-items: center; justify-content: center; gap: 80px; max-width: 1200px; margin: 0 auto; }
         .sk-canvas { flex: 0 0 480px; height: 480px; position: relative; cursor: grab; border-radius: 24px; overflow: hidden; }
         .sk-canvas:active { cursor: grabbing; }
         .sk-panel { flex: 1; min-width: 0; }
@@ -1248,6 +1248,14 @@ export default function SkillsCube() {
         </p>
       </div>
 
+      {/* Tabs - Centered Above the Layout Blocks */}
+      <div style={{ marginBottom: '44px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <FaceTabs activeFace={activeFace} setActiveFace={setActiveFace} />
+        <p style={{ textAlign: 'center', marginTop: '18px', fontFamily: 'monospace', fontSize: '10px', color: 'rgba(100,116,139,0.5)', letterSpacing: '0.12em' }}>
+          CLICK + DRAG TO INSPECT ARTIFACT // CLICK TABS TO SWAP TECHNOLOGY NODES
+        </p>
+      </div>
+
       {/* Main Layout */}
       <div className="sk-layout" ref={containerRef}>
         {/* Canvas */}
@@ -1275,14 +1283,6 @@ export default function SkillsCube() {
           <DetailPanel face={FACES[activeFace]} />
         </div>
       </div>
-
-      {/* Tabs */}
-      <div style={{ marginTop: '44px' }}>
-        <FaceTabs activeFace={activeFace} setActiveFace={setActiveFace} />
-      </div>
-      <p style={{ textAlign: 'center', marginTop: '18px', fontFamily: 'monospace', fontSize: '10px', color: 'rgba(100,116,139,0.5)', letterSpacing: '0.12em' }}>
-        CLICK + DRAG TO INSPECT ARTIFACT // CLICK TABS TO SWAP TECHNOLOGY NODES
-      </p>
     </section>
   );
 }

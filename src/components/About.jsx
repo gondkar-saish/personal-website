@@ -148,7 +148,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-12 md:py-20 bg-transparent min-h-screen relative overflow-hidden z-10" onMouseMove={handleMouseMove}>
+    <section id="about" className="py-6 md:py-10 bg-transparent min-h-[100vh] relative overflow-hidden z-10 flex flex-col justify-center" onMouseMove={handleMouseMove}>
       
       {/* Background Grid Texture */}
       <div 
@@ -160,10 +160,10 @@ const About = () => {
         }}
       ></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         
         {/* Top Hero Layout: Text + Blueprint */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center mb-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center mb-10">
           
           {/* Left Text Block */}
           <div className="w-full lg:w-5/12 flex flex-col justify-center text-left">
@@ -172,25 +172,28 @@ const About = () => {
               ABOUT SYSTEM
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-4 leading-tight tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-text-main mb-2 leading-[1.1] tracking-tight">
               Computer<br/>Engineering<br/>Junior
             </h2>
             
-            <h3 className="text-xl md:text-2xl text-accent-secondary font-medium mb-6 font-mono">
+            <h3 className="text-xl md:text-2xl text-accent-secondary font-medium mb-4 font-mono">
               University of Texas at Arlington
             </h3>
             
-            <div className="w-16 h-1 bg-white/10 rounded-full mb-6"></div>
+            <div className="w-16 h-1 bg-white/10 rounded-full mb-5"></div>
             
-            <p className="text-text-muted text-base md:text-lg leading-relaxed">
-              I’m a Computer Engineering student focused on building practical software systems, embedded hardware projects, and backend applications that connect logic, devices, and real-world use cases.
+            <p className="text-text-muted text-lg md:text-[1.15rem] leading-[1.3] md:leading-[1.4]">
+              Building scalable software,<br className="hidden md:block"/>
+              embedded hardware projects,<br className="hidden md:block"/>
+              and backend systems with an<br className="hidden md:block"/>
+              engineering-first mindset.
             </p>
           </div>
 
           {/* Right Animated Blueprint SVG */}
           <div 
             ref={containerRef}
-            className="w-full lg:w-7/12 relative aspect-square md:aspect-[4/3] lg:aspect-square max-w-[600px] mx-auto"
+            className="w-full lg:w-7/12 relative aspect-square md:aspect-[4/3] lg:aspect-square max-w-[500px] mx-auto"
             onMouseMove={handleMouseMove}
           >
             
