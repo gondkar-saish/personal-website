@@ -58,7 +58,7 @@ function App() {
     <>
       <GlobalBackground />
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-      <div className="min-h-screen flex flex-col text-text selection:bg-[#00E0A4]/30 selection:text-white relative z-0">
+      <div className="min-h-screen flex flex-col text-text-main selection:bg-accent-primary/30 selection:text-bg-base relative z-0">
         <Navbar />
         <main className="flex-grow">
           <Routes>

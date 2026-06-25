@@ -2,55 +2,28 @@
 
 /* Theme Variables & Transitions */
 :root {
-  /* Dark Mode Default Variables */
-  --theme-background: #030712;
-  --theme-panel-deep: rgba(10, 20, 35, 0.72);
-  --theme-text: #F8FAFC;
-  --theme-text-light: #94A3B8;
-  
-  /* Background Elements */
-  --bg-gradient-start: rgba(7, 17, 31, 0.85);
-  --bg-gradient-end: #030712;
+  /* Dark Mode Variables (Professional Futuristic Engineering) */
+  --bg-base: #030712;
+  --bg-surface: rgba(10, 20, 35, 0.72);
+  --bg-surface-hover: rgba(10, 20, 35, 0.95);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --accent-primary: #00E0A4;
+  --accent-secondary: #38BDF8;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-border: rgba(15, 23, 42, 0.1);
+  --nav-text-main: #0F172A;
+  --nav-text-muted: #475569;
+  --nav-circuit-stroke: rgba(15, 23, 42, 0.1);
+  --nav-btn-hover: rgba(15, 23, 42, 0.05);
   --bg-grid-color: rgba(56, 189, 248, 0.15);
   --bg-circuit-stroke: rgba(56, 189, 248, 0.08);
-  --bg-trace-color-1: #00E0A4;
-  --bg-trace-color-2: #38BDF8;
-  --bg-vignette: #020408;
-  
-  /* Navbar & Glass */
-  --nav-bg: rgba(8, 12, 24, 0.75);
-  --nav-border: rgba(255, 255, 255, 0.08);
-  --nav-text: #F8FAFC;
-  --nav-text-muted: #94A3B8;
   --nav-btn-hover: rgba(255, 255, 255, 0.05);
   
   /* Custom Cursors */
   --cursor-face: auto;
   --cursor-hand: pointer;
-}
-
-.light {
-  /* Light Mode Variables */
-  --theme-background: #F8FAFC;
-  --theme-panel-deep: rgba(241, 245, 249, 0.8);
-  --theme-text: #0F172A;
-  --theme-text-light: #475569;
-  
-  /* Background Elements */
-  --bg-gradient-start: rgba(226, 232, 240, 0.85);
-  --bg-gradient-end: #F8FAFC;
-  --bg-grid-color: rgba(15, 23, 42, 0.06);
-  --bg-circuit-stroke: rgba(15, 23, 42, 0.06);
-  --bg-trace-color-1: #0D9488;
-  --bg-trace-color-2: #0284C7;
-  --bg-vignette: #CBD5E1;
-  
-  /* Navbar & Glass */
-  --nav-bg: rgba(255, 255, 255, 0.8);
-  --nav-border: rgba(15, 23, 42, 0.08);
-  --nav-text: #0F172A;
-  --nav-text-muted: #475569;
-  --nav-btn-hover: rgba(0, 0, 0, 0.04);
 }
 
 html, body {
@@ -64,20 +37,24 @@ a *, button *, [role="button"] * {
 }
 
 @theme {
-  --color-primary: #00E0A4; /* Accent teal */
-  --color-secondary: #38BDF8; /* Accent cyan */
-  --color-background: var(--theme-background);
-  --color-panel-deep: var(--theme-panel-deep);
-  --color-text: var(--theme-text);
-  --color-text-light: var(--theme-text-light);
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-hover: var(--bg-surface-hover);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-nav-text-main: var(--nav-text-main);
+  --color-nav-text-muted: var(--nav-text-muted);
   
   --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 body {
   font-family: var(--font-sans);
-  color: var(--color-text);
-  background-color: var(--color-background);
+  color: var(--text-main);
+  background-color: var(--bg-base);
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
@@ -151,9 +128,9 @@ body, nav, div, p, h1, h2, h3, h4, h5, h6, span, a, button {
 /* Futuristic Engineering Card Utility */
 @utility engineering-card {
   position: relative;
-  background: var(--theme-panel-deep);
+  background: var(--bg-surface);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 224, 164, 0.22);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.05), 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -174,28 +151,30 @@ body, nav, div, p, h1, h2, h3, h4, h5, h6, span, a, button {
   &::before {
     top: -1px;
     left: -1px;
-    border-top: 2px solid rgba(0, 224, 164, 0.6);
-    border-left: 2px solid rgba(0, 224, 164, 0.6);
+    border-top: 2px solid var(--accent-primary);
+    border-left: 2px solid var(--accent-primary);
+    opacity: 0.6;
   }
   
   /* Bottom-right corner */
   &::after {
     bottom: -1px;
     right: -1px;
-    border-bottom: 2px solid rgba(0, 224, 164, 0.6);
-    border-right: 2px solid rgba(0, 224, 164, 0.6);
+    border-bottom: 2px solid var(--accent-primary);
+    border-right: 2px solid var(--accent-primary);
+    opacity: 0.6;
   }
   
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(0, 224, 164, 0.6);
-    box-shadow: inset 0 0 15px rgba(0, 224, 164, 0.08), 0 15px 30px rgba(0, 224, 164, 0.12), 0 10px 25px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-primary);
+    box-shadow: inset 0 0 15px var(--accent-primary), 0 15px 30px var(--accent-primary), 0 10px 25px rgba(0, 0, 0, 0.5);
     
     &::before {
-      border-color: #00E0A4;
+      opacity: 1;
     }
     &::after {
-      border-color: #00E0A4;
+      opacity: 1;
     }
   }
 }
@@ -212,18 +191,18 @@ body, nav, div, p, h1, h2, h3, h4, h5, h6, span, a, button {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #030712;
-  background: linear-gradient(135deg, #00E0A4 0%, #38BDF8 100%);
-  border: 1px solid rgba(0, 224, 164, 0.4);
+  color: var(--bg-base);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border: 1px solid var(--accent-primary);
   border-radius: 6px;
-  box-shadow: 0 0 12px rgba(0, 224, 164, 0.25);
+  box-shadow: 0 0 12px var(--accent-primary);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   cursor: pointer;
   overflow: hidden;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(0, 224, 164, 0.45), 0 0 30px rgba(56, 189, 248, 0.25);
+    box-shadow: 0 0 18px var(--accent-primary), 0 0 30px var(--accent-secondary);
     filter: brightness(1.08);
   }
   
@@ -244,25 +223,27 @@ body, nav, div, p, h1, h2, h3, h4, h5, h6, span, a, button {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--theme-text);
-  background: rgba(10, 20, 35, 0.45);
+  color: var(--text-main);
+  background: var(--bg-surface);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  border: 1px solid var(--border-subtle);
   border-radius: 6px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   cursor: pointer;
   overflow: hidden;
   
   &:hover {
     transform: translateY(-2px);
-    border-color: #38BDF8;
-    color: #38BDF8;
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
-    background: rgba(10, 20, 35, 0.65);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
+    background: var(--bg-surface-hover);
   }
   
   &:active {
     transform: translateY(0);
   }
 }
+
+/* Light scrollbars removed for single dark theme */

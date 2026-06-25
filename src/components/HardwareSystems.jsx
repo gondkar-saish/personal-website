@@ -43,25 +43,25 @@ const HardwareSystems = () => {
   }, []);
 
   const getStatusColor = (status) => {
-    if (status === 'Built') return 'text-[#00E0A4] bg-[#00E0A4]/10 border-[#00E0A4]/30 shadow-[0_0_10px_rgba(0,224,164,0.2)]';
+    if (status === 'Built') return 'text-accent-primary bg-accent-primary/10 border-accent-primary/30 shadow-[0_0_10px_var(--accent-primary)]';
     if (status === 'In Progress') return 'text-amber-400 bg-amber-400/10 border-amber-400/30 shadow-[0_0_10px_rgba(251,191,36,0.2)]';
-    return 'text-[#94A3B8] bg-slate-500/10 border-slate-500/30 shadow-[0_0_10px_rgba(148,163,184,0.1)]';
+    return 'text-text-muted bg-slate-500/10 border-slate-500/30 shadow-[0_0_10px_rgba(148,163,184,0.1)]';
   };
 
   return (
-    <section id="hardware" className="py-24 min-h-[calc(100vh-80px)] flex flex-col justify-center border-t border-b border-white/5 relative overflow-hidden bg-transparent">
+    <section id="hardware" className="py-24 min-h-[calc(100vh-80px)] flex flex-col justify-center border-t border-b border-border-subtle relative overflow-hidden bg-transparent">
 
       {/* Technical Header */}
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 mb-12 mt-12 md:mt-0">
         <div className="flex flex-col items-center text-center">
-          <span className="text-[#00E0A4] font-mono text-xs md:text-sm tracking-widest uppercase mb-2 animate-pulse">
+          <span className="text-accent-primary font-mono text-xs md:text-sm tracking-widest uppercase mb-2 animate-pulse">
             // HARDWARE SYSTEMS NODE
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#F8FAFC] uppercase tracking-wider">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-text-main uppercase tracking-wider">
             Hardware & Embedded
           </h2>
-          <div className="w-16 h-[2px] bg-[#00E0A4] mt-3 shadow-[0_0_10px_rgba(0,224,164,0.6)] mb-6"></div>
-          <p className="text-[#94A3B8] text-lg max-w-2xl">
+          <div className="w-16 h-[2px] bg-accent-primary mt-3 shadow-[0_0_10px_var(--accent-primary)] mb-6"></div>
+          <p className="text-text-muted text-lg max-w-2xl">
             Hands-on embedded systems, FPGA logic, and sensor-based projects combining hardware control with software thinking.
           </p>
         </div>
@@ -78,10 +78,10 @@ const HardwareSystems = () => {
                 key={project.id}
                 onClick={() => setActiveIndex(index)}
                 className={`snap-center shrink-0 w-[85vw] h-[550px] engineering-card relative text-left ${
-                  activeIndex === index ? 'border-[#00E0A4]/60 shadow-[0_0_30px_rgba(0,224,164,0.2)]' : 'border-white/10'
+                  activeIndex === index ? 'border-accent-primary/60 shadow-[0_0_30px_var(--accent-primary)]' : 'border-border-subtle'
                 }`}
               >
-                <div className="relative w-full h-64 overflow-hidden border-b border-[#00E0A4]/20"
+                <div className="relative w-full h-64 overflow-hidden border-b border-accent-primary/20"
                   style={{ backgroundColor: '#05080f' }}
                 >
                   <img
@@ -89,7 +89,7 @@ const HardwareSystems = () => {
                     alt={project.title}
                     className="w-full h-full object-cover opacity-90"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07111f] via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent"></div>
                   <div className="absolute top-4 right-4 z-10">
                     <span className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-md ${getStatusColor(project.status)}`}>
                       {project.status}
@@ -98,15 +98,15 @@ const HardwareSystems = () => {
                 </div>
                 
                 <div className="p-6 flex flex-col flex-grow relative z-10 h-[calc(100%-16rem)]">
-                  <span className="text-[9px] font-mono text-[#00E0A4]/70 tracking-widest uppercase mb-1 block">
+                  <span className="text-[9px] font-mono text-accent-primary/70 tracking-widest uppercase mb-1 block">
                     [ SYSTEM // MODULE 0{index + 1} ]
                   </span>
-                  <h3 className="font-bold text-[#F8FAFC] text-2xl mb-4">{project.title}</h3>
-                  <p className="text-[#94A3B8] text-sm leading-relaxed mb-6">{project.description}</p>
+                  <h3 className="font-bold text-text-main text-2xl mb-4">{project.title}</h3>
+                  <p className="text-text-muted text-sm leading-relaxed mb-6">{project.description}</p>
                   
                   <div className="mt-auto">
-                    <h4 className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2 font-mono">// Tech Stack</h4>
-                    <p className="text-sm font-mono font-bold text-[#00E0A4]/90">{project.tech}</p>
+                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2 font-mono">// Tech Stack</h4>
+                    <p className="text-sm font-mono font-bold text-accent-primary/90">{project.tech}</p>
                   </div>
                   
                   {/* Explore System Button */}
@@ -166,8 +166,8 @@ const HardwareSystems = () => {
                   onClick={() => setActiveIndex(index)}
                   className={`absolute left-1/2 top-1/2 -translate-y-1/2 w-[400px] h-[550px] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col cursor-pointer group ${
                     isActive 
-                      ? 'engineering-card border-[#00E0A4]/60 shadow-[0_0_40px_rgba(0,224,164,0.25)]' 
-                      : 'bg-[#07111f]/45 border border-white/10 rounded-xl overflow-hidden'
+                      ? 'engineering-card border-accent-primary/60 shadow-[0_0_40px_rgba(0,224,164,0.25)]' 
+                      : 'bg-bg-surface45 border border-border-subtle rounded-xl overflow-hidden'
                   }`}
                   style={{ 
                     transform: `translateY(-50%) ${transformStyle}`,
@@ -176,7 +176,7 @@ const HardwareSystems = () => {
                   }}
                 >
                   {/* Project Image */}
-                  <div className={`relative w-full overflow-hidden border-b transition-all duration-[800ms] ${isActive ? 'h-56 border-[#00E0A4]/25' : 'h-48 border-transparent'}`}
+                  <div className={`relative w-full overflow-hidden border-b transition-all duration-[800ms] ${isActive ? 'h-56 border-accent-primary/25' : 'h-48 border-transparent'}`}
                     style={{ backgroundColor: '#05080f' }}
                   >
                     <img
@@ -184,7 +184,7 @@ const HardwareSystems = () => {
                       alt={project.title}
                       className={`w-full h-full object-cover transition-all duration-[800ms] ${isActive ? 'opacity-90 scale-100' : 'opacity-40 scale-105 grayscale'}`}
                     />
-                    <div className={`absolute inset-0 transition-opacity duration-700 bg-gradient-to-t from-[#07111f] via-transparent to-transparent ${isActive ? 'opacity-80' : 'opacity-95'}`}></div>
+                    <div className={`absolute inset-0 transition-opacity duration-700 bg-gradient-to-t from-bg-surface via-transparent to-transparent ${isActive ? 'opacity-80' : 'opacity-95'}`}></div>
                     <div className="absolute top-4 right-4 z-10">
                       <span className={`px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-md ${getStatusColor(project.status)}`}>
                         {project.status}
@@ -195,27 +195,27 @@ const HardwareSystems = () => {
                   {/* Project Details */}
                   <div className="p-8 flex flex-col flex-grow text-left relative z-10">
                     {/* Technical Label */}
-                    <span className="text-[9px] font-mono text-[#00E0A4]/80 tracking-widest uppercase mb-1 block">
+                    <span className="text-[9px] font-mono text-accent-primary/80 tracking-widest uppercase mb-1 block">
                       [ SYSTEM // MODULE 0{index + 1} ]
                     </span>
                     
-                    <h3 className={`font-bold transition-colors duration-500 ${isActive ? 'text-2xl text-[#F8FAFC] mb-4' : 'text-xl text-[#94A3B8] mb-3'}`}>
+                    <h3 className={`font-bold transition-colors duration-500 ${isActive ? 'text-2xl text-text-main mb-4' : 'text-xl text-text-muted mb-3'}`}>
                       {project.title}
                     </h3>
                     
-                    <p className={`text-sm leading-relaxed flex-grow transition-all duration-500 ${isActive ? 'text-[#94A3B8] opacity-100' : 'text-[#556677] opacity-0 translate-y-4'}`}>
+                    <p className={`text-sm leading-relaxed flex-grow transition-all duration-500 ${isActive ? 'text-text-muted opacity-100' : 'text-[#556677] opacity-0 translate-y-4'}`}>
                       {project.description}
                     </p>
                     
                     <div className={`mt-auto transition-all duration-500 ${isActive ? 'opacity-100 translate-y-0 delay-100' : 'opacity-0 translate-y-4'}`}>
                       <h4 className="text-[10px] font-bold text-[#6B8599] uppercase tracking-widest mb-2 font-mono">// Tech Stack</h4>
-                      <p className="text-sm font-mono font-bold text-[#00E0A4]/90 mb-4">
+                      <p className="text-sm font-mono font-bold text-accent-primary/90 mb-4">
                         {project.tech}
                       </p>
                       
                       {/* Explore System Button */}
                       {project.id === 'esp32' && isActive && (
-                        <div className="pt-4 border-t border-[#00E0A4]/15">
+                        <div className="pt-4 border-t border-accent-primary/15">
                           <Link 
                             to="/hardware-systems/esp32-smart-room-monitor"
                             className="engineering-button-secondary w-full py-2.5 text-xs font-mono font-bold uppercase tracking-wider gap-2"

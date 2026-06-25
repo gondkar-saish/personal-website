@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -15,20 +14,6 @@ const Navbar = () => {
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.add('light');
-    } else {
-      root.classList.remove('light');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -53,12 +38,12 @@ const Navbar = () => {
         }
         @keyframes orb-glow-pulse {
           0%, 100% { 
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4), inset -2px -2px 6px rgba(0,0,0,0.6), inset 2px 2px 6px rgba(255,255,255,0.3);
-            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 10px rgba(0, 224, 164, 0.4), inset -2px -2px 6px rgba(0,0,0,0.6), inset 2px 2px 6px rgba(255,255,255,0.3);
+            border-color: rgba(0, 224, 164, 0.3);
           }
           50% { 
-            box-shadow: 0 0 18px rgba(168, 85, 247, 0.6), inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.4);
-            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.6), inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.4);
+            border-color: rgba(56, 189, 248, 0.5);
           }
         }
       `}</style>
@@ -77,22 +62,22 @@ const Navbar = () => {
           <defs>
             <pattern id="nav-circuit" x="0" y="0" width="400" height="80" patternUnits="userSpaceOnUse">
                {/* Circuit lines */}
-               <path d="M 0 25 H 40 L 60 45 H 180 L 200 25 H 400" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 60 80 V 60 L 80 40" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 120 45 L 140 65 H 280 L 300 45 H 400" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 220 80 V 60 L 240 40 H 260" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 320 0 V 30 L 350 60 H 400" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 340 0 V 15 L 355 30 H 400" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 10 0 V 10 L 25 25" fill="none" stroke="var(--bg-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 0 25 H 40 L 60 45 H 180 L 200 25 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 60 80 V 60 L 80 40" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 120 45 L 140 65 H 280 L 300 45 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 220 80 V 60 L 240 40 H 260" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 320 0 V 30 L 350 60 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 340 0 V 15 L 355 30 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+               <path d="M 10 0 V 10 L 25 25" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
                
                {/* Nodes */}
-               <circle cx="40" cy="25" r="2.5" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="180" cy="25" r="2" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="120" cy="45" r="2.5" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="280" cy="65" r="2" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="260" cy="40" r="1.5" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="350" cy="60" r="2.5" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="355" cy="30" r="2" fill="var(--bg-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="40" cy="25" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="180" cy="25" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="120" cy="45" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="280" cy="65" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="260" cy="40" r="1.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="350" cy="60" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               <circle cx="355" cy="30" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#nav-circuit)" />
@@ -102,27 +87,27 @@ const Navbar = () => {
       <div className="relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-[72px] md:h-[80px]">
           
-          {/* Logo Brand with 4D Glass Orb */}
+          {/* Logo Brand with Tech Core Orb */}
           <div className="flex-shrink-0 flex items-center gap-3">
             <div 
-              className="relative w-[30px] h-[30px] rounded-full overflow-hidden border flex-shrink-0 hover:scale-110 transition-transform duration-300"
+              className="group relative w-[30px] h-[30px] rounded-full overflow-hidden border border-border-subtle flex-shrink-0 hover:scale-110 hover:brightness-110 transition-all duration-500 cursor-pointer"
               style={{
-                animation: 'orb-glow-pulse 4s infinite ease-in-out',
+                animation: 'orb-glow-pulse 6s infinite ease-in-out',
                 background: 'rgba(8, 12, 24, 0.8)',
               }}
             >
               {/* Swirling Liquid Core */}
               <div 
-                className="absolute -inset-[50%] rounded-full opacity-90 filter blur-[2px]"
+                className="absolute -inset-[50%] rounded-full opacity-90 filter blur-[2px] transition-transform duration-700"
                 style={{
-                  background: 'conic-gradient(from 0deg, #00E0A4, #38BDF8, #818CF8, #A78BFA, #EC4899, #00E0A4)',
-                  animation: 'orb-liquid-spin 6s linear infinite',
+                  background: 'conic-gradient(from 0deg, #00E0A4, #0284C7, #00E0A4, #38BDF8, rgba(139, 92, 246, 0.4), #00E0A4)',
+                  animation: 'orb-liquid-spin 12s linear infinite',
                 }}
               ></div>
               
               {/* Secondary Shimmer Accent */}
               <div 
-                className="absolute inset-0 rounded-full opacity-50 mix-blend-color-dodge"
+                className="absolute inset-0 rounded-full opacity-50 mix-blend-color-dodge transition-opacity duration-300 group-hover:opacity-70"
                 style={{
                   background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 60%)',
                 }}
@@ -140,7 +125,7 @@ const Navbar = () => {
             <Link 
               to="/" 
               onClick={() => setIsOpen(false)} 
-              className="text-lg md:text-xl font-extrabold text-[var(--nav-text)] tracking-wide hover:opacity-80 transition-all duration-300"
+              className="text-lg md:text-xl font-extrabold text-nav-text-main tracking-wide hover:opacity-80 transition-all duration-300"
             >
               Saish Gondkar
             </Link>
@@ -157,8 +142,8 @@ const Navbar = () => {
                   className={({ isActive }) => 
                     `px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-lg relative ${
                       isActive 
-                        ? 'text-[var(--nav-text)] bg-[var(--nav-btn-hover)]' 
-                        : 'text-[var(--nav-text-muted)] hover:text-[var(--nav-text)] hover:bg-[var(--nav-btn-hover)]'
+                        ? 'text-nav-text-main bg-[var(--nav-btn-hover)]' 
+                        : 'text-nav-text-muted hover:text-nav-text-main hover:bg-[var(--nav-btn-hover)]'
                     }`
                   }
                 >
@@ -166,7 +151,7 @@ const Navbar = () => {
                     <>
                       {link.name}
                       {isActive && (
-                        <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-[var(--nav-text)] rounded-full opacity-60"></span>
+                        <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-[var(--nav-text-main)] rounded-full opacity-60"></span>
                       )}
                     </>
                   )}
@@ -174,19 +159,10 @@ const Navbar = () => {
               ))}
             </div>
             
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl border border-[var(--nav-border)] bg-[var(--nav-btn-hover)] text-[var(--nav-text)] hover:scale-105 active:scale-95 transition-all mr-2 flex items-center justify-center cursor-pointer h-10 w-10"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
-            
             {/* Contact Button */}
             <Link 
               to="/contact"
-              className="px-6 py-2.5 text-sm font-bold text-[var(--theme-background)] bg-[var(--theme-text)] hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(0,0,0,0.15)] transition-all duration-300 rounded-[10px]"
+              className="px-6 py-2.5 text-sm font-bold text-bg-base bg-text-main hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(0,0,0,0.15)] transition-all duration-300 rounded-[10px]"
             >
               Contact Me
             </Link>
@@ -194,20 +170,11 @@ const Navbar = () => {
 
           {/* Mobile Menu Button Section */}
           <div className="lg:hidden flex items-center gap-2">
-            {/* Theme Toggle Mobile */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl border border-[var(--nav-border)] bg-[var(--nav-btn-hover)] text-[var(--nav-text)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer h-9 w-9"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
-            </button>
-            
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-label="Toggle navigation menu"
-              className="text-[var(--nav-text)] hover:text-[#00E0A4] p-2 rounded-lg hover:bg-[var(--nav-btn-hover)] transition-colors"
+              className="text-nav-text-main hover:text-accent-primary p-2 rounded-lg hover:bg-[var(--nav-btn-hover)] transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -228,8 +195,8 @@ const Navbar = () => {
                 className={({ isActive }) => 
                   `block px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                     isActive 
-                      ? 'text-[var(--nav-text)] bg-[var(--nav-btn-hover)]' 
-                      : 'text-[var(--nav-text-muted)] hover:text-[var(--nav-text)] hover:bg-[var(--nav-btn-hover)]'
+                      ? 'text-nav-text-main bg-[var(--nav-btn-hover)]' 
+                      : 'text-nav-text-muted hover:text-nav-text-main hover:bg-[var(--nav-btn-hover)]'
                   }`
                 }
               >
@@ -241,7 +208,7 @@ const Navbar = () => {
           <Link 
             to="/contact"
             onClick={() => setIsOpen(false)}
-            className="w-full py-3.5 text-sm font-bold text-center text-[var(--theme-background)] bg-[var(--theme-text)] hover:opacity-90 rounded-xl active:scale-[0.98] transition-all relative z-10"
+            className="w-full py-3.5 text-sm font-bold text-center text-bg-base bg-text-main hover:opacity-90 rounded-xl active:scale-[0.98] transition-all relative z-10"
           >
             Contact Me
           </Link>

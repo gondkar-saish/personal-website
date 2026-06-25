@@ -55,33 +55,35 @@ const FACES = [
 
 // ─── Procedural 3D Logo Components ──────────────────────────────────────────
 
-function JavaLogo() {
+function JavaLogo({ isLight }) {
+  const color = isLight ? '#475569' : '#F3F4F6';
+  const rimColor = isLight ? '#64748B' : '#E5E7EB';
   return (
     <group>
       {/* Cup Body */}
       <mesh>
         <cylinderGeometry args={[0.07, 0.06, 0.12, 16]} />
-        <meshStandardMaterial color="#F3F4F6" metalness={0.2} roughness={0.3} />
+        <meshStandardMaterial color={color} metalness={0.2} roughness={0.3} />
       </mesh>
       {/* Cup Handle */}
       <mesh position={[0.06, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
         <torusGeometry args={[0.035, 0.012, 8, 16]} />
-        <meshStandardMaterial color="#F3F4F6" metalness={0.2} roughness={0.3} />
+        <meshStandardMaterial color={color} metalness={0.2} roughness={0.3} />
       </mesh>
       {/* Cup Rim Top */}
       <mesh position={[0, 0.06, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.068, 0.008, 8, 16]} />
-        <meshStandardMaterial color="#E5E7EB" metalness={0.2} roughness={0.3} />
+        <meshStandardMaterial color={rimColor} metalness={0.2} roughness={0.3} />
       </mesh>
       {/* Steam lines */}
       <group position={[0, 0.08, 0]}>
         <mesh position={[-0.02, 0.02, 0]} rotation={[0, 0, 0.1]}>
           <boxGeometry args={[0.008, 0.04, 0.008]} />
-          <meshBasicMaterial color="#7DD3FC" transparent opacity={0.6} />
+          <meshBasicMaterial color="#38BDF8" transparent opacity={0.6} />
         </mesh>
         <mesh position={[0.02, 0.03, 0]} rotation={[0, 0, -0.1]}>
           <boxGeometry args={[0.008, 0.04, 0.008]} />
-          <meshBasicMaterial color="#7DD3FC" transparent opacity={0.6} />
+          <meshBasicMaterial color="#38BDF8" transparent opacity={0.6} />
         </mesh>
       </group>
     </group>
@@ -114,21 +116,22 @@ function SpringBootLogo() {
   );
 }
 
-function MySqlLogo() {
+function MySqlLogo({ isLight }) {
+  const cylinderColor = isLight ? '#0284C7' : '#00758F';
   return (
     <group>
       {/* 3 Stacked Cylinders */}
       <mesh position={[0, 0.05, 0]}>
         <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
-        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color={cylinderColor} metalness={0.6} roughness={0.2} />
       </mesh>
       <mesh position={[0, 0, 0]}>
         <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
-        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color={cylinderColor} metalness={0.6} roughness={0.2} />
       </mesh>
       <mesh position={[0, -0.05, 0]}>
         <cylinderGeometry args={[0.08, 0.08, 0.036, 16]} />
-        <meshStandardMaterial color="#00758F" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial color={cylinderColor} metalness={0.6} roughness={0.2} />
       </mesh>
       {/* Database indicators */}
       <mesh position={[0, 0.05, 0.081]}>
@@ -213,7 +216,7 @@ function JwtLogo() {
         <extrudeGeometry args={[shieldShape, { depth: 0.025, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.008, bevelThickness: 0.008 }]} />
         <meshStandardMaterial color="#C084FC" metalness={0.5} roughness={0.3} />
       </mesh>
-      {/* Glowing core in center of shield */}
+      {/* Glowing core inside shield */}
       <mesh position={[0, 0, 0.02]}>
         <sphereGeometry args={[0.02, 8, 8]} />
         <meshBasicMaterial color="#F472B6" />
@@ -259,9 +262,11 @@ function ExpoLogo() {
 
 // ─── Visual 3D Centerpiece Implementations by Division ──────────────────────
 
-function BackendCore({ targetColor }) {
+function BackendCore({ targetColor, isLight }) {
   const dbRef = useRef();
   const ringRef = useRef();
+  const dbColor = isLight ? '#CBD5E1' : '#0b1329';
+  const pillarColor = isLight ? '#94A3B8' : '#475569';
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -281,7 +286,7 @@ function BackendCore({ targetColor }) {
         {/* Tier 1 */}
         <mesh position={[0, 0.16, 0]}>
           <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
-          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color={dbColor} metalness={0.8} roughness={0.2} />
         </mesh>
         <mesh position={[0, 0.16, 0.221]}>
           <boxGeometry args={[0.045, 0.045, 0.01]} />
@@ -291,7 +296,7 @@ function BackendCore({ targetColor }) {
         {/* Tier 2 */}
         <mesh position={[0, 0, 0]}>
           <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
-          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color={dbColor} metalness={0.8} roughness={0.2} />
         </mesh>
         <mesh position={[0, 0, 0.221]}>
           <boxGeometry args={[0.045, 0.045, 0.01]} />
@@ -301,7 +306,7 @@ function BackendCore({ targetColor }) {
         {/* Tier 3 */}
         <mesh position={[0, -0.16, 0]}>
           <cylinderGeometry args={[0.22, 0.22, 0.09, 16]} />
-          <meshStandardMaterial color="#0b1329" metalness={0.8} roughness={0.2} />
+          <meshStandardMaterial color={dbColor} metalness={0.8} roughness={0.2} />
         </mesh>
         <mesh position={[0, -0.16, 0.221]}>
           <boxGeometry args={[0.045, 0.045, 0.01]} />
@@ -311,11 +316,11 @@ function BackendCore({ targetColor }) {
         {/* Framing pillars */}
         <mesh position={[-0.23, 0, 0]}>
           <boxGeometry args={[0.02, 0.46, 0.04]} />
-          <meshStandardMaterial color="#475569" />
+          <meshStandardMaterial color={pillarColor} />
         </mesh>
         <mesh position={[0.23, 0, 0]}>
           <boxGeometry args={[0.02, 0.46, 0.04]} />
-          <meshStandardMaterial color="#475569" />
+          <meshStandardMaterial color={pillarColor} />
         </mesh>
       </group>
 
@@ -327,29 +332,28 @@ function BackendCore({ targetColor }) {
         </mesh>
         <mesh position={[0.48, 0, 0]}>
           <sphereGeometry args={[0.042, 8, 8]} />
-          <meshBasicMaterial color="#FFFFFF" />
+          <meshBasicMaterial color={isLight ? '#334155' : '#FFFFFF'} />
         </mesh>
         <mesh position={[-0.48, 0, 0]}>
           <sphereGeometry args={[0.042, 8, 8]} />
-          <meshBasicMaterial color="#FFFFFF" />
+          <meshBasicMaterial color={isLight ? '#334155' : '#FFFFFF'} />
         </mesh>
       </group>
 
       {/* Hex base plates */}
       <mesh position={[0, -0.36, 0]}>
         <cylinderGeometry args={[0.36, 0.36, 0.03, 6]} />
-        <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+        <meshStandardMaterial color={isLight ? '#E2E8F0' : '#090D16'} metalness={0.9} roughness={0.2} />
       </mesh>
       <mesh position={[0, 0.36, 0]}>
         <cylinderGeometry args={[0.36, 0.36, 0.03, 6]} />
-        <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.2} />
+        <meshStandardMaterial color={isLight ? '#E2E8F0' : '#090D16'} metalness={0.9} roughness={0.2} />
       </mesh>
     </group>
   );
 }
 
-// ─── Floating high-tech smartphone screen frame ───
-function MobileCore({ targetColor }) {
+function MobileCore({ targetColor, isLight }) {
   const phoneRef = useRef();
   const atomRef = useRef();
 
@@ -365,17 +369,18 @@ function MobileCore({ targetColor }) {
 
   return (
     <group>
+      {/* Floating high-tech smartphone screen frame */}
       <group ref={phoneRef}>
         {/* Phone Bezel */}
         <mesh>
           <boxGeometry args={[0.42, 0.74, 0.032]} />
-          <meshStandardMaterial color="#090D16" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color={isLight ? '#CBD5E1' : '#090D16'} metalness={0.9} roughness={0.15} />
         </mesh>
         {/* Glass Screen */}
         <mesh position={[0, 0, 0.017]}>
           <planeGeometry args={[0.38, 0.7]} />
           <meshPhysicalMaterial
-            color="#091128"
+            color={isLight ? '#E2E8F0' : '#091128'}
             roughness={0.1}
             transmission={0.4}
             thickness={0.02}
@@ -403,20 +408,21 @@ function MobileCore({ targetColor }) {
         {/* Notch and bar */}
         <mesh position={[0, 0.33, 0.018]}>
           <boxGeometry args={[0.11, 0.022, 0.002]} />
-          <meshBasicMaterial color="#020408" />
+          <meshBasicMaterial color={isLight ? '#94A3B8' : '#020408'} />
         </mesh>
         <mesh position={[0, -0.34, 0.018]}>
           <boxGeometry args={[0.09, 0.008, 0.002]} />
-          <meshBasicMaterial color="#64748B" />
+          <meshBasicMaterial color={isLight ? '#475569' : '#64748B'} />
         </mesh>
       </group>
     </group>
   );
 }
 
-function HardwareCore({ targetColor }) {
+function HardwareCore({ targetColor, isLight }) {
   const boardRef = useRef();
   const gearRef = useRef();
+  const boardColor = isLight ? '#0d9488' : '#045f47'; // brighter teal for light mode pcb
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -436,19 +442,19 @@ function HardwareCore({ targetColor }) {
         {/* Board Plate */}
         <mesh>
           <boxGeometry args={[0.46, 0.32, 0.02]} />
-          <meshStandardMaterial color="#045f47" roughness={0.8} />
+          <meshStandardMaterial color={boardColor} roughness={0.8} />
         </mesh>
         {/* Silicon chip */}
         <mesh position={[0, 0, 0.015]}>
           <boxGeometry args={[0.13, 0.13, 0.02]} />
-          <meshStandardMaterial color="#111827" metalness={0.2} roughness={0.5} />
+          <meshStandardMaterial color={isLight ? '#334155' : '#111827'} metalness={0.2} roughness={0.5} />
         </mesh>
         {/* Metallic processor cap */}
         <mesh position={[0, 0, 0.026]}>
           <boxGeometry args={[0.09, 0.09, 0.004]} />
-          <meshStandardMaterial color="#94a3b8" metalness={0.9} roughness={0.1} />
+          <meshStandardMaterial color={isLight ? '#F1F5F9' : '#94a3b8'} metalness={0.9} roughness={0.1} />
         </mesh>
-        {/* Glowing green circuit traces */}
+        {/* Glowing circuit traces */}
         <mesh position={[0.09, 0.06, 0.012]}>
           <boxGeometry args={[0.01, 0.13, 0.004]} />
           <meshBasicMaterial color={targetColor} />
@@ -489,9 +495,11 @@ function HardwareCore({ targetColor }) {
   );
 }
 
-function ToolsCore({ targetColor }) {
+function ToolsCore({ targetColor, isLight }) {
   const gear1Ref = useRef();
   const gear2Ref = useRef();
+  const gear1Color = isLight ? '#64748B' : '#475569';
+  const gear2Color = isLight ? '#CBD5E1' : '#8ABED8';
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -509,11 +517,11 @@ function ToolsCore({ targetColor }) {
       <group ref={gear1Ref} position={[-0.14, 0.08, 0]}>
         <mesh>
           <cylinderGeometry args={[0.26, 0.26, 0.05, 12]} />
-          <meshStandardMaterial color="#475569" metalness={0.8} roughness={0.25} />
+          <meshStandardMaterial color={gear1Color} metalness={0.8} roughness={0.25} />
         </mesh>
         <mesh position={[0, 0.03, 0]}>
           <cylinderGeometry args={[0.18, 0.18, 0.06, 12]} />
-          <meshStandardMaterial color="#0F172A" metalness={0.2} roughness={0.8} />
+          <meshStandardMaterial color={isLight ? '#F8FAFC' : '#0F172A'} metalness={0.2} roughness={0.8} />
         </mesh>
         <mesh>
           <cylinderGeometry args={[0.2, 0.2, 0.052, 12]} />
@@ -525,11 +533,11 @@ function ToolsCore({ targetColor }) {
       <group ref={gear2Ref} position={[0.22, -0.12, 0]}>
         <mesh>
           <cylinderGeometry args={[0.16, 0.16, 0.045, 8]} />
-          <meshStandardMaterial color="#8ABED8" metalness={0.9} roughness={0.2} />
+          <meshStandardMaterial color={gear2Color} metalness={0.9} roughness={0.2} />
         </mesh>
         <mesh>
           <cylinderGeometry args={[0.08, 0.08, 0.05, 8]} />
-          <meshStandardMaterial color="#0F172A" />
+          <meshStandardMaterial color={isLight ? '#F8FAFC' : '#0F172A'} />
         </mesh>
       </group>
 
@@ -630,16 +638,18 @@ function GitLogo() {
   );
 }
 
-function GitHubLogo() {
+function GitHubLogo({ isLight }) {
+  const baseColor = isLight ? '#E2E8F0' : '#1F2937';
+  const logoColor = isLight ? '#0F172A' : '#FFFFFF';
   return (
     <group>
       <mesh>
         <cylinderGeometry args={[0.075, 0.075, 0.015, 16]} />
-        <meshStandardMaterial color="#1F2937" metalness={0.7} roughness={0.2} />
+        <meshStandardMaterial color={baseColor} metalness={0.7} roughness={0.2} />
       </mesh>
       <mesh position={[0, 0, 0.009]}>
         <sphereGeometry args={[0.035, 16, 16]} />
-        <meshBasicMaterial color="#FFFFFF" />
+        <meshBasicMaterial color={logoColor} />
       </mesh>
     </group>
   );
@@ -709,12 +719,13 @@ function PostmanLogo() {
   );
 }
 
-function MySqlWorkbenchLogo() {
+function MySqlWorkbenchLogo({ isLight }) {
+  const baseColor = isLight ? '#E2E8F0' : '#64748B';
   return (
     <group>
       <mesh position={[0, -0.02, 0]}>
         <boxGeometry args={[0.1, 0.015, 0.1]} />
-        <meshStandardMaterial color="#64748B" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color={baseColor} metalness={0.8} roughness={0.2} />
       </mesh>
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 0.05, 12]} />
@@ -724,17 +735,17 @@ function MySqlWorkbenchLogo() {
   );
 }
 
-function TechLogo3D({ techName }) {
+function TechLogo3D({ techName, isLight }) {
   const normalized = techName.toLowerCase();
 
   if (normalized.includes('java') && !normalized.includes('script') && !normalized.includes('spring')) {
-    return <JavaLogo />;
+    return <JavaLogo isLight={isLight} />;
   }
   if (normalized.includes('spring')) {
     return <SpringBootLogo />;
   }
   if (normalized.includes('mysql') && !normalized.includes('workbench')) {
-    return <MySqlLogo />;
+    return <MySqlLogo isLight={isLight} />;
   }
   if (normalized.includes('hibernate')) {
     return <HibernateLogo />;
@@ -764,7 +775,7 @@ function TechLogo3D({ techName }) {
     return <GitLogo />;
   }
   if (normalized.includes('github')) {
-    return <GitHubLogo />;
+    return <GitHubLogo isLight={isLight} />;
   }
   if (normalized.includes('intellij')) {
     return <IntelliJLogo />;
@@ -776,7 +787,7 @@ function TechLogo3D({ techName }) {
     return <PostmanLogo />;
   }
   if (normalized.includes('workbench')) {
-    return <MySqlWorkbenchLogo />;
+    return <MySqlWorkbenchLogo isLight={isLight} />;
   }
 
   // Fallback
@@ -786,7 +797,7 @@ function TechLogo3D({ techName }) {
         <boxGeometry args={[0.1, 0.1, 0.1]} />
         <meshStandardMaterial color="#00E0A4" metalness={0.8} roughness={0.2} />
       </mesh>
-      <Text position={[0, 0, 0.055]} fontSize={0.065} color="#FFFFFF" fontWeight="bold">
+      <Text position={[0, 0, 0.055]} fontSize={0.065} color={isLight ? '#0F172A' : '#FFFFFF'} fontWeight="bold">
         {techName.charAt(0).toUpperCase()}
       </Text>
     </group>
@@ -794,7 +805,7 @@ function TechLogo3D({ techName }) {
 }
 
 // ─── Central Tech Core Selector ──────────────────────────────────────────────
-function TechCore({ activeFace }) {
+function TechCore({ activeFace, isLight }) {
   const coreRef = useRef();
   const targetColor = FACES[activeFace]?.accentColor || '#38BDF8';
 
@@ -809,16 +820,16 @@ function TechCore({ activeFace }) {
   // Render scaled-up thematic centerpiece depending on active face division
   return (
     <group ref={coreRef} scale={1.25}>
-      {activeFace === 0 && <BackendCore targetColor={targetColor} />}
-      {activeFace === 1 && <MobileCore targetColor={targetColor} />}
-      {activeFace === 2 && <HardwareCore targetColor={targetColor} />}
-      {activeFace === 3 && <ToolsCore targetColor={targetColor} />}
+      {activeFace === 0 && <BackendCore targetColor={targetColor} isLight={isLight} />}
+      {activeFace === 1 && <MobileCore targetColor={targetColor} isLight={isLight} />}
+      {activeFace === 2 && <HardwareCore targetColor={targetColor} isLight={isLight} />}
+      {activeFace === 3 && <ToolsCore targetColor={targetColor} isLight={isLight} />}
     </group>
   );
 }
 
 // ─── Orbiting Holographic Technology Node ────────────────────────────────────
-function TechNode({ techName, index, total, isTargetActive, color }) {
+function TechNode({ techName, index, total, isTargetActive, color, isLight }) {
   const ref = useRef();
   const currentPos = useRef(new THREE.Vector3(0, 0, 0));
   const currentScale = useRef(0);
@@ -852,19 +863,23 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
     }
   });
 
+  const panelColor = isLight ? '#FFFFFF' : '#060c18';
+  const textColor = isLight ? '#0F172A' : '#FFFFFF';
+  const outlineColor = isLight ? '#FFFFFF' : '#000308';
+
   return (
     <group ref={ref}>
       {/* Significantly larger glass HUD panel plate (from 0.48 to 0.72) */}
       <mesh>
         <planeGeometry args={[0.72, 0.72]} />
         <meshPhysicalMaterial
-          color="#060c18"
-          roughness={0.7}
-          metalness={0.1}
-          transmission={0.4}
+          color={panelColor}
+          roughness={isLight ? 0.45 : 0.7}
+          metalness={isLight ? 0.05 : 0.1}
+          transmission={isLight ? 0.55 : 0.4}
           thickness={0.03}
           transparent
-          opacity={0.88}
+          opacity={isLight ? 0.85 : 0.88}
           side={THREE.DoubleSide}
           depthWrite={false}
         />
@@ -873,24 +888,24 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
       {/* Premium thin glowing border outline matching the larger panel size */}
       <lineSegments>
         <edgesGeometry args={[new THREE.PlaneGeometry(0.72, 0.72)]} />
-        <lineBasicMaterial color={color} transparent opacity={0.45} />
+        <lineBasicMaterial color={color} transparent opacity={isLight ? 0.35 : 0.45} />
       </lineSegments>
 
       {/* 3D Logo Component - scaled up to 1.45x for high prominence and detail */}
       <group position={[0, 0.08, 0.04]} scale={1.45}>
-        <TechLogo3D techName={techName} />
+        <TechLogo3D techName={techName} isLight={isLight} />
       </group>
 
       {/* Highly legible, larger Text Label (from 0.072 to 0.11) with a perfect vertical offset */}
       <Text
         position={[0, -0.52, 0.04]}
         fontSize={0.11}
-        color="#FFFFFF"
+        color={textColor}
         anchorX="center"
         anchorY="middle"
         fontWeight={700}
         outlineWidth={0.006}
-        outlineColor="#000308"
+        outlineColor={outlineColor}
       >
         {techName}
       </Text>
@@ -899,7 +914,7 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
 }
 
 // ─── Scene Container & Inertial Drag ──────────────────────────────────────────
-function ArtifactScene({ activeFace, mouseRef }) {
+function ArtifactScene({ activeFace, mouseRef, isLight }) {
   const group = useRef();
   const isDragging = useRef(false);
   const prevMouse = useRef({ x: 0, y: 0 });
@@ -936,9 +951,11 @@ function ArtifactScene({ activeFace, mouseRef }) {
     group.current.rotation.y += (finalY - group.current.rotation.y) * 0.07;
     group.current.rotation.z += (0 - group.current.rotation.z) * 0.07;
 
-    // Breath glow on the point light
+    // Breath glow on the point light (gentle in light mode to avoid washing out dark text)
     if (pulseRef.current) {
-      pulseRef.current.intensity = 0.25 + Math.sin(clock.getElapsedTime() * 0.4) * 0.06;
+      const basePulse = isLight ? 0.15 : 0.25;
+      const pulseAmp = isLight ? 0.03 : 0.06;
+      pulseRef.current.intensity = basePulse + Math.sin(clock.getElapsedTime() * 0.4) * pulseAmp;
     }
   });
 
@@ -973,22 +990,22 @@ function ArtifactScene({ activeFace, mouseRef }) {
       {/* Camera moved back to Z = 7.8 to provide a wide, safe viewport for larger nodes */}
       <PerspectiveCamera makeDefault position={[0, 0, 7.8]} fov={40} />
 
-      {/* Clean high-contrast ambient lighting */}
-      <ambientLight intensity={0.8} color="#1c2538" />
-      <directionalLight position={[3, 4, 5]} intensity={0.55} color="#eaf2fa" />
-      <directionalLight position={[-3, -2, -3]} intensity={0.1} color="#08101c" />
+      {/* Clean high-contrast ambient lighting - bright neutral slate in light mode, deep blue-slate in dark mode */}
+      <ambientLight intensity={isLight ? 0.95 : 0.8} color={isLight ? '#F1F5F9' : '#1c2538'} />
+      <directionalLight position={[3, 4, 5]} intensity={isLight ? 0.65 : 0.55} color={isLight ? '#CBD5E1' : '#eaf2fa'} />
+      <directionalLight position={[-3, -2, -3]} intensity={0.1} color={isLight ? '#E2E8F0' : '#08101c'} />
 
-      {/* Subtle colored point light wash */}
-      <pointLight ref={pulseRef} position={[0, 0, 2.6]} intensity={0.3} color={accent} distance={6} decay={2} />
+      {/* Subtle colored point light wash - dim in light mode */}
+      <pointLight ref={pulseRef} position={[0, 0, 2.6]} intensity={isLight ? 0.15 : 0.3} color={accent} distance={6} decay={2} />
 
-      {/* Unobtrusive sparkles for deep space feel */}
-      <Sparkles count={20} scale={8} size={0.35} speed={0.06} color="#38BDF8" opacity={0.06} />
-      <Sparkles count={10} scale={6} size={0.25} speed={0.04} color="#00E0A4" opacity={0.03} />
+      {/* Unobtrusive sparkles for depth - dim in light mode */}
+      <Sparkles count={20} scale={8} size={0.35} speed={0.06} color="#38BDF8" opacity={isLight ? 0.03 : 0.06} />
+      <Sparkles count={10} scale={6} size={0.25} speed={0.04} color="#00E0A4" opacity={isLight ? 0.015 : 0.03} />
 
       {/* Rotating scene group */}
       <group ref={group} onPointerDown={handlePointerDown}>
         {/* Thematic centerpiece matching current active division */}
-        <TechCore activeFace={activeFace} />
+        <TechCore activeFace={activeFace} isLight={isLight} />
 
         {/* Orbiting Technology Nodes from all categories, lerping to their active state */}
         {FACES.map((face, faceIdx) => {
@@ -1001,6 +1018,7 @@ function ArtifactScene({ activeFace, mouseRef }) {
               total={face.techs.length}
               isTargetActive={isCategoryActive}
               color={face.accentColor}
+              isLight={isLight}
             />
           ));
         })}
@@ -1008,7 +1026,7 @@ function ArtifactScene({ activeFace, mouseRef }) {
 
       {/* Subtle bloom postprocessing */}
       <EffectComposer>
-        <Bloom opacity={0.5} luminanceThreshold={0.6} luminanceSmoothing={0.95} intensity={0.12} />
+        <Bloom opacity={0.5} luminanceThreshold={isLight ? 0.85 : 0.6} luminanceSmoothing={0.95} intensity={isLight ? 0.08 : 0.12} />
       </EffectComposer>
     </>
   );
@@ -1049,7 +1067,7 @@ function DetailPanel({ face }) {
         boxShadow: `0 0 50px ${accent}14, 0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)`,
         maxWidth: '360px',
         minWidth: '260px',
-      }}>
+      }} className="engineering-card">
         {/* Ambient glow blob top right */}
         <div style={{
           position: 'absolute', top: -40, right: -40,
@@ -1078,7 +1096,7 @@ function DetailPanel({ face }) {
         </div>
 
         {/* Title */}
-        <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#F8FAFC', margin: '0 0 18px', letterSpacing: '-0.01em' }}>
+        <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#F8FAFC', margin: '0 0 18px', letterSpacing: '-0.01em' }} className="text-white">
           {current.title}
         </h3>
 
@@ -1164,6 +1182,17 @@ export default function SkillsCube() {
   const mouseRef = useRef({ x: 0, y: 0 });
   const containerRef = useRef();
 
+  const [isLight, setIsLight] = useState(false);
+
+  useEffect(() => {
+    setIsLight(document.documentElement.classList.contains('light'));
+    const observer = new MutationObserver(() => {
+      setIsLight(document.documentElement.classList.contains('light'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const onMove = (e) => {
       if (!containerRef.current) return;
@@ -1207,14 +1236,14 @@ export default function SkillsCube() {
           // TECHNICAL SKILLS NODE
         </span>
         <h2 style={{
-          color: '#F8FAFC', fontSize: 'clamp(1.9rem, 5vw, 3.2rem)', fontWeight: 900,
+          fontSize: 'clamp(1.9rem, 5vw, 3.2rem)', fontWeight: 900,
           textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1.1,
           marginBottom: '12px', textShadow: '0 0 40px rgba(56,189,248,0.12)',
           margin: '0 0 12px',
-        }}>
+        }} className="text-white">
           Skill Set Matrix
         </h2>
-        <p style={{ color: 'rgba(148,163,184,0.7)', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: 0 }}>
+        <p style={{ fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: 0 }}>
           DRAG CORE TO ROTATE // SELECT A TAB TO EXPLORE NODE
         </p>
       </div>
@@ -1236,7 +1265,7 @@ export default function SkillsCube() {
             style={{ background: 'transparent' }}
           >
             <Suspense fallback={null}>
-              <ArtifactScene activeFace={activeFace} mouseRef={mouseRef} />
+              <ArtifactScene activeFace={activeFace} mouseRef={mouseRef} isLight={isLight} />
             </Suspense>
           </Canvas>
         </div>

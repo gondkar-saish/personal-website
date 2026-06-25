@@ -3,23 +3,23 @@ import ChipTileHeroBackground from './ChipTileHeroBackground';
 
 const Hero = () => {
   return (
-    <section id="hero" className="bg-[#030712] pt-32 pb-20 md:pt-40 md:pb-24 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center border-b border-white/5 relative z-10 overflow-hidden text-center">
+    <section id="hero" className="bg-bg-base pt-32 pb-20 md:pt-40 md:pb-24 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center border-b border-border-subtle relative z-10 overflow-hidden text-center">
       
       <ChipTileHeroBackground />
 
       <div className="max-w-4xl mx-auto w-full relative z-20 flex flex-col items-center mt-12 md:mt-0">
         
-        <p className="text-[#00E0A4] font-mono font-bold tracking-widest uppercase mb-6 animate-pulse">
+        <p className="text-accent-primary font-mono font-bold tracking-widest uppercase mb-6 animate-pulse">
           // INITIALIZE SEQUENCE
         </p>
         
-        <h1 className="font-transformers text-5xl md:text-7xl lg:text-[7.5rem] font-black uppercase tracking-tighter mb-8 text-white drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]" style={{ lineHeight: '1' }}>
-          Built for Systems.
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-8 max-w-3xl leading-tight tracking-tight drop-shadow-md">
+          I build scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
         </h1>
         
-        <p className="text-lg md:text-xl text-[#94A3B8] mb-12 max-w-2xl leading-relaxed drop-shadow-md">
-          I build scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
-        </p>
+        <h2 className="font-transformers text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest text-text-muted opacity-40 mb-12 drop-shadow-sm" style={{ letterSpacing: '0.3em' }}>
+          Built for Systems.
+        </h2>
       </div>
     </section>
   );

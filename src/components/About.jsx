@@ -167,22 +167,22 @@ const About = () => {
           
           {/* Left Text Block */}
           <div className="w-full lg:w-5/12 flex flex-col justify-center text-left">
-            <div className="mb-2 text-[#00E0A4] text-xs md:text-sm font-mono font-bold tracking-widest uppercase flex items-center gap-2">
-              <span className="w-2 h-2 bg-[#00E0A4] animate-pulse"></span>
-              ABOUT SYSTEM // SAISH GONDKAR
+            <div className="mb-2 text-accent-primary text-xs md:text-sm font-mono font-bold tracking-widest uppercase flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent-primary animate-pulse"></span>
+              ABOUT SYSTEM
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F5F5F5] mb-4 leading-tight tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-4 leading-tight tracking-tight">
               Computer<br/>Engineering<br/>Junior
             </h2>
             
-            <h3 className="text-xl md:text-2xl text-[#A0BDCF] font-medium mb-6 font-mono">
+            <h3 className="text-xl md:text-2xl text-accent-secondary font-medium mb-6 font-mono">
               University of Texas at Arlington
             </h3>
             
             <div className="w-16 h-1 bg-white/10 rounded-full mb-6"></div>
             
-            <p className="text-[#8FA9BC] text-base md:text-lg leading-relaxed">
+            <p className="text-text-muted text-base md:text-lg leading-relaxed">
               I’m a Computer Engineering student focused on building practical software systems, embedded hardware projects, and backend applications that connect logic, devices, and real-world use cases.
             </p>
           </div>
@@ -195,25 +195,25 @@ const About = () => {
           >
             
             {/* Soft backdrop glow */}
-            <div className="absolute inset-0 bg-[#00E0A4]/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute inset-0 bg-accent-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
             {/* Premium Glassy Skill Tooltip */}
             {tooltip.show && (
               <div 
-                className="absolute pointer-events-none z-50 bg-[#0A111A]/95 backdrop-blur-md border border-[#00E0A4]/40 shadow-[0_0_15px_rgba(0,224,164,0.25)] rounded-lg p-3 text-xs font-mono text-[#A0BDCF] max-w-[220px] transition-all duration-100 ease-out"
+                className="absolute pointer-events-none z-50 bg-bg-surface/95 backdrop-blur-md border border-accent-primary/40 shadow-[0_0_15px_var(--accent-primary)0.25)] rounded-lg p-3 text-xs font-mono text-accent-secondary max-w-[220px] transition-all duration-100 ease-out"
                 style={{ 
                   left: `${tooltip.x}px`, 
                   top: `${tooltip.y}px`, 
                   transform: 'translate(12px, 12px)' 
                 }}
               >
-                <div className="text-[#00E0A4] font-bold uppercase tracking-wider mb-0.5">
+                <div className="text-accent-primary font-bold uppercase tracking-wider mb-0.5">
                   {tooltip.title}
                 </div>
-                <div className="text-[#8FA9BC] text-[10px] font-bold uppercase tracking-widest mb-1.5 opacity-80 border-b border-[#1E3A8A] pb-1">
+                <div className="text-text-muted text-[10px] font-bold uppercase tracking-widest mb-1.5 opacity-80 border-b border-accent-secondary pb-1">
                   {tooltip.subtitle}
                 </div>
-                <div className="text-xs leading-relaxed font-sans text-[#E2E8F0]">
+                <div className="text-xs leading-relaxed font-sans text-text-main">
                   {tooltip.text}
                 </div>
               </div>
@@ -683,22 +683,20 @@ const About = () => {
                 key={card.id}
                 onMouseEnter={() => setActiveCategory(card.category)}
                 onMouseLeave={() => setActiveCategory(null)}
-                className={`bg-[#0A111A]/80 backdrop-blur-sm border transition-all duration-300 rounded-xl p-6 relative overflow-hidden group cursor-crosshair text-left ${
-                  isHovered ? 'border-[#00E0A4] shadow-[0_0_20px_rgba(0,224,164,0.15)] -translate-y-2' : 'border-[#152B3C] hover:border-[#305070]'
+                className={`bg-bg-surface/80 backdrop-blur-sm border transition-all duration-300 rounded-xl p-6 relative overflow-hidden group cursor-crosshair text-left ${
+                  isHovered ? 'border-accent-primary shadow-[0_0_20px_var(--accent-primary)0.15)] -translate-y-2' : 'border-border-subtle hover:border-accent-secondary'
                 }`}
               >
                 {/* Scanline Effect on Hover */}
                 {isHovered && (
-                  <div className="absolute top-0 left-0 w-full h-1 bg-[#00E0A4]/30 animate-pulse"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-accent-primary/30 animate-pulse"></div>
                 )}
                 
-                <h4 className={`text-xs font-mono font-bold uppercase tracking-widest mb-3 transition-colors ${
-                  isHovered ? 'text-[#00E0A4]' : 'text-[#8FA9BC]'
-                }`}>
-                  [{card.title}]
+                <h4 className="text-base md:text-lg font-mono font-black uppercase tracking-widest mb-4 text-accent-primary border-b border-accent-primary/40 pb-3 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(0,224,164,0.3)]">
+                  <span className="text-white">{'//'}</span> {card.title}
                 </h4>
                 
-                <p className="text-[#A0BDCF] text-sm leading-relaxed font-sans">
+                <p className="text-accent-secondary text-sm leading-relaxed font-sans">
                   {card.content}
                 </p>
               </div>
