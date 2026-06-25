@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Custom Spiderman Cursors */
+/* Custom Cursors (Iron Man Helmet) */
 :root {
   --cursor-face: auto;
   --cursor-hand: pointer;
@@ -11,7 +11,7 @@ html, body {
 }
 
 a, button, .nav-link, .project-card, .side-quest-card, .sci-fi-card, .engineering-card,
-.engineering-button-primary, .engineering-button-secondary, [role="button"], [style*="cursor: pointer"],
+.engineering-button-primary, .engineering-button-secondary, .clickable, [role="button"], [style*="cursor: pointer"],
 a *, button *, [role="button"] * {
   cursor: var(--cursor-hand) !important; /* Force custom cursor on hover */
 }
