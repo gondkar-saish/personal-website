@@ -3,11 +3,9 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Float,
   Text,
-  Html,
   Sparkles,
   PerspectiveCamera,
 } from '@react-three/drei';
-import { Cpu, Thermometer, Radio, Activity, Lightbulb } from 'lucide-react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
@@ -438,7 +436,7 @@ function HardwareCore({ targetColor, isLight }) {
   });
 
   return (
-    <group>
+    <group scale={1.6}>
       {/* Cybernetic IoT Processor Board */}
       <group ref={boardRef}>
         {/* Board Plate */}
@@ -568,28 +566,177 @@ function JavaScriptLogo() {
   );
 }
 
-function HardwareHtmlIcon({ type }) {
-  let Icon = Cpu;
-  if (type === 'esp32' || type === 'arduino') Icon = Cpu;
-  if (type === 'dht11') Icon = Thermometer;
-  if (type === 'pir') Icon = Activity;
-  if (type === 'ldr') Icon = Lightbulb;
-  if (type === 'sensor') Icon = Radio;
-
+function ArduinoLogo3D() {
   return (
-    <Html transform center position={[0, 0, 0.05]} scale={0.12} zIndexRange={[100, 0]}>
-      <div style={{
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        width: '40px',
-        height: '40px',
-        color: '#00E0A4',
-        filter: 'drop-shadow(0px 0px 8px rgba(0, 224, 164, 0.8))',
-      }}>
-        <Icon size={40} strokeWidth={2.5} />
-      </div>
-    </Html>
+    <group scale={1.3}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.16, 0.12, 0.01]} />
+        <meshStandardMaterial color="#00878F" roughness={0.7} />
+      </mesh>
+      <mesh position={[-0.07, 0.03, 0.01]}>
+        <boxGeometry args={[0.04, 0.04, 0.03]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.8} />
+      </mesh>
+      <mesh position={[-0.07, -0.03, 0.01]}>
+        <boxGeometry args={[0.05, 0.03, 0.025]} />
+        <meshStandardMaterial color="#111827" />
+      </mesh>
+      <mesh position={[0.02, -0.02, 0.01]}>
+        <boxGeometry args={[0.08, 0.025, 0.015]} />
+        <meshStandardMaterial color="#1F2937" roughness={0.8} />
+      </mesh>
+      <mesh position={[0.02, 0.05, 0.01]}>
+        <boxGeometry args={[0.1, 0.015, 0.015]} />
+        <meshStandardMaterial color="#111827" />
+      </mesh>
+    </group>
+  );
+}
+
+function Esp32Logo3D() {
+  return (
+    <group scale={1.4}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.1, 0.16, 0.01]} />
+        <meshStandardMaterial color="#111827" roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 0.02, 0.01]}>
+        <boxGeometry args={[0.07, 0.08, 0.015]} />
+        <meshStandardMaterial color="#F3F4F6" metalness={0.9} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0.07, 0.01]}>
+        <boxGeometry args={[0.07, 0.02, 0.012]} />
+        <meshStandardMaterial color="#1F2937" />
+      </mesh>
+      <mesh position={[0, 0.07, 0.016]}>
+        <boxGeometry args={[0.06, 0.01, 0.002]} />
+        <meshStandardMaterial color="#D4AF37" metalness={0.8} />
+      </mesh>
+      <mesh position={[-0.045, -0.02, 0.01]}>
+        <boxGeometry args={[0.01, 0.1, 0.01]} />
+        <meshStandardMaterial color="#D4AF37" />
+      </mesh>
+      <mesh position={[0.045, -0.02, 0.01]}>
+        <boxGeometry args={[0.01, 0.1, 0.01]} />
+        <meshStandardMaterial color="#D4AF37" />
+      </mesh>
+    </group>
+  );
+}
+
+function Dht11Logo3D() {
+  return (
+    <group scale={1.6}>
+      <mesh position={[0, 0.02, 0]}>
+        <boxGeometry args={[0.08, 0.1, 0.04]} />
+        <meshStandardMaterial color="#0EA5E9" roughness={0.3} />
+      </mesh>
+      <mesh position={[-0.02, 0.02, 0.021]}>
+        <boxGeometry args={[0.005, 0.08, 0.002]} />
+        <meshBasicMaterial color="#0284C7" />
+      </mesh>
+      <mesh position={[0, 0.02, 0.021]}>
+        <boxGeometry args={[0.005, 0.08, 0.002]} />
+        <meshBasicMaterial color="#0284C7" />
+      </mesh>
+      <mesh position={[0.02, 0.02, 0.021]}>
+        <boxGeometry args={[0.005, 0.08, 0.002]} />
+        <meshBasicMaterial color="#0284C7" />
+      </mesh>
+      <mesh position={[-0.02, -0.04, 0]}>
+        <cylinderGeometry args={[0.004, 0.004, 0.04]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.8} />
+      </mesh>
+      <mesh position={[0, -0.04, 0]}>
+        <cylinderGeometry args={[0.004, 0.004, 0.04]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.8} />
+      </mesh>
+      <mesh position={[0.02, -0.04, 0]}>
+        <cylinderGeometry args={[0.004, 0.004, 0.04]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.8} />
+      </mesh>
+    </group>
+  );
+}
+
+function PirLogo3D() {
+  return (
+    <group scale={1.5}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.12, 0.1, 0.01]} />
+        <meshStandardMaterial color="#166534" roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 0, 0.015]}>
+        <sphereGeometry args={[0.045, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshStandardMaterial color="#F8FAFC" roughness={0.9} transparent opacity={0.9} />
+      </mesh>
+      <mesh position={[-0.04, -0.03, 0.01]}>
+        <cylinderGeometry args={[0.01, 0.01, 0.02]} />
+        <meshStandardMaterial color="#1F2937" />
+      </mesh>
+      <mesh position={[0.04, 0.03, 0.01]}>
+        <cylinderGeometry args={[0.01, 0.01, 0.02]} />
+        <meshStandardMaterial color="#1F2937" />
+      </mesh>
+    </group>
+  );
+}
+
+function LdrLogo3D() {
+  return (
+    <group scale={1.9}>
+      <mesh position={[0, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.04, 0.04, 0.01, 32]} />
+        <meshStandardMaterial color="#FDE047" roughness={0.4} />
+      </mesh>
+      <mesh position={[0, 0.026, 0]}>
+        <boxGeometry args={[0.05, 0.002, 0.06]} />
+        <meshBasicMaterial color="#EF4444" />
+      </mesh>
+      <mesh position={[0, 0.027, 0.015]}>
+        <boxGeometry args={[0.06, 0.002, 0.004]} />
+        <meshBasicMaterial color="#111827" />
+      </mesh>
+      <mesh position={[0, 0.027, -0.015]}>
+        <boxGeometry args={[0.06, 0.002, 0.004]} />
+        <meshBasicMaterial color="#111827" />
+      </mesh>
+      <mesh position={[-0.015, -0.03, 0]}>
+        <cylinderGeometry args={[0.003, 0.003, 0.08]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.9} />
+      </mesh>
+      <mesh position={[0.015, -0.03, 0]}>
+        <cylinderGeometry args={[0.003, 0.003, 0.08]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.9} />
+      </mesh>
+    </group>
+  );
+}
+
+function SonarLogo3D() {
+  return (
+    <group scale={1.3}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.16, 0.08, 0.01]} />
+        <meshStandardMaterial color="#1D4ED8" roughness={0.7} />
+      </mesh>
+      <mesh position={[-0.045, 0, 0.02]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.03, 0.03, 0.04, 32]} />
+        <meshStandardMaterial color="#9CA3AF" metalness={0.8} />
+      </mesh>
+      <mesh position={[0.045, 0, 0.02]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.03, 0.03, 0.04, 32]} />
+        <meshStandardMaterial color="#9CA3AF" metalness={0.8} />
+      </mesh>
+      <mesh position={[0, -0.02, 0.01]}>
+        <boxGeometry args={[0.02, 0.01, 0.01]} />
+        <meshStandardMaterial color="#F3F4F6" metalness={0.9} />
+      </mesh>
+      <mesh position={[0, -0.05, 0]}>
+        <boxGeometry args={[0.04, 0.02, 0.004]} />
+        <meshStandardMaterial color="#D1D5DB" metalness={0.8} />
+      </mesh>
+    </group>
   );
 }
 
@@ -749,15 +896,23 @@ function TechLogo3D({ techName, isLight }) {
   if (normalized.includes('javascript') || normalized === 'js') {
     return <JavaScriptLogo />;
   }
-  if (normalized.includes('esp32') || normalized.includes('arduino')) {
-    return <HardwareHtmlIcon type={normalized.includes('esp32') ? 'esp32' : 'arduino'} />;
+  if (normalized.includes('arduino')) {
+    return <ArduinoLogo3D />;
   }
-  if (normalized.includes('dht11') || normalized.includes('pir') || normalized.includes('ldr') || normalized.includes('sensor')) {
-    let type = 'sensor';
-    if (normalized.includes('dht11')) type = 'dht11';
-    if (normalized.includes('pir')) type = 'pir';
-    if (normalized.includes('ldr')) type = 'ldr';
-    return <HardwareHtmlIcon type={type} />;
+  if (normalized.includes('esp32')) {
+    return <Esp32Logo3D />;
+  }
+  if (normalized.includes('dht11')) {
+    return <Dht11Logo3D />;
+  }
+  if (normalized.includes('pir')) {
+    return <PirLogo3D />;
+  }
+  if (normalized.includes('ldr')) {
+    return <LdrLogo3D />;
+  }
+  if (normalized.includes('sensor')) {
+    return <SonarLogo3D />;
   }
   if (normalized === 'git') {
     return <GitLogo />;
