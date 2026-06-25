@@ -85,7 +85,11 @@ const Navbar = () => {
           
           {/* Logo Brand */}
           <div className="flex-shrink-0 flex items-center gap-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-[#00E0A4] to-[#38BDF8] shadow-[0_0_10px_rgba(0,224,164,0.3)]"></div>
+            <img 
+              src={`${import.meta.env.BASE_URL}logo.png`} 
+              alt="Saish Gondkar Logo" 
+              className="w-7 h-7 object-contain" 
+            />
             <Link 
               to="/" 
               onClick={() => setIsOpen(false)} 
