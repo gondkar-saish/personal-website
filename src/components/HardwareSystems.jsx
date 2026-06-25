@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const HardwareSystems = () => {
@@ -31,6 +31,18 @@ const HardwareSystems = () => {
 
   const [activeIndex, setActiveIndex] = useState(1); // Default to middle card
   const [isMobile, setIsMobile] = useState(false);
+  const hoverTimeoutRef = useRef(null);
+
+  const handleMouseEnter = (index) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveIndex(index);
+    }, 800);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+  };
 
   // Check for mobile/touch devices
   useEffect(() => {
@@ -162,9 +174,10 @@ const HardwareSystems = () => {
               return (
                 <div 
                   key={project.id}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
                   onClick={() => setActiveIndex(index)}
-                  className={`absolute left-1/2 top-1/2 -translate-y-1/2 w-[400px] h-[550px] transition-all duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col cursor-pointer group ${
+                  className={`absolute left-1/2 top-1/2 -translate-y-1/2 w-[400px] h-[550px] transition-all duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col cursor-pointer group ${
                     isActive 
                       ? 'engineering-card border-accent-primary/60 shadow-[0_0_40px_rgba(0,224,164,0.25)]' 
                       : 'bg-bg-surface45 border border-border-subtle rounded-xl overflow-hidden'
@@ -176,15 +189,15 @@ const HardwareSystems = () => {
                   }}
                 >
                   {/* Project Image */}
-                  <div className={`relative w-full overflow-hidden border-b transition-all duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'h-56 border-accent-primary/25' : 'h-48 border-transparent'}`}
+                  <div className={`relative w-full overflow-hidden border-b transition-all duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'h-56 border-accent-primary/25' : 'h-48 border-transparent'}`}
                     style={{ backgroundColor: '#05080f' }}
                   >
                     <img
                       src={project.image}
                       alt={project.title}
-                      className={`w-full h-full object-cover transition-all duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'opacity-90 scale-100' : 'opacity-40 scale-105 grayscale'}`}
+                      className={`w-full h-full object-cover transition-all duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'opacity-90 scale-100' : 'opacity-40 scale-105 grayscale'}`}
                     />
-                    <div className={`absolute inset-0 transition-opacity duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] bg-gradient-to-t from-bg-surface via-transparent to-transparent ${isActive ? 'opacity-80' : 'opacity-95'}`}></div>
+                    <div className={`absolute inset-0 transition-opacity duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] bg-gradient-to-t from-bg-surface via-transparent to-transparent ${isActive ? 'opacity-80' : 'opacity-95'}`}></div>
                     <div className="absolute top-4 right-4 z-10">
                       <span className={`px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-md ${getStatusColor(project.status)}`}>
                         {project.status}
@@ -199,15 +212,15 @@ const HardwareSystems = () => {
                       [ SYSTEM // MODULE 0{index + 1} ]
                     </span>
                     
-                    <h3 className={`font-bold transition-colors duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-2xl text-text-main mb-4 delay-100' : 'text-xl text-text-muted mb-3'}`}>
+                    <h3 className={`font-bold transition-colors duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-2xl text-text-main mb-4 delay-150' : 'text-xl text-text-muted mb-3'}`}>
                       {project.title}
                     </h3>
                     
-                    <p className={`text-sm leading-relaxed flex-grow transition-all duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-text-muted opacity-100 delay-150' : 'text-[#556677] opacity-0 translate-y-4'}`}>
+                    <p className={`text-sm leading-relaxed flex-grow transition-all duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-text-muted opacity-100 delay-300' : 'text-[#556677] opacity-0 translate-y-4'}`}>
                       {project.description}
                     </p>
                     
-                    <div className={`mt-auto transition-all duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'opacity-100 translate-y-0 delay-200' : 'opacity-0 translate-y-4'}`}>
+                    <div className={`mt-auto transition-all duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'opacity-100 translate-y-0 delay-500' : 'opacity-0 translate-y-4'}`}>
                       <h4 className="text-[10px] font-bold text-[#6B8599] uppercase tracking-widest mb-2 font-mono">// Tech Stack</h4>
                       <p className="text-sm font-mono font-bold text-accent-primary/90 mb-4">
                         {project.tech}
@@ -229,7 +242,7 @@ const HardwareSystems = () => {
                   
                   {/* Subtle hover gradient over the whole card when inactive */}
                   {!isActive && (
-                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-[2500ms] ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
                   )}
                 </div>
               );
