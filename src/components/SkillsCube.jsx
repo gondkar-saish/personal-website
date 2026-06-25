@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
-  Environment,
   Float,
   Text,
   Sparkles,
@@ -68,12 +67,12 @@ function TitaniumFrame() {
   const geo = new THREE.EdgesGeometry(new THREE.BoxGeometry(2.04, 2.04, 2.04));
   useFrame(({ clock }) => {
     if (ref.current) {
-      ref.current.material.opacity = 0.5 + Math.sin(clock.getElapsedTime() * 0.9) * 0.12;
+      ref.current.material.opacity = 0.22 + Math.sin(clock.getElapsedTime() * 0.4) * 0.04;
     }
   });
   return (
     <lineSegments ref={ref} geometry={geo}>
-      <lineBasicMaterial color="#7DD3FC" transparent opacity={0.55} />
+      <lineBasicMaterial color="#7FA2B8" transparent opacity={0.22} />
     </lineSegments>
   );
 }
@@ -86,13 +85,13 @@ function CornerBolts() {
     <group>
       {corners.map(([x, y, z], i) => (
         <mesh key={i} position={[x, y, z]}>
-          <sphereGeometry args={[0.052, 10, 10]} />
+          <sphereGeometry args={[0.032, 10, 10]} />
           <meshStandardMaterial
-            color="#BFD9F0"
-            metalness={0.97}
-            roughness={0.04}
-            emissive="#1155BB"
-            emissiveIntensity={0.4}
+            color="#E2E8F0"
+            metalness={0.95}
+            roughness={0.12}
+            emissive="#000000"
+            emissiveIntensity={0.0}
           />
         </mesh>
       ))}
@@ -100,28 +99,41 @@ function CornerBolts() {
   );
 }
 
-// ─── Holographic Face Overlay ─────────────────────────────────────────────────
-function HolographicFace({ position, rotation, color, isActive }) {
+// ─── Face Panel (frosted dark backing) ────────────────────────────────────────
+function FacePanel({ position, rotation, color, isActive }) {
   const ref = useRef();
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (!ref.current) return;
-    const t = clock.getElapsedTime();
-    ref.current.material.opacity = isActive
-      ? 0.18 + Math.sin(t * 1.4) * 0.06
-      : 0.04 + Math.sin(t * 0.5) * 0.02;
+    // Active face: highly opaque dark panel for contrast. Inactive: dimmer, slightly transparent.
+    ref.current.material.opacity = isActive ? 0.96 : 0.82;
   });
   return (
     <mesh ref={ref} position={position} rotation={rotation}>
       <planeGeometry args={[1.92, 1.92]} />
-      <meshBasicMaterial
-        color={color}
+      <meshPhysicalMaterial
+        color={isActive ? '#090e18' : '#020408'}
+        roughness={0.75}
+        metalness={0.12}
+        transmission={0.3}
+        thickness={0.05}
+        ior={1.1}
         transparent
-        opacity={0.07}
+        opacity={0.82}
         side={THREE.DoubleSide}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </mesh>
+  );
+}
+
+// ─── Subtle colored border glow around active face ───────────────────────────
+function FaceBorderGlow({ position, rotation, color, isActive }) {
+  if (!isActive) return null;
+  const geo = new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.94, 1.94));
+  return (
+    <lineSegments position={position} rotation={rotation} geometry={geo}>
+      <lineBasicMaterial color={color} transparent opacity={0.65} />
+    </lineSegments>
   );
 }
 
@@ -130,45 +142,52 @@ function FaceContent({ position, rotation, face, isActive }) {
   const techs = face.techs;
   const cols = techs.length <= 3 ? techs.length : 3;
   const rows = Math.ceil(techs.length / cols);
-  const colGap = techs.length <= 3 ? 0.45 : 0.58;
-  const rowGap = 0.26;
+  const colGap = techs.length <= 3 ? 0.50 : 0.60;
+  const rowGap = 0.35;
+  const centerY = -0.12;
+
+  // Active face is ultra-bright and crisp, inactive is beautifully subtle
+  const labelColor = isActive ? '#FFFFFF' : face.accentColor;
+  const dividerOpacity = isActive ? 0.8 : 0.3;
 
   return (
     <group position={position} rotation={rotation}>
       {/* Category label at top */}
       <Text
-        position={[0, 0.75, 0]}
-        fontSize={0.13}
-        color={face.accentColor}
+        position={[0, 0.72, 0.005]}
+        fontSize={isActive ? 0.175 : 0.155}
+        color={labelColor}
         anchorX="center"
         anchorY="middle"
-        letterSpacing={0.14}
-        outlineWidth={0.005}
-        outlineColor="#000511"
+        letterSpacing={0.16}
+        fontWeight={isActive ? 800 : 600}
+        outlineWidth={isActive ? 0.008 : 0.005}
+        outlineColor="#000308"
       >
         {face.label}
       </Text>
-      {/* Divider line done as thin geometry */}
-      <mesh position={[0, 0.58, 0]}>
-        <planeGeometry args={[1.3, 0.008]} />
-        <meshBasicMaterial color={face.accentColor} transparent opacity={0.35} />
+      {/* Divider line */}
+      <mesh position={[0, 0.54, 0.003]}>
+        <planeGeometry args={[1.4, 0.01]} />
+        <meshBasicMaterial color={face.accentColor} transparent opacity={dividerOpacity} />
       </mesh>
       {/* Tech items */}
       {techs.map((tech, i) => {
         const col = i % cols;
         const row = Math.floor(i / cols);
         const x = ((col - (cols - 1) / 2)) * colGap;
-        const y = ((rows - 1) / 2 - row) * rowGap;
+        const y = centerY + ((rows - 1) / 2 - row) * rowGap;
         return (
           <Text
             key={tech}
-            position={[x, y, 0]}
-            fontSize={0.09}
-            color={isActive ? '#F8FAFC' : face.accentColor}
+            position={[x, y, 0.005]}
+            fontSize={isActive ? 0.115 : 0.092}
+            color={isActive ? '#FFFFFF' : '#8A9FAD'}
             anchorX="center"
             anchorY="middle"
-            outlineWidth={0.003}
-            outlineColor="#000511"
+            fontWeight={isActive ? 700 : 500}
+            outlineWidth={isActive ? 0.007 : 0.004}
+            outlineColor="#000308"
           >
             {tech}
           </Text>
@@ -255,19 +274,17 @@ function SkillCube({ activeFace, mouseRef }) {
   return (
     <Float speed={1.3} floatIntensity={0.2} rotationIntensity={0} floatingRange={[-0.07, 0.07]}>
       <group ref={group} onPointerDown={handlePointerDown}>
-        {/* Glass core */}
+        {/* Dark core block for solid background contrast */}
         <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshPhysicalMaterial
-            color="#050d1f"
-            metalness={0.0}
-            roughness={0.05}
+          <boxGeometry args={[1.98, 1.98, 1.98]} />
+          <meshStandardMaterial
+            color="#03060d"
+            metalness={0.1}
+            roughness={0.9}
             transparent
-            opacity={0.12}
-            transmission={0.7}
-            thickness={0.5}
-            side={THREE.BackSide}
-            depthWrite={false}
+            opacity={0.98}
+            side={THREE.DoubleSide}
+            depthWrite={true}
           />
         </mesh>
 
@@ -275,9 +292,9 @@ function SkillCube({ activeFace, mouseRef }) {
         <TitaniumFrame />
         <CornerBolts />
 
-        {/* Holographic face overlays */}
+        {/* Dark frosted face panels (solid backing for text contrast) */}
         {faces.map((fc, i) => (
-          <HolographicFace
+          <FacePanel
             key={i}
             position={fc.pos}
             rotation={fc.rot}
@@ -286,11 +303,22 @@ function SkillCube({ activeFace, mouseRef }) {
           />
         ))}
 
-        {/* Tech content on each face */}
+        {/* Subtle colored border glow on active face only */}
+        {faces.map((fc, i) => (
+          <FaceBorderGlow
+            key={i + '-glow'}
+            position={fc.pos.map((v) => v * 1.001)}
+            rotation={fc.rot}
+            color={FACES[fc.id].accentColor}
+            isActive={activeFace === fc.id}
+          />
+        ))}
+
+        {/* Tech content on each face — positioned in front of panel for 100% legibility */}
         {faces.map((fc, i) => (
           <FaceContent
             key={i + '-content'}
-            position={fc.pos.map((v) => v * 0.9)}
+            position={fc.pos.map((v) => v * 1.015)}
             rotation={fc.rot}
             face={FACES[fc.id]}
             isActive={activeFace === fc.id}
@@ -308,28 +336,34 @@ function Scene({ activeFace, mouseRef }) {
 
   useFrame(({ clock }) => {
     if (pulseRef.current) {
-      pulseRef.current.intensity = 1.6 + Math.sin(clock.getElapsedTime() * 0.8) * 0.5;
+      // Gentle, low-frequency breath with zero hotspots
+      pulseRef.current.intensity = 0.3 + Math.sin(clock.getElapsedTime() * 0.4) * 0.08;
     }
   });
 
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={40} />
-      <ambientLight intensity={0.4} color="#0a1830" />
-      <directionalLight position={[5, 7, 5]} intensity={1.1} color="#c0d8f0" castShadow />
-      <directionalLight position={[-4, -2, -4]} intensity={0.3} color="#001833" />
-      <pointLight ref={pulseRef} position={[0, 0, 3.5]} intensity={1.6} color={accent} distance={9} decay={2} />
-      <pointLight position={[-3, 3, 2]} intensity={0.5} color="#1a3366" distance={7} decay={2} />
 
-      <Sparkles count={70} scale={9} size={1.1} speed={0.22} color="#38BDF8" opacity={0.35} />
-      <Sparkles count={35} scale={6} size={0.7} speed={0.14} color="#00E0A4" opacity={0.2} />
+      {/* Soft, even, high-contrast ambient lighting */}
+      <ambientLight intensity={0.85} color="#1d273a" />
+      <directionalLight position={[3, 4, 5]} intensity={0.45} color="#e6f0fa" />
+      <directionalLight position={[-3, -2, -3]} intensity={0.1} color="#08101e" />
+
+      {/* Extremely subtle accent wash — very low intensity, no hotspots */}
+      <pointLight ref={pulseRef} position={[0, 0, 3.0]} intensity={0.3} color={accent} distance={6} decay={2} />
+
+      {/* Dim, elegant sparkles for depth — completely unobtrusive */}
+      <Sparkles count={20} scale={8} size={0.4} speed={0.08} color="#38BDF8" opacity={0.08} />
+      <Sparkles count={10} scale={6} size={0.3} speed={0.05} color="#00E0A4" opacity={0.04} />
 
       <SkillCube activeFace={activeFace} mouseRef={mouseRef} />
 
-      <Environment preset="city" background={false} />
+      {/* NO Environment map — removes all reflections */}
 
+      {/* Very subtle bloom only to prevent text bleed */}
       <EffectComposer>
-        <Bloom luminanceThreshold={0.15} luminanceSmoothing={0.9} intensity={0.9} />
+        <Bloom luminanceThreshold={0.65} luminanceSmoothing={0.95} intensity={0.15} />
       </EffectComposer>
     </>
   );
