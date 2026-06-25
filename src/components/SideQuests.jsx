@@ -243,7 +243,7 @@ const SideQuests = () => {
         <svg className="circuit-lines" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <defs>
             <linearGradient id="circuit-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#FACC15" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.5" />
               <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.5" />
             </linearGradient>
             <linearGradient id="circuit-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -272,7 +272,7 @@ const SideQuests = () => {
             filter="url(#circuit-glow)"
             strokeDasharray="6 4"
           />
-          <circle cx="280" cy="150" r="3.5" fill="#FACC15" filter="url(#circuit-glow)" />
+          <circle cx="280" cy="150" r="3.5" fill="#14B8A6" filter="url(#circuit-glow)" />
           <circle cx="306" cy="250" r="3.5" fill="#38BDF8" filter="url(#circuit-glow)" />
 
           {/* Line 2: Po (low, right side) to Minions (high, left side) */}
@@ -298,13 +298,13 @@ const SideQuests = () => {
           <circle cx="920" cy="250" r="3.5" fill="#EF4444" filter="url(#circuit-glow)" />
         </svg>
 
-        {/* CARD 1: CAPTAIN JACK SPARROW (Gold & Cyan Theme) */}
+        {/* CARD 1: CAPTAIN JACK SPARROW (Teal & Weathered Gold Pirate Theme) */}
         <div 
           className="sci-fi-card stagger-card"
           style={{
-            borderColor: hoveredCard === 'jack' ? '#FACC1599' : 'rgba(250, 204, 21, 0.15)',
+            borderColor: hoveredCard === 'jack' ? '#D9770699' : 'rgba(217, 119, 6, 0.15)',
             boxShadow: hoveredCard === 'jack' 
-              ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(250, 204, 21, 0.15), 0 0 60px rgba(6, 182, 212, 0.1)'
+              ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 119, 6, 0.2), 0 0 60px rgba(20, 184, 166, 0.15)'
               : '0 10px 40px rgba(0, 0, 0, 0.7)'
           }}
           onMouseEnter={() => setHoveredCard('jack')}
@@ -316,20 +316,20 @@ const SideQuests = () => {
             justifyContent: 'between',
             alignItems: 'center',
             padding: '16px 20px 8px',
-            borderBottom: '1px solid rgba(250, 204, 21, 0.15)',
+            borderBottom: '1px solid rgba(217, 119, 6, 0.15)',
             fontSize: '10px',
-            color: '#FACC15',
+            color: '#D97706',
             fontFamily: 'monospace',
             letterSpacing: '0.1em'
           }}>
             <span>SUBJECT: DOSSIER_JS_082</span>
-            <span style={{ marginLeft: 'auto', opacity: 0.6 }}>CLASSIFIED // AI_REC</span>
+            <span style={{ marginLeft: 'auto', opacity: 0.6 }}>CLASSIFIED // PIRATE_ARCHIVE</span>
           </div>
 
           {/* Image Dossier Frame */}
           <div 
             className="dossier-image-container"
-            style={{ color: '#06B6D4' }} // Cyan accents for HUD elements
+            style={{ color: '#14B8A6' }} // Teal accents for HUD elements
           >
             {/* HUD Corner Brackets */}
             <div className="corner-bracket bracket-tl"></div>
@@ -341,10 +341,10 @@ const SideQuests = () => {
             <div className="scanline"></div>
             <div className="hologram-overlay"></div>
 
-            {/* Floating Gold Particles (drifting behind/above) */}
-            <div className="gold-particle" style={{ left: '15%', width: '6px', height: '6px', animationDelay: '0s', animationDuration: '5s' }}></div>
-            <div className="gold-particle" style={{ left: '45%', width: '8px', height: '8px', animationDelay: '1.5s', animationDuration: '7s' }}></div>
-            <div className="gold-particle" style={{ left: '75%', width: '5px', height: '5px', animationDelay: '3.2s', animationDuration: '6s' }}></div>
+            {/* Floating Teal & Amber Particles (drifting behind/above) */}
+            <div className="gold-particle" style={{ left: '15%', width: '6px', height: '6px', animationDelay: '0s', animationDuration: '5s', background: 'radial-gradient(circle, #14B8A6 20%, transparent 70%)' }}></div>
+            <div className="gold-particle" style={{ left: '45%', width: '8px', height: '8px', animationDelay: '1.5s', animationDuration: '7s', background: 'radial-gradient(circle, #D97706 20%, transparent 70%)' }}></div>
+            <div className="gold-particle" style={{ left: '75%', width: '5px', height: '5px', animationDelay: '3.2s', animationDuration: '6s', background: 'radial-gradient(circle, #14B8A6 20%, transparent 70%)' }}></div>
 
             <img
               src={`${import.meta.env.BASE_URL}images/jack-sparrow.jpg`}
@@ -364,7 +364,7 @@ const SideQuests = () => {
               position: 'absolute',
               bottom: '10px',
               left: '10px',
-              color: '#06B6D4',
+              color: '#14B8A6',
               fontFamily: 'monospace',
               fontSize: '8px',
               opacity: 0.7,
@@ -384,18 +384,18 @@ const SideQuests = () => {
                 gap: '5px',
                 fontFamily: 'monospace',
                 fontSize: '10px',
-                color: '#FACC15',
-                border: '1px solid rgba(250, 204, 21, 0.3)',
+                color: '#14B8A6',
+                border: '1px solid rgba(20, 184, 166, 0.3)',
                 borderRadius: '4px',
                 padding: '2px 8px',
-                backgroundColor: 'rgba(250, 204, 21, 0.05)',
+                backgroundColor: 'rgba(20, 184, 166, 0.05)',
                 fontWeight: 'bold',
               }}>
                 <span style={{
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  backgroundColor: '#FACC15',
+                  backgroundColor: '#14B8A6',
                   display: 'inline-block',
                   animation: 'blink-anim 1s infinite'
                 }}></span>
@@ -404,7 +404,7 @@ const SideQuests = () => {
             </div>
 
             <h3 style={{ 
-              color: '#FACC15', 
+              color: '#D97706', 
               fontWeight: 800, 
               fontSize: '1.2rem', 
               letterSpacing: '0.03em', 
@@ -426,7 +426,7 @@ const SideQuests = () => {
 
             {/* Interactive Data Block Stats */}
             <div style={{
-              borderTop: '1px dashed rgba(250, 204, 21, 0.2)',
+              borderTop: '1px dashed rgba(217, 119, 6, 0.2)',
               paddingTop: '14px',
               fontFamily: 'monospace',
               fontSize: '10px',
@@ -437,11 +437,11 @@ const SideQuests = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>UNPREDICTABLE INDEX:</span>
-                <span style={{ color: '#06B6D4', fontWeight: 'bold' }}>98.4%</span>
+                <span style={{ color: '#14B8A6', fontWeight: 'bold' }}>98.4%</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>TACTICAL ESCAPES:</span>
-                <span style={{ color: '#FACC15', fontWeight: 'bold' }}>MAX_VAL</span>
+                <span style={{ color: '#D97706', fontWeight: 'bold' }}>MAX_VAL</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>RUM RESERVES:</span>
@@ -801,7 +801,7 @@ const SideQuests = () => {
           style={{
             borderColor: hoveredCard === 'mcqueen' ? '#EF444499' : 'rgba(239, 68, 68, 0.15)',
             boxShadow: hoveredCard === 'mcqueen' 
-              ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(239, 68, 68, 0.2), 0 0 60px rgba(250, 204, 21, 0.15)'
+              ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(239, 68, 68, 0.35), 0 0 60px rgba(250, 204, 21, 0.1)'
               : '0 10px 40px rgba(0, 0, 0, 0.7)'
           }}
           onMouseEnter={() => setHoveredCard('mcqueen')}
@@ -844,7 +844,7 @@ const SideQuests = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'contain',
+                objectFit: 'cover',
                 objectPosition: 'center',
                 position: 'relative',
                 zIndex: 2,
@@ -882,7 +882,7 @@ const SideQuests = () => {
                 fontFamily: 'monospace',
                 fontSize: '10px',
                 color: '#EF4444',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
+                border: '1px solid rgba(250, 204, 21, 0.4)',
                 borderRadius: '4px',
                 padding: '2px 8px',
                 backgroundColor: 'rgba(239, 68, 68, 0.08)',
@@ -892,7 +892,7 @@ const SideQuests = () => {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  backgroundColor: '#EF4444',
+                  backgroundColor: '#FACC15',
                   display: 'inline-block',
                   animation: 'blink-anim 0.8s infinite'
                 }}></span>
@@ -901,7 +901,7 @@ const SideQuests = () => {
             </div>
 
             <h3 style={{ 
-              color: '#FACC15', 
+              color: '#EF4444', 
               fontWeight: 800, 
               fontSize: '1.2rem', 
               letterSpacing: '0.03em', 
@@ -934,11 +934,11 @@ const SideQuests = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>TOP SPEED:</span>
-                <span style={{ color: '#FACC15', fontWeight: 'bold' }}>200 MPH</span>
+                <span style={{ color: '#EF4444', fontWeight: 'bold' }}>200 MPH</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>EGO LEVEL:</span>
-                <span style={{ color: '#EF4444', fontWeight: 'bold' }}>95%</span>
+                <span style={{ color: '#FACC15', fontWeight: 'bold' }}>95%</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>FRIENDSHIP BOOST:</span>
@@ -946,7 +946,7 @@ const SideQuests = () => {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>CATCHPHRASE POWER:</span>
-                <span style={{ color: '#38BDF8', fontWeight: 'bold' }}>KA-CHOW</span>
+                <span style={{ color: '#FACC15', fontWeight: 'bold' }}>KA-CHOW</span>
               </div>
             </div>
           </div>
