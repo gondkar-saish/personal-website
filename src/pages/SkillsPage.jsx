@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Skills from '../components/Skills';
+import SkillsCube from '../components/SkillsCube';
 import ModulePreloader from '../components/ModulePreloader';
 
 const SkillsPage = () => {
@@ -7,12 +7,12 @@ const SkillsPage = () => {
   const [contentVisible, setContentVisible] = useState(false);
 
   const loadingLines = [
-    'INITIALIZING SKILLS MODULE //',
-    'scanning tech stack',
-    'loading backend tools',
-    'mapping frontend systems',
-    'connecting hardware knowledge',
-    'rendering saish_gondkar.skills'
+    'INITIALIZING 3D SKILLS MODULE //',
+    'loading react-three-fiber engine',
+    'compiling shader programs',
+    'calibrating cube geometry',
+    'mapping tech stack to faces',
+    'rendering saish_gondkar.skills_3d'
   ];
 
   useEffect(() => {
@@ -35,17 +35,17 @@ const SkillsPage = () => {
   return (
     <>
       {showIntro && (
-        <ModulePreloader 
-          lines={loadingLines} 
-          onComplete={handleIntroComplete} 
-          speed={200} 
+        <ModulePreloader
+          lines={loadingLines}
+          onComplete={handleIntroComplete}
+          speed={200}
         />
       )}
-      
+
       <div className={`pt-20 transition-all duration-1000 ease-out transform ${
         contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}>
-        <Skills />
+        <SkillsCube />
       </div>
     </>
   );
