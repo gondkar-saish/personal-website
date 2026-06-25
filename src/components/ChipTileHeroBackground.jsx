@@ -32,7 +32,7 @@ const ChipTileHeroBackground = () => {
       `}</style>
       
       {/* Tile Grid */}
-      <div className="absolute inset-[-5%] w-[110%] h-[110%] opacity-5">
+      <div className="absolute inset-[-5%] w-[110%] h-[110%] opacity-[0.08]">
         <div className="w-full h-full grid grid-cols-10 md:grid-cols-16 lg:grid-cols-24 auto-rows-fr gap-2 p-2">
            {tiles.map((tile) => {
              const hasGlow = Math.random() > 0.85; // Randomly assign a subtle cyan edge to some tiles

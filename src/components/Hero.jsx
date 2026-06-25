@@ -17,7 +17,7 @@ const Hero = () => {
           I build scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
         </h1>
         
-        <h2 className="font-transformers text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest text-text-muted opacity-40 mb-12 drop-shadow-sm" style={{ letterSpacing: '0.3em' }}>
+        <h2 className="font-transformers text-base md:text-lg lg:text-xl font-bold uppercase tracking-widest text-text-muted opacity-60 mb-12 drop-shadow-sm" style={{ letterSpacing: '0.3em' }}>
           Built for Systems.
         </h2>
       </div>
