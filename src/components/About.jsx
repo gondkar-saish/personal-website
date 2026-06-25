@@ -182,8 +182,11 @@ const About = () => {
             
             <div className="w-16 h-1 bg-white/10 rounded-full mb-5"></div>
             
-            <p className="text-text-muted text-lg md:text-[1.15rem] leading-[1.5] max-w-[270px] md:max-w-[310px]">
-              Building scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
+            <p className="text-text-muted font-medium text-lg md:text-[1.15rem] leading-[1.5] w-full max-w-[420px]">
+              Building scalable software,<br className="hidden md:block"/>
+              Embedded hardware projects,<br className="hidden md:block"/>
+              and Backend Systems with an<br className="hidden md:block"/>
+              engineering-first mindset
             </p>
           </div>
 
