@@ -348,6 +348,7 @@ function BackendCore({ targetColor }) {
   );
 }
 
+// ─── Floating high-tech smartphone screen frame ───
 function MobileCore({ targetColor }) {
   const phoneRef = useRef();
   const atomRef = useRef();
@@ -364,7 +365,6 @@ function MobileCore({ targetColor }) {
 
   return (
     <group>
-      {/* Floating high-tech smartphone screen frame */}
       <group ref={phoneRef}>
         {/* Phone Bezel */}
         <mesh>
@@ -806,9 +806,9 @@ function TechCore({ activeFace }) {
     }
   });
 
-  // Render thematic centerpiece depending on active face division
+  // Render scaled-up thematic centerpiece depending on active face division
   return (
-    <group ref={coreRef}>
+    <group ref={coreRef} scale={1.25}>
       {activeFace === 0 && <BackendCore targetColor={targetColor} />}
       {activeFace === 1 && <MobileCore targetColor={targetColor} />}
       {activeFace === 2 && <HardwareCore targetColor={targetColor} />}
@@ -823,8 +823,8 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
   const currentPos = useRef(new THREE.Vector3(0, 0, 0));
   const currentScale = useRef(0);
 
-  // Decreased orbit radius to 1.70 to guarantee nodes stay inside the visible frame area
-  const radius = 1.70;
+  // Spaced at a comfortable radius of 1.90 to support larger node sizes beautifully
+  const radius = 1.90;
   const angle = (index * 2 * Math.PI) / total;
 
   // Orbit target position in space surrounding the core
@@ -854,9 +854,9 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
 
   return (
     <group ref={ref}>
-      {/* Slightly smaller glass HUD panel plate to prevent overlapping */}
+      {/* Significantly larger glass HUD panel plate (from 0.48 to 0.72) */}
       <mesh>
-        <planeGeometry args={[0.48, 0.48]} />
+        <planeGeometry args={[0.72, 0.72]} />
         <meshPhysicalMaterial
           color="#060c18"
           roughness={0.7}
@@ -870,26 +870,26 @@ function TechNode({ techName, index, total, isTargetActive, color }) {
         />
       </mesh>
 
-      {/* Premium thin glowing border outline */}
+      {/* Premium thin glowing border outline matching the larger panel size */}
       <lineSegments>
-        <edgesGeometry args={[new THREE.PlaneGeometry(0.48, 0.48)]} />
+        <edgesGeometry args={[new THREE.PlaneGeometry(0.72, 0.72)]} />
         <lineBasicMaterial color={color} transparent opacity={0.45} />
       </lineSegments>
 
-      {/* 3D Logo Component - scaled down slightly to fit new panel size */}
-      <group position={[0, 0.04, 0.03]} scale={0.88}>
+      {/* 3D Logo Component - scaled up to 1.45x for high prominence and detail */}
+      <group position={[0, 0.08, 0.04]} scale={1.45}>
         <TechLogo3D techName={techName} />
       </group>
 
-      {/* Highly legible, slightly tighter Text Label */}
+      {/* Highly legible, larger Text Label (from 0.072 to 0.11) with a perfect vertical offset */}
       <Text
-        position={[0, -0.34, 0.03]}
-        fontSize={0.072}
+        position={[0, -0.52, 0.04]}
+        fontSize={0.11}
         color="#FFFFFF"
         anchorX="center"
         anchorY="middle"
         fontWeight={700}
-        outlineWidth={0.005}
+        outlineWidth={0.006}
         outlineColor="#000308"
       >
         {techName}
@@ -970,8 +970,8 @@ function ArtifactScene({ activeFace, mouseRef }) {
 
   return (
     <>
-      {/* Camera moved back to position Z = 6.4 to provide a wide, safe viewport */}
-      <PerspectiveCamera makeDefault position={[0, 0, 6.4]} fov={40} />
+      {/* Camera moved back to Z = 7.8 to provide a wide, safe viewport for larger nodes */}
+      <PerspectiveCamera makeDefault position={[0, 0, 7.8]} fov={40} />
 
       {/* Clean high-contrast ambient lighting */}
       <ambientLight intensity={0.8} color="#1c2538" />
@@ -1008,7 +1008,7 @@ function ArtifactScene({ activeFace, mouseRef }) {
 
       {/* Subtle bloom postprocessing */}
       <EffectComposer>
-        <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.95} intensity={0.12} />
+        <Bloom opacity={0.5} luminanceThreshold={0.6} luminanceSmoothing={0.95} intensity={0.12} />
       </EffectComposer>
     </>
   );

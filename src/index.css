@@ -1,9 +1,56 @@
 @import "tailwindcss";
 
-/* Custom Cursors (Iron Man Helmet) */
+/* Theme Variables & Transitions */
 :root {
+  /* Dark Mode Default Variables */
+  --theme-background: #030712;
+  --theme-panel-deep: rgba(10, 20, 35, 0.72);
+  --theme-text: #F8FAFC;
+  --theme-text-light: #94A3B8;
+  
+  /* Background Elements */
+  --bg-gradient-start: rgba(7, 17, 31, 0.85);
+  --bg-gradient-end: #030712;
+  --bg-grid-color: rgba(56, 189, 248, 0.15);
+  --bg-circuit-stroke: rgba(56, 189, 248, 0.08);
+  --bg-trace-color-1: #00E0A4;
+  --bg-trace-color-2: #38BDF8;
+  --bg-vignette: #020408;
+  
+  /* Navbar & Glass */
+  --nav-bg: rgba(8, 12, 24, 0.75);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-text: #F8FAFC;
+  --nav-text-muted: #94A3B8;
+  --nav-btn-hover: rgba(255, 255, 255, 0.05);
+  
+  /* Custom Cursors */
   --cursor-face: auto;
   --cursor-hand: pointer;
+}
+
+.light {
+  /* Light Mode Variables */
+  --theme-background: #F8FAFC;
+  --theme-panel-deep: rgba(241, 245, 249, 0.8);
+  --theme-text: #0F172A;
+  --theme-text-light: #475569;
+  
+  /* Background Elements */
+  --bg-gradient-start: rgba(226, 232, 240, 0.85);
+  --bg-gradient-end: #F8FAFC;
+  --bg-grid-color: rgba(15, 23, 42, 0.06);
+  --bg-circuit-stroke: rgba(15, 23, 42, 0.06);
+  --bg-trace-color-1: #0D9488;
+  --bg-trace-color-2: #0284C7;
+  --bg-vignette: #CBD5E1;
+  
+  /* Navbar & Glass */
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --nav-border: rgba(15, 23, 42, 0.08);
+  --nav-text: #0F172A;
+  --nav-text-muted: #475569;
+  --nav-btn-hover: rgba(0, 0, 0, 0.04);
 }
 
 html, body {
@@ -13,16 +60,16 @@ html, body {
 a, button, .nav-link, .project-card, .side-quest-card, .sci-fi-card, .engineering-card,
 .engineering-button-primary, .engineering-button-secondary, .clickable, [role="button"], [style*="cursor: pointer"],
 a *, button *, [role="button"] * {
-  cursor: var(--cursor-hand) !important; /* Force custom cursor on hover */
+  cursor: var(--cursor-hand) !important;
 }
 
 @theme {
   --color-primary: #00E0A4; /* Accent teal */
   --color-secondary: #38BDF8; /* Accent cyan */
-  --color-background: #030712; /* Main background */
-  --color-panel-deep: #07111f; /* Deep panel */
-  --color-text: #F8FAFC; /* Text white */
-  --color-text-light: #94A3B8; /* Muted text */
+  --color-background: var(--theme-background);
+  --color-panel-deep: var(--theme-panel-deep);
+  --color-text: var(--theme-text);
+  --color-text-light: var(--theme-text-light);
   
   --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
@@ -35,6 +82,11 @@ body {
   padding: 0;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth transitions for theme switching */
+body, nav, div, p, h1, h2, h3, h4, h5, h6, span, a, button {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @utility font-transformers {
@@ -99,11 +151,11 @@ body {
 /* Futuristic Engineering Card Utility */
 @utility engineering-card {
   position: relative;
-  background: rgba(10, 20, 35, 0.72);
+  background: var(--theme-panel-deep);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 224, 164, 0.22);
   border-radius: 12px;
-  box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.05), 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   overflow: hidden;
   
@@ -137,7 +189,7 @@ body {
   &:hover {
     transform: translateY(-4px);
     border-color: rgba(0, 224, 164, 0.6);
-    box-shadow: inset 0 0 15px rgba(0, 224, 164, 0.08), 0 15px 30px rgba(0, 224, 164, 0.12), 0 10px 25px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 0 15px rgba(0, 224, 164, 0.08), 0 15px 30px rgba(0, 224, 164, 0.12), 0 10px 25px rgba(0, 0, 0, 0.5);
     
     &::before {
       border-color: #00E0A4;
@@ -192,7 +244,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #F8FAFC;
+  color: var(--theme-text);
   background: rgba(10, 20, 35, 0.45);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(56, 189, 248, 0.35);
