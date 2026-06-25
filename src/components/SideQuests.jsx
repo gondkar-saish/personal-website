@@ -826,7 +826,10 @@ const SideQuests = () => {
           {/* Image Dossier Frame */}
           <div 
             className="dossier-image-container"
-            style={{ color: '#FACC15' }}
+            style={{ 
+              color: '#FACC15',
+              background: 'radial-gradient(ellipse at center bottom, rgba(80,10,10,0.6) 0%, #02040a 70%)'
+            }}
           >
             {/* HUD Corner Brackets */}
             <div className="corner-bracket bracket-tl"></div>
@@ -844,13 +847,14 @@ const SideQuests = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
+                objectFit: 'contain',
+                objectPosition: 'center bottom',
                 position: 'relative',
                 zIndex: 2,
+                padding: '8px 4px 0',
                 filter: hoveredCard === 'mcqueen' 
-                  ? 'brightness(1.1) contrast(1.05) drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))' 
-                  : 'brightness(0.9) contrast(1)',
+                  ? 'brightness(1.1) contrast(1.05) drop-shadow(0 0 12px rgba(239, 68, 68, 0.6))' 
+                  : 'brightness(0.95) contrast(1)',
                 animation: hoveredCard === 'mcqueen' ? 'mcqueen-rumble-anim 0.15s infinite linear' : 'none',
                 transition: 'filter 0.3s ease'
               }}
