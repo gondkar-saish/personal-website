@@ -49,11 +49,94 @@ const SideQuests = () => {
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 20px;
           overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
         }
-        .sci-fi-card:hover {
-          transform: translateY(-10px) scale(1.02);
+        .stagger-card {
+          transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s, box-shadow 0.4s;
+        }
+        .dossier-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 40px;
+          justify-content: center;
+          align-items: stretch;
+          max-width: 1200px;
+          margin: 50px auto 0;
+          position: relative;
+          z-index: 2;
+        }
+        .circuit-lines {
+          display: none;
+        }
+        @media (max-width: 639px) {
+          .stagger-card:hover {
+            transform: translateY(-8px) scale(1.02);
+          }
+        }
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .dossier-grid {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 800px;
+            gap: 32px;
+            padding: 20px 0;
+          }
+          .stagger-card:nth-child(odd) {
+            transform: translateY(-15px);
+          }
+          .stagger-card:nth-child(even) {
+            transform: translateY(15px);
+          }
+          .stagger-card:nth-child(odd):hover {
+            transform: translateY(-25px) scale(1.03);
+          }
+          .stagger-card:nth-child(even):hover {
+            transform: translateY(5px) scale(1.03);
+          }
+        }
+        @media (min-width: 1024px) {
+          .dossier-grid {
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 1240px;
+            gap: 20px;
+            padding: 40px 0;
+          }
+          .stagger-card:nth-child(1),
+          .stagger-card:nth-child(3) {
+            transform: translateY(-25px);
+          }
+          .stagger-card:nth-child(2),
+          .stagger-card:nth-child(4) {
+            transform: translateY(25px);
+          }
+          .stagger-card:nth-child(1):hover,
+          .stagger-card:nth-child(3):hover {
+            transform: translateY(-38px) scale(1.03);
+          }
+          .stagger-card:nth-child(2):hover,
+          .stagger-card:nth-child(4):hover {
+            transform: translateY(12px) scale(1.03);
+          }
+          .circuit-lines {
+            display: block;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+          }
+        }
+        @keyframes mcqueen-rumble-anim {
+          0%, 100% { transform: scale(1) translate(0, 0); }
+          10% { transform: scale(1.04) translate(-1.5px, -1px); }
+          20% { transform: scale(1.04) translate(1.5px, 0.5px); }
+          30% { transform: scale(1.04) translate(-0.5px, 1.5px); }
+          40% { transform: scale(1.04) translate(1px, -1.5px); }
+          50% { transform: scale(1.04) translate(-1.5px, 0.5px); }
+          60% { transform: scale(1.04) translate(1.5px, -1px); }
+          70% { transform: scale(1.04) translate(-0.5px, 0.5px); }
+          80% { transform: scale(1.04) translate(1.5px, 1.5px); }
+          90% { transform: scale(1.04) translate(-1.5px, -1.5px); }
         }
         .dossier-image-container {
           position: relative;
@@ -153,20 +236,71 @@ const SideQuests = () => {
         </p>
       </div>
 
-      {/* Redesigned 3-Card Dossier Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-        gap: '40px',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        maxWidth: '1150px',
-        margin: '0 auto'
-      }}>
+      {/* Staggered Classified Archive Wall Layout */}
+      <div className="dossier-grid">
         
+        {/* Connecting Circuit Lines (Desktop Only) */}
+        <svg className="circuit-lines" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="circuit-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#FACC15" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.5" />
+            </linearGradient>
+            <linearGradient id="circuit-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#FDE047" stopOpacity="0.5" />
+            </linearGradient>
+            <linearGradient id="circuit-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#FDE047" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#EF4444" stopOpacity="0.5" />
+            </linearGradient>
+            
+            <filter id="circuit-glow" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Line 1: Jack (high, right side) to Po (low, left side) */}
+          <path 
+            d="M 280 150 L 293 150 L 293 250 L 306 250" 
+            stroke="url(#circuit-grad-1)" 
+            strokeWidth="1.5" 
+            filter="url(#circuit-glow)"
+            strokeDasharray="6 4"
+          />
+          <circle cx="280" cy="150" r="3.5" fill="#FACC15" filter="url(#circuit-glow)" />
+          <circle cx="306" cy="250" r="3.5" fill="#38BDF8" filter="url(#circuit-glow)" />
+
+          {/* Line 2: Po (low, right side) to Minions (high, left side) */}
+          <path 
+            d="M 586 250 L 600 250 L 600 150 L 613 150" 
+            stroke="url(#circuit-grad-2)" 
+            strokeWidth="1.5" 
+            filter="url(#circuit-glow)"
+            strokeDasharray="6 4"
+          />
+          <circle cx="586" cy="250" r="3.5" fill="#38BDF8" filter="url(#circuit-glow)" />
+          <circle cx="613" cy="150" r="3.5" fill="#FDE047" filter="url(#circuit-glow)" />
+
+          {/* Line 3: Minions (high, right side) to McQueen (low, left side) */}
+          <path 
+            d="M 893 150 L 906 150 L 906 250 L 920 250" 
+            stroke="url(#circuit-grad-3)" 
+            strokeWidth="1.5" 
+            filter="url(#circuit-glow)"
+            strokeDasharray="6 4"
+          />
+          <circle cx="893" cy="150" r="3.5" fill="#FDE047" filter="url(#circuit-glow)" />
+          <circle cx="920" cy="250" r="3.5" fill="#EF4444" filter="url(#circuit-glow)" />
+        </svg>
+
         {/* CARD 1: CAPTAIN JACK SPARROW (Gold & Cyan Theme) */}
         <div 
-          className="sci-fi-card"
+          className="sci-fi-card stagger-card"
           style={{
             borderColor: hoveredCard === 'jack' ? '#FACC1599' : 'rgba(250, 204, 21, 0.15)',
             boxShadow: hoveredCard === 'jack' 
@@ -319,7 +453,7 @@ const SideQuests = () => {
 
         {/* CARD 2: PO, THE DRAGON WARRIOR (Blue Energy Theme) */}
         <div 
-          className="sci-fi-card"
+          className="sci-fi-card stagger-card"
           style={{
             borderColor: hoveredCard === 'po' ? '#38BDF899' : 'rgba(56, 189, 248, 0.15)',
             boxShadow: hoveredCard === 'po' 
@@ -483,13 +617,12 @@ const SideQuests = () => {
 
         {/* CARD 3: MINIONS SQUAD (Yellow Neon Chaotic Theme) */}
         <div 
-          className="sci-fi-card"
+          className="sci-fi-card stagger-card"
           style={{
             borderColor: hoveredCard === 'minions' ? '#FDE04799' : 'rgba(253, 224, 71, 0.15)',
             boxShadow: hoveredCard === 'minions' 
               ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(253, 224, 71, 0.15), 0 0 60px rgba(239, 68, 68, 0.1)'
-              : '0 10px 40px rgba(0, 0, 0, 0.7)',
-            animation: hoveredCard === 'minions' ? 'minion-shake-anim 0.35s infinite ease-in-out' : 'none'
+              : '0 10px 40px rgba(0, 0, 0, 0.7)'
           }}
           onMouseEnter={() => setHoveredCard('minions')}
           onMouseLeave={() => setHoveredCard(null)}
@@ -513,7 +646,11 @@ const SideQuests = () => {
           {/* Image Dossier Frame (3 columns for 3 minions) */}
           <div 
             className="dossier-image-container"
-            style={{ color: '#FDE047', display: 'flex' }}
+            style={{ 
+              color: '#FDE047', 
+              display: 'flex',
+              animation: hoveredCard === 'minions' ? 'minion-shake-anim 0.35s infinite ease-in-out' : 'none'
+            }}
           >
             {/* HUD Corner Brackets */}
             <div className="corner-bracket bracket-tl"></div>
@@ -653,6 +790,163 @@ const SideQuests = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>COLLATERAL DAMAGE:</span>
                 <span style={{ color: '#06B6D4', fontWeight: 'bold' }}>SEVERE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CARD 4: LIGHTNING MCQUEEN (Red & Yellow Speed Theme) */}
+        <div 
+          className="sci-fi-card stagger-card"
+          style={{
+            borderColor: hoveredCard === 'mcqueen' ? '#EF444499' : 'rgba(239, 68, 68, 0.15)',
+            boxShadow: hoveredCard === 'mcqueen' 
+              ? '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(239, 68, 68, 0.2), 0 0 60px rgba(250, 204, 21, 0.15)'
+              : '0 10px 40px rgba(0, 0, 0, 0.7)'
+          }}
+          onMouseEnter={() => setHoveredCard('mcqueen')}
+          onMouseLeave={() => setHoveredCard(null)}
+        >
+          {/* Header Bar */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'between',
+            alignItems: 'center',
+            padding: '16px 20px 8px',
+            borderBottom: '1px solid rgba(239, 68, 68, 0.15)',
+            fontSize: '10px',
+            color: '#EF4444',
+            fontFamily: 'monospace',
+            letterSpacing: '0.1em'
+          }}>
+            <span>SUBJECT: DOSSIER_MCQUEEN_095</span>
+            <span style={{ marginLeft: 'auto', opacity: 0.6 }}>CLASSIFIED // SPEED_ARCHIVE</span>
+          </div>
+
+          {/* Image Dossier Frame */}
+          <div 
+            className="dossier-image-container"
+            style={{ color: '#FACC15' }}
+          >
+            {/* HUD Corner Brackets */}
+            <div className="corner-bracket bracket-tl"></div>
+            <div className="corner-bracket bracket-tr"></div>
+            <div className="corner-bracket bracket-bl"></div>
+            <div className="corner-bracket bracket-br"></div>
+
+            {/* Scanline and holographic overlay */}
+            <div className="scanline"></div>
+            <div className="hologram-overlay"></div>
+
+            <img
+              src={`${import.meta.env.BASE_URL}images/mcqueen.png`}
+              alt="Lightning McQueen"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                position: 'relative',
+                zIndex: 2,
+                filter: hoveredCard === 'mcqueen' 
+                  ? 'brightness(1.1) contrast(1.05) drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))' 
+                  : 'brightness(0.9) contrast(1)',
+                animation: hoveredCard === 'mcqueen' ? 'mcqueen-rumble-anim 0.15s infinite linear' : 'none',
+                transition: 'filter 0.3s ease'
+              }}
+            />
+
+            <div style={{
+              position: 'absolute',
+              bottom: '10px',
+              left: '10px',
+              color: '#FACC15',
+              fontFamily: 'monospace',
+              fontSize: '8px',
+              opacity: 0.7,
+              letterSpacing: '0.05em',
+              zIndex: 3
+            }}>
+              SYS_REF: KACHOW_ENG // RPM: MAX
+            </div>
+          </div>
+
+          {/* Card Content Area */}
+          <div style={{ padding: '8px 24px 28px' }}>
+            {/* Status Tag */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                fontFamily: 'monospace',
+                fontSize: '10px',
+                color: '#EF4444',
+                border: '1px solid rgba(239, 68, 68, 0.4)',
+                borderRadius: '4px',
+                padding: '2px 8px',
+                backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                fontWeight: 'bold',
+              }}>
+                <span style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: '#EF4444',
+                  display: 'inline-block',
+                  animation: 'blink-anim 0.8s infinite'
+                }}></span>
+                SPEED MODE: ACTIVE
+              </span>
+            </div>
+
+            <h3 style={{ 
+              color: '#FACC15', 
+              fontWeight: 800, 
+              fontSize: '1.2rem', 
+              letterSpacing: '0.03em', 
+              marginBottom: '10px',
+              textTransform: 'uppercase'
+            }}>
+              Lightning McQueen
+            </h3>
+            
+            <p style={{ 
+              color: '#94A3B8', 
+              fontFamily: 'monospace',
+              fontSize: '0.82rem', 
+              lineHeight: 1.6,
+              marginBottom: '20px'
+            }}>
+              A high-speed legend powered by confidence, loyalty, and pure racing instinct. Turns every track into a comeback story.
+            </p>
+
+            {/* Interactive Data Block Stats */}
+            <div style={{
+              borderTop: '1px dashed rgba(239, 68, 68, 0.2)',
+              paddingTop: '14px',
+              fontFamily: 'monospace',
+              fontSize: '10px',
+              color: '#8A99AD',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>TOP SPEED:</span>
+                <span style={{ color: '#FACC15', fontWeight: 'bold' }}>200 MPH</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>EGO LEVEL:</span>
+                <span style={{ color: '#EF4444', fontWeight: 'bold' }}>95%</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>FRIENDSHIP BOOST:</span>
+                <span style={{ color: '#00E0A4', fontWeight: 'bold' }}>MAX</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>CATCHPHRASE POWER:</span>
+                <span style={{ color: '#38BDF8', fontWeight: 'bold' }}>KA-CHOW</span>
               </div>
             </div>
           </div>
