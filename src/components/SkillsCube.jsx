@@ -3,9 +3,11 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Float,
   Text,
+  Html,
   Sparkles,
   PerspectiveCamera,
 } from '@react-three/drei';
+import { Cpu, Thermometer, Radio, Activity, Lightbulb } from 'lucide-react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
@@ -566,46 +568,28 @@ function JavaScriptLogo() {
   );
 }
 
-function MicrochipLogo() {
-  return (
-    <group>
-      {/* Board */}
-      <mesh>
-        <boxGeometry args={[0.14, 0.1, 0.015]} />
-        <meshStandardMaterial color="#065F46" roughness={0.8} />
-      </mesh>
-      {/* CPU Chip */}
-      <mesh position={[0, 0, 0.009]}>
-        <boxGeometry args={[0.06, 0.06, 0.01]} />
-        <meshStandardMaterial color="#1F2937" metalness={0.1} roughness={0.5} />
-      </mesh>
-      {/* Golden Pins */}
-      <mesh position={[-0.048, 0, 0.009]}>
-        <boxGeometry args={[0.01, 0.08, 0.004]} />
-        <meshStandardMaterial color="#D97706" metalness={0.9} roughness={0.15} />
-      </mesh>
-      <mesh position={[0.048, 0, 0.009]}>
-        <boxGeometry args={[0.01, 0.08, 0.004]} />
-        <meshStandardMaterial color="#D97706" metalness={0.9} roughness={0.15} />
-      </mesh>
-    </group>
-  );
-}
+function HardwareHtmlIcon({ type }) {
+  let Icon = Cpu;
+  if (type === 'esp32' || type === 'arduino') Icon = Cpu;
+  if (type === 'dht11') Icon = Thermometer;
+  if (type === 'pir') Icon = Activity;
+  if (type === 'ldr') Icon = Lightbulb;
+  if (type === 'sensor') Icon = Radio;
 
-function SensorLogo() {
   return (
-    <group>
-      {/* Base */}
-      <mesh position={[0, -0.03, 0]}>
-        <boxGeometry args={[0.1, 0.03, 0.1]} />
-        <meshStandardMaterial color="#64748B" roughness={0.5} />
-      </mesh>
-      {/* Sensor dome */}
-      <mesh position={[0, 0.015, 0]}>
-        <sphereGeometry args={[0.054, 16, 16]} />
-        <meshStandardMaterial color="#E2E8F0" metalness={0.2} roughness={0.1} />
-      </mesh>
-    </group>
+    <Html transform center position={[0, 0, 0.05]} scale={0.12} zIndexRange={[100, 0]}>
+      <div style={{
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        width: '40px',
+        height: '40px',
+        color: '#00E0A4',
+        filter: 'drop-shadow(0px 0px 8px rgba(0, 224, 164, 0.8))',
+      }}>
+        <Icon size={40} strokeWidth={2.5} />
+      </div>
+    </Html>
   );
 }
 
@@ -766,10 +750,14 @@ function TechLogo3D({ techName, isLight }) {
     return <JavaScriptLogo />;
   }
   if (normalized.includes('esp32') || normalized.includes('arduino')) {
-    return <MicrochipLogo />;
+    return <HardwareHtmlIcon type={normalized.includes('esp32') ? 'esp32' : 'arduino'} />;
   }
   if (normalized.includes('dht11') || normalized.includes('pir') || normalized.includes('ldr') || normalized.includes('sensor')) {
-    return <SensorLogo />;
+    let type = 'sensor';
+    if (normalized.includes('dht11')) type = 'dht11';
+    if (normalized.includes('pir')) type = 'pir';
+    if (normalized.includes('ldr')) type = 'ldr';
+    return <HardwareHtmlIcon type={type} />;
   }
   if (normalized === 'git') {
     return <GitLogo />;
