@@ -15,7 +15,7 @@ const Hero = () => {
         </p>
         
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-8 max-w-3xl leading-tight tracking-tight drop-shadow-md">
-          I build scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
+          Building scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
         </h1>
         
         <h2 className="font-transformers text-base md:text-lg lg:text-xl font-bold uppercase tracking-widest text-text-muted opacity-60 mb-12 drop-shadow-sm" style={{ letterSpacing: '0.3em' }}>
