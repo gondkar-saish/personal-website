@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import IntroAnimation from './components/IntroAnimation';
 import GlobalBackground from './components/GlobalBackground';
+import { Analytics } from "@vercel/analytics/react";
 
 // Pages
 import Home from './pages/Home';
@@ -74,6 +75,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      <Analytics />
     </>
   );
 }
