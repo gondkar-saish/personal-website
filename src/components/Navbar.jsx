@@ -27,7 +27,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-4 md:top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[92%] max-w-7xl border border-[var(--nav-border)] shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-2xl z-50 transition-all duration-300 overflow-hidden group/navcontainer">
+    <nav className="fixed top-4 md:top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[92%] max-w-7xl border border-[var(--nav-border)] shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-2xl z-50 transition-all duration-300 group/navcontainer">
       
       <style>{`
         @keyframes nav-circuit-slide {
@@ -51,16 +51,17 @@ const Navbar = () => {
       `}</style>
 
       {/* Glass Base */}
-      <div className="absolute inset-0 bg-[var(--nav-bg)] backdrop-blur-[18px] pointer-events-none -z-20 transition-all duration-500"></div>
+      <div className="absolute inset-0 bg-[var(--nav-bg)] backdrop-blur-[18px] pointer-events-none -z-20 transition-all duration-500 rounded-2xl"></div>
 
       {/* Animated Circuit Pattern */}
-      <div 
-        className="absolute top-0 left-0 h-full w-[calc(100%+400px)] pointer-events-none -z-10 mix-blend-multiply opacity-40 transition-all duration-500"
-        style={{ 
-          animation: prefersReducedMotion ? 'none' : 'nav-circuit-slide 50s linear infinite',
-        }}
-      >
-        <svg width="100%" height="100%">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 rounded-2xl">
+        <div 
+          className="absolute top-0 left-0 h-full w-[calc(100%+400px)] mix-blend-multiply opacity-40 transition-all duration-500"
+          style={{ 
+            animation: prefersReducedMotion ? 'none' : 'nav-circuit-slide 50s linear infinite',
+          }}
+        >
+          <svg width="100%" height="100%">
           <defs>
             <pattern id="nav-circuit" x="0" y="0" width="400" height="80" patternUnits="userSpaceOnUse">
                {/* Circuit lines */}
@@ -84,6 +85,7 @@ const Navbar = () => {
           </defs>
           <rect width="100%" height="100%" fill="url(#nav-circuit)" />
         </svg>
+        </div>
       </div>
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-8">
