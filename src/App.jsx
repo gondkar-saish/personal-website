@@ -28,10 +28,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // TEMPORARILY DISABLED for testing: check if intro has already been played
-    // const introPlayed = sessionStorage.getItem('introPlayed');
-    const introPlayed = false; // Force it to play every time for testing
-    
+    // Show intro only once per browser session (clears on page refresh)
+    const introPlayed = sessionStorage.getItem('introPlayed');
+
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
