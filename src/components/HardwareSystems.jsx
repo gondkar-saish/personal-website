@@ -29,7 +29,7 @@ const HardwareSystems = () => {
     }
   ];
 
-  const [activeIndex, setActiveIndex] = useState(1); // Default to middle card
+  const [activeIndex, setActiveIndex] = useState(0); // Default to ESP32 (first card)
   const [isMobile, setIsMobile] = useState(false);
   const hoverTimeoutRef = useRef(null);
 
