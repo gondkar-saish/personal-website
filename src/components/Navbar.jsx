@@ -56,7 +56,7 @@ const Navbar = () => {
       {/* Animated Circuit Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 rounded-2xl">
         <div 
-          className="absolute top-0 left-0 h-full w-[calc(100%+400px)] mix-blend-multiply opacity-40 transition-all duration-500"
+          className="absolute top-0 left-0 h-full w-[calc(100%+400px)] mix-blend-multiply opacity-75 transition-all duration-500"
           style={{ 
             animation: prefersReducedMotion ? 'none' : 'nav-circuit-slide 50s linear infinite',
           }}
