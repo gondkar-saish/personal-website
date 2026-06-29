@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 // ─── Face Data ────────────────────────────────────────────────────────────────
 const FACES = [
@@ -56,7 +56,7 @@ function DetailPanel({ face }) {
         initial={{ opacity: 0, x: 20, scale: 0.95 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         exit={{ opacity: 0, x: -20, scale: 0.95 }}
-        transition={{ duration: 0.4 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
         className="relative overflow-hidden p-8 rounded-[20px] w-full max-w-[360px] mx-auto md:mx-0"
         style={{
           background: 'linear-gradient(135deg, rgba(4,12,30,0.92) 0%, rgba(6,16,36,0.85) 100%)',
@@ -66,18 +66,18 @@ function DetailPanel({ face }) {
         }}
       >
         {/* Ambient glow blob */}
-        <div className="absolute -top-10 -right-10 w-48 h-48 pointer-events-none"
+        <div className="absolute -top-10 -right-10 w-48 h-48 pointer-events-none transition-colors duration-1000"
           style={{ background: `radial-gradient(circle, ${accent}1a 0%, transparent 70%)` }}
         />
 
         {/* HUD corner brackets */}
-        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2" style={{ borderColor: accent }} />
-        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2" style={{ borderColor: accent }} />
-        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2" style={{ borderColor: accent }} />
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2" style={{ borderColor: accent }} />
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 transition-colors duration-700" style={{ borderColor: accent }} />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 transition-colors duration-700" style={{ borderColor: accent }} />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 transition-colors duration-700" style={{ borderColor: accent }} />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 transition-colors duration-700" style={{ borderColor: accent }} />
 
         {/* Node label */}
-        <div className="font-mono text-[10px] tracking-[0.18em] mb-2 opacity-75" style={{ color: accent }}>
+        <div className="font-mono text-[10px] tracking-[0.18em] mb-2 opacity-75 transition-colors duration-700" style={{ color: accent }}>
           // NODE_{String(face.faceIndex).padStart(2, '0')} ACTIVE
         </div>
 
@@ -87,7 +87,7 @@ function DetailPanel({ face }) {
         </h3>
 
         {/* Divider */}
-        <div className="h-[1px] mb-4" style={{ background: `linear-gradient(90deg, ${accent}55, transparent)` }} />
+        <div className="h-[1px] mb-4 transition-colors duration-700" style={{ background: `linear-gradient(90deg, ${accent}55, transparent)` }} />
 
         {/* Description */}
         <p className="text-slate-400 font-mono text-sm leading-relaxed mb-6 relative z-10">
@@ -96,7 +96,7 @@ function DetailPanel({ face }) {
 
         {/* Tech pills */}
         <div className="mb-6 relative z-10">
-          <div className="font-mono text-[9px] tracking-[0.16em] mb-3 opacity-65" style={{ color: accent }}>
+          <div className="font-mono text-[9px] tracking-[0.16em] mb-3 opacity-65 transition-colors duration-700" style={{ color: accent }}>
             TECHNOLOGIES
           </div>
           <div className="flex flex-wrap gap-2">
@@ -105,8 +105,8 @@ function DetailPanel({ face }) {
                 key={t} 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 + 0.2 }}
-                className="px-3 py-1 rounded-md font-mono text-[10px] font-bold"
+                transition={{ delay: i * 0.05 + 0.1, type: "spring" }}
+                className="px-3 py-1 rounded-md font-mono text-[10px] font-bold transition-colors duration-700"
                 style={{
                   border: `1px solid ${accent}44`,
                   background: `${accent}0c`,
@@ -120,8 +120,8 @@ function DetailPanel({ face }) {
         </div>
 
         {/* Experience */}
-        <div className="pt-3 border-t font-mono text-[10px] text-slate-500 leading-relaxed relative z-10" style={{ borderColor: `${accent}2a` }}>
-          <span style={{ color: accent, opacity: 0.7 }}>EXP // </span>{face.experience}
+        <div className="pt-3 border-t font-mono text-[10px] text-slate-500 leading-relaxed relative z-10 transition-colors duration-700" style={{ borderColor: `${accent}2a` }}>
+          <span className="transition-colors duration-700" style={{ color: accent, opacity: 0.7 }}>EXP // </span>{face.experience}
         </div>
       </motion.div>
     </AnimatePresence>
@@ -130,13 +130,60 @@ function DetailPanel({ face }) {
 
 // ─── Sci-Fi Portal Components ────────────────────────────────────────────────
 
+function CoreParticle({ accentColor }) {
+  const randomAngle = Math.random() * Math.PI * 2;
+  const distance = 80 + Math.random() * 40;
+  const x = Math.cos(randomAngle) * distance;
+  const y = Math.sin(randomAngle) * distance;
+
+  return (
+    <motion.div
+      initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+      animate={{ x, y, scale: Math.random() * 1.5 + 0.5, opacity: 0 }}
+      transition={{ 
+        duration: 2 + Math.random() * 2, 
+        repeat: Infinity, 
+        ease: "easeOut",
+        delay: Math.random() * 2 
+      }}
+      className="absolute w-1 h-1 rounded-full pointer-events-none"
+      style={{ 
+        background: accentColor,
+        boxShadow: `0 0 10px ${accentColor}`
+      }}
+    />
+  );
+}
+
 function CoreArtifact({ accentColor, isMobile }) {
   const outerSize = isMobile ? 120 : 160;
   const midSize = isMobile ? 80 : 110;
   const coreSize = isMobile ? 48 : 64;
 
+  const particles = Array.from({ length: 8 });
+
   return (
     <div className="absolute flex items-center justify-center z-20 pointer-events-none">
+      
+      {/* Pulse Waves */}
+      <motion.div
+        animate={{ scale: [1, 2.5], opacity: [0.6, 0] }}
+        transition={{ duration: 3, ease: "easeOut", repeat: Infinity }}
+        className="absolute rounded-full border border-solid mix-blend-screen"
+        style={{ width: coreSize, height: coreSize, borderColor: accentColor }}
+      />
+      <motion.div
+        animate={{ scale: [1, 3], opacity: [0.4, 0] }}
+        transition={{ duration: 3, ease: "easeOut", repeat: Infinity, delay: 1.5 }}
+        className="absolute rounded-full border border-solid mix-blend-screen"
+        style={{ width: coreSize, height: coreSize, borderColor: accentColor }}
+      />
+
+      {/* Outward Particles */}
+      {particles.map((_, i) => (
+        <CoreParticle key={i} accentColor={accentColor} />
+      ))}
+
       {/* Outer energy rings */}
       <motion.div
         animate={{ rotate: -360 }}
@@ -155,7 +202,7 @@ function CoreArtifact({ accentColor, isMobile }) {
       <motion.div 
         animate={{ scale: [1, 1.15, 1], filter: ['brightness(1)', 'brightness(1.5)', 'brightness(1)'] }}
         transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
-        className="rounded-full flex items-center justify-center"
+        className="rounded-full flex items-center justify-center transition-colors duration-1000"
         style={{ 
           width: coreSize, 
           height: coreSize,
@@ -179,49 +226,54 @@ function TechPortal({ tech, index, total, accentColor, isMobile }) {
 
   return (
     <motion.div
-      className="absolute z-30 flex items-center justify-center group"
+      className="absolute z-30 flex items-center justify-center group cursor-pointer clickable-cursor"
       initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
       animate={{ x, y, opacity: 1, scale: 1 }}
       exit={{ x: 0, y: 0, opacity: 0, scale: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
+      transition={{ type: "spring", stiffness: 100, damping: 15, delay: index * 0.08 }}
     >
       {/* Connector Beam (points from portal back to core) */}
-      <div 
-        className="absolute top-1/2 left-1/2 h-[2px] origin-left opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+      <motion.div 
+        className="absolute top-1/2 left-1/2 h-[3px] origin-left opacity-0 group-hover:opacity-100 pointer-events-none"
         style={{
           width: `${radius - (isMobile ? 24 : 32)}px`,
           background: `linear-gradient(90deg, ${accentColor}00, ${accentColor})`,
           transform: `translateY(-50%) rotate(${Math.atan2(-y, -x)}rad)`,
+          boxShadow: `0 0 15px ${accentColor}`,
         }}
+        initial={{ scaleX: 0 }}
+        whileHover={{ scaleX: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       />
 
       {/* Counter rotation wrapper to keep portals upright while the parent constellation rotates */}
       <motion.div
         animate={{ rotate: -360 }}
-        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+        transition={{ duration: 50, ease: "linear", repeat: Infinity }}
       >
         <motion.div 
-          whileHover={{ scale: 1.25 }}
-          className="relative flex items-center justify-center rounded-full cursor-pointer"
+          whileHover={{ scale: 1.35, zIndex: 50 }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+          className="relative flex items-center justify-center rounded-full"
           style={{ width: size, height: size }}
         >
           {/* Portal Energy Rings */}
           <motion.div 
             animate={{ rotate: 360 }}
-            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-            className="absolute inset-0 rounded-full border border-dashed opacity-60"
-            style={{ borderColor: accentColor }}
+            transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+            className="absolute inset-0 rounded-full border-2 border-dashed opacity-60 group-hover:opacity-100 group-hover:border-solid transition-all duration-300"
+            style={{ borderColor: accentColor, boxShadow: `inset 0 0 10px ${accentColor}` }}
           />
           <div 
-            className="absolute inset-1 rounded-full border opacity-30"
+            className="absolute inset-1 rounded-full border opacity-30 group-hover:opacity-80 transition-opacity duration-300"
             style={{ borderColor: accentColor }}
           />
           
           {/* Portal Background & Content */}
           <div 
-            className="absolute inset-2 rounded-full backdrop-blur-md flex items-center justify-center overflow-hidden"
+            className="absolute inset-2 rounded-full backdrop-blur-md flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:bg-opacity-90"
             style={{ 
-              background: 'rgba(4,12,30,0.7)',
+              background: 'rgba(4,12,30,0.85)',
               boxShadow: `inset 0 0 15px ${accentColor}40, 0 0 15px ${accentColor}40`
             }}
           >
@@ -230,16 +282,22 @@ function TechPortal({ tech, index, total, accentColor, isMobile }) {
             </span>
             <div 
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ background: `radial-gradient(circle, ${accentColor}50 0%, transparent 70%)` }}
+              style={{ background: `radial-gradient(circle, ${accentColor}70 0%, transparent 80%)` }}
             />
           </div>
+          
+          {/* Intense Outer Glow on Hover */}
+          <div 
+            className="absolute inset-[-10px] rounded-full opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 blur-md"
+            style={{ background: `radial-gradient(circle, ${accentColor}40 0%, transparent 70%)` }}
+          />
         </motion.div>
       </motion.div>
     </motion.div>
   );
 }
 
-function PortalConstellation({ activeFace }) {
+function PortalConstellation({ activeFace, parallaxX, parallaxY }) {
   const currentFace = FACES[activeFace];
   const techs = currentFace.techs;
   const accentColor = currentFace.accentColor;
@@ -257,42 +315,45 @@ function PortalConstellation({ activeFace }) {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background ambient glow based on accent color */}
       <div 
-        className="absolute inset-0 opacity-20 transition-colors duration-1000"
+        className="absolute inset-0 opacity-20 transition-colors duration-1000 pointer-events-none"
         style={{ background: `radial-gradient(circle at center, ${accentColor} 0%, transparent 70%)` }}
       />
       
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentFace.id}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.2 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          {/* Slowly rotating container for the entire constellation */}
+      {/* Parallax Container */}
+      <motion.div style={{ x: parallaxX, y: parallaxY }} className="absolute inset-0 flex items-center justify-center">
+        <AnimatePresence mode="wait">
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-            className="relative w-full h-full flex items-center justify-center"
+            key={currentFace.id}
+            initial={{ opacity: 0, scale: 0.7, filter: "blur(10px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 1.3, filter: "blur(10px)" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="absolute inset-0 flex items-center justify-center"
           >
-            {/* Central Relic Hub */}
-            <CoreArtifact accentColor={accentColor} isMobile={isMobile} />
+            {/* Slowly rotating container for the entire constellation */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 50, ease: "linear", repeat: Infinity }}
+              className="relative w-full h-full flex items-center justify-center"
+            >
+              {/* Central Relic Hub */}
+              <CoreArtifact accentColor={accentColor} isMobile={isMobile} />
 
-            {/* Orbiting Dimensional Portals */}
-            {techs.map((tech, index) => (
-              <TechPortal
-                key={tech}
-                tech={tech}
-                index={index}
-                total={techs.length}
-                accentColor={accentColor}
-                isMobile={isMobile}
-              />
-            ))}
+              {/* Orbiting Dimensional Portals */}
+              {techs.map((tech, index) => (
+                <TechPortal
+                  key={tech}
+                  tech={tech}
+                  index={index}
+                  total={techs.length}
+                  accentColor={accentColor}
+                  isMobile={isMobile}
+                />
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </AnimatePresence>
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }
@@ -307,15 +368,24 @@ function FaceTabs({ activeFace, setActiveFace }) {
           <button
             key={face.id}
             onClick={() => setActiveFace(i)}
-            className="px-5 py-2 rounded-lg font-mono text-[11px] font-bold tracking-widest transition-all duration-300 outline-none"
+            className="clickable-cursor px-5 py-2 rounded-lg font-mono text-[11px] font-bold tracking-widest transition-all duration-500 outline-none relative overflow-hidden"
             style={{
               background: on ? `${face.accentColor}15` : 'rgba(4,12,28,0.6)',
               border: `1px solid ${on ? face.accentColor + '80' : 'rgba(255,255,255,0.07)'}`,
               color: on ? face.accentColor : '#64748B',
-              boxShadow: on ? `0 0 18px ${face.accentColor}2a` : 'none',
+              boxShadow: on ? `0 0 20px ${face.accentColor}3a, inset 0 0 10px ${face.accentColor}1a` : 'none',
+              transform: on ? 'scale(1.05)' : 'scale(1)',
             }}
           >
-            {face.label}
+            <span className="relative z-10">{face.label}</span>
+            {on && (
+              <motion.div
+                layoutId="activeTabGlow"
+                className="absolute inset-0 z-0"
+                style={{ background: `linear-gradient(90deg, transparent, ${face.accentColor}2a, transparent)` }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
           </button>
         );
       })}
@@ -327,12 +397,34 @@ function FaceTabs({ activeFace, setActiveFace }) {
 export default function SkillsCube() {
   const [activeFace, setActiveFace] = useState(0);
 
+  // Parallax setup
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { stiffness: 40, damping: 20, mass: 0.5 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+  
+  const parallaxX = useTransform(springX, [-0.5, 0.5], [-20, 20]);
+  const parallaxY = useTransform(springY, [-0.5, 0.5], [-20, 20]);
+
+  const handleMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth) - 0.5;
+    const y = (e.clientY / window.innerHeight) - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
   return (
-    <section id="skills" className="min-h-screen py-20 px-4 flex flex-col justify-center relative bg-transparent font-sans overflow-hidden">
+    <section 
+      id="skills" 
+      className="min-h-screen py-20 px-4 flex flex-col justify-center relative bg-transparent font-sans overflow-hidden"
+      onMouseMove={handleMouseMove}
+    >
       
       {/* Header */}
       <div className="text-center mb-6">
-        <span className="inline-block font-mono text-[11px] text-accent-primary border border-accent-primary/30 rounded px-3 py-1 tracking-widest bg-accent-primary/5 uppercase mb-3">
+        <span className="inline-block font-mono text-[11px] text-accent-primary border border-accent-primary/30 rounded px-3 py-1 tracking-widest bg-accent-primary/5 uppercase mb-3 shadow-[0_0_15px_rgba(0,224,164,0.2)]">
           // TECHNICAL SKILLS NODE
         </span>
         <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight shadow-accent-primary/10 drop-shadow-lg m-0">
@@ -349,15 +441,15 @@ export default function SkillsCube() {
       </div>
 
       {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 max-w-6xl mx-auto w-full">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 max-w-6xl mx-auto w-full relative z-10">
         
         {/* Canvas / Visualization Area */}
-        <div className="w-[340px] h-[340px] md:w-[480px] md:h-[480px] flex-shrink-0 relative rounded-3xl overflow-hidden border transition-colors duration-1000"
+        <div className="w-[340px] h-[340px] md:w-[480px] md:h-[480px] flex-shrink-0 relative rounded-3xl overflow-hidden border transition-all duration-1000"
              style={{ 
-               borderColor: `${FACES[activeFace].accentColor}2a`,
-               boxShadow: `inset 0 0 60px ${FACES[activeFace].accentColor}05, 0 0 60px ${FACES[activeFace].accentColor}0d` 
+               borderColor: `${FACES[activeFace].accentColor}3a`,
+               boxShadow: `inset 0 0 80px ${FACES[activeFace].accentColor}10, 0 0 60px ${FACES[activeFace].accentColor}15` 
              }}>
-          <PortalConstellation activeFace={activeFace} />
+          <PortalConstellation activeFace={activeFace} parallaxX={parallaxX} parallaxY={parallaxY} />
         </div>
 
         {/* Detail Panel */}
