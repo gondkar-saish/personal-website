@@ -32,7 +32,7 @@ const Navbar = () => {
       <style>{`
         @keyframes nav-circuit-slide {
           from { transform: translateX(0); }
-          to { transform: translateX(-400px); }
+          to { transform: translateX(-360px); }
         }
         @keyframes orb-liquid-spin {
           from { transform: rotate(0deg); }
@@ -63,24 +63,26 @@ const Navbar = () => {
         >
           <svg width="100%" height="100%">
           <defs>
-            <pattern id="nav-circuit" x="0" y="0" width="400" height="80" patternUnits="userSpaceOnUse">
-               {/* Circuit lines */}
-               <path d="M 0 25 H 40 L 60 45 H 180 L 200 25 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 60 80 V 60 L 80 40" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 120 45 L 140 65 H 280 L 300 45 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 220 80 V 60 L 240 40 H 260" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 320 0 V 30 L 350 60 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 340 0 V 15 L 355 30 H 400" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
-               <path d="M 10 0 V 10 L 25 25" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1" className="transition-all duration-500" />
+            <pattern id="nav-circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+               {/* Primary dense traces */}
+               <path d="M0 15h15l15 15v30l15 15h30l15-15V30l15-15h15M120 45h-15l-15-15V0M0 75h30l15-15M120 105h-30l-15 15M0 135h15l15-15v-30l15-15h30l15 15v30l15 15h15M120 165h-15l-15-15v-30l-15-15H75" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-500" />
                
-               {/* Nodes */}
-               <circle cx="40" cy="25" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="180" cy="25" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="120" cy="45" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="280" cy="65" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="260" cy="40" r="1.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="350" cy="60" r="2.5" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
-               <circle cx="355" cy="30" r="2" fill="var(--nav-circuit-stroke)" className="transition-all duration-500" />
+               {/* Secondary connecting traces */}
+               <path d="M45 15l15 15v30l15 15M135 165l-15-15v-30l-15-15M45 165l15-15v-30l15-15M135 15l-15 15v30l-15 15M30 105h30l15-15M150 75h-30l-15 15M0 45h15l15 15M120 75h-15l-15-15M0 105h15l15-15M120 135h-15l-15 15" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-500" />
+               
+               {/* Hollow node pads */}
+               <circle cx="15" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="45" cy="45" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="75" cy="75" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="105" cy="105" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="135" cy="135" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="165" cy="45" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="165" cy="165" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="15" cy="135" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="135" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="45" cy="165" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="75" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               <circle cx="105" cy="75" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#nav-circuit)" />
