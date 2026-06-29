@@ -7,12 +7,11 @@ const SkillsPage = () => {
   const [contentVisible, setContentVisible] = useState(false);
 
   const loadingLines = [
-    'INITIALIZING 3D SKILLS MODULE //',
-    'loading react-three-fiber engine',
-    'compiling shader programs',
-    'calibrating cube geometry',
-    'mapping tech stack to faces',
-    'rendering saish_gondkar.skills_3d'
+    'INITIALIZING PORTAL CONSTELLATION //',
+    'calibrating quantum cores',
+    'establishing dimensional links',
+    'aligning technology artifacts',
+    'rendering saish_gondkar.skills_matrix'
   ];
 
   useEffect(() => {
