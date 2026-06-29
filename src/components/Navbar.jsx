@@ -64,25 +64,67 @@ const Navbar = () => {
           <svg width="100%" height="100%">
           <defs>
             <pattern id="nav-circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-               {/* Primary dense traces */}
-               <path d="M0 15h15l15 15v30l15 15h30l15-15V30l15-15h15M120 45h-15l-15-15V0M0 75h30l15-15M120 105h-30l-15 15M0 135h15l15-15v-30l15-15h30l15 15v30l15 15h15M120 165h-15l-15-15v-30l-15-15H75" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-500" />
-               
-               {/* Secondary connecting traces */}
-               <path d="M45 15l15 15v30l15 15M135 165l-15-15v-30l-15-15M45 165l15-15v-30l15-15M135 15l-15 15v30l-15 15M30 105h30l15-15M150 75h-30l-15 15M0 45h15l15 15M120 75h-15l-15-15M0 105h15l15-15M120 135h-15l-15 15" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-500" />
-               
-               {/* Hollow node pads */}
-               <circle cx="15" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="45" cy="45" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="75" cy="75" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="105" cy="105" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="135" cy="135" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="165" cy="45" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="165" cy="165" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="15" cy="135" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="135" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="45" cy="165" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="75" cy="15" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
-               <circle cx="105" cy="75" r="3.5" fill="var(--nav-bg)" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" className="transition-all duration-500"/>
+               {/* Group 1: Horizontal stepping down */}
+               <path d="M0 15 h30 l15 15 h30 l15 15 h30" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M0 25 h20 l15 15 h30 l15 15 h40" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M0 35 h10 l15 15 h30 l15 15 h50" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Group 2: Horizontal stepping up */}
+               <path d="M0 85 h30 l15-15 h30 l15-15 h30" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M0 95 h20 l15-15 h30 l15-15 h40" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M0 105 h10 l15-15 h30 l15-15 h50" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Group 3: Top Right corner */}
+               <path d="M75 0 v15 l15 15 h30" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M85 0 v15 l15 15 h20" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M95 0 v15 l15 15 h10" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Group 4: Bottom Left corner */}
+               <path d="M45 120 v-15 l-15-15 h-30" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M35 120 v-15 l-15-15 h-20" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M25 120 v-15 l-15-15 h-10" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Group 5: Top Left diagonal */}
+               <path d="M45 0 l-45 45" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M55 0 l-55 55" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M65 0 l-65 65" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Group 6: Bottom Right diagonal */}
+               <path d="M75 120 l45-45" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M85 120 l35-35" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M95 120 l25-25" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Independent Traces */}
+               <path d="M45 60 l10 10 h10" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M55 80 h10 l10-10" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+               <path d="M85 20 h10 l10-10" fill="none" stroke="var(--nav-circuit-stroke)" strokeWidth="1.5" />
+
+               {/* Solid Pads */}
+               <circle cx="10" cy="35" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="30" cy="15" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="50" cy="35" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="70" cy="35" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="90" cy="15" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="110" cy="35" r="3" fill="var(--nav-circuit-stroke)" />
+
+               <circle cx="10" cy="65" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="30" cy="85" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="50" cy="45" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="70" cy="45" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="90" cy="85" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="110" cy="65" r="3" fill="var(--nav-circuit-stroke)" />
+
+               <circle cx="20" cy="105" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="40" cy="105" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="80" cy="105" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="100" cy="105" r="3" fill="var(--nav-circuit-stroke)" />
+
+               <circle cx="45" cy="60" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="65" cy="70" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="55" cy="80" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="75" cy="70" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="85" cy="20" r="3" fill="var(--nav-circuit-stroke)" />
+               <circle cx="105" cy="10" r="3" fill="var(--nav-circuit-stroke)" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#nav-circuit)" />
