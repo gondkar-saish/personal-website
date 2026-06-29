@@ -21,7 +21,7 @@ const Projects = () => {
       title: "Inventory Management System",
       description: "A backend system for tracking stock levels, supplier details, and low-stock alerts through structured REST APIs.",
       techStack: "Java, Spring Boot, MySQL, JPA, REST APIs",
-      link: "PASTE_INVENTORY_GITHUB_LINK_HERE"
+      link: "https://github.com/gondkar-saish/Inventory_management"
     }
   ];
 
@@ -43,7 +43,7 @@ const Projects = () => {
         {/* Regular Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {fallbackProjects.map((project, index) => (
-            <div key={index} className="engineering-card p-8 flex flex-col h-full bg-bg-surface border border-border-subtle rounded-lg">
+            <div key={index} className="engineering-card p-6 md:p-8 flex flex-col h-full bg-bg-surface border border-border-subtle rounded-lg">
               
               <a 
                 href={project.link}
