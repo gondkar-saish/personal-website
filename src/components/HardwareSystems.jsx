@@ -80,20 +80,20 @@ const HardwareSystems = () => {
       </div>
 
       {/* Interactive Showcase Container */}
-      <div className="relative w-full h-[650px] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full md:h-[650px] flex items-center justify-center overflow-visible md:overflow-hidden py-4 md:py-0">
         
         {/* Mobile View: Native Scroll Snap */}
         {isMobile ? (
-          <div className="w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar flex items-center gap-6 px-[10vw]">
+          <div className="w-full h-auto overflow-x-auto snap-x snap-mandatory hide-scrollbar flex items-stretch gap-6 px-[10vw] py-4">
             {hardwareProjects.map((project, index) => (
               <div 
                 key={project.id}
                 onClick={() => setActiveIndex(index)}
-                className={`snap-center shrink-0 w-[85vw] h-[550px] engineering-card relative text-left ${
+                className={`snap-center shrink-0 w-[85vw] h-auto min-h-[500px] flex flex-col engineering-card relative text-left transition-all duration-300 ${
                   activeIndex === index ? 'border-accent-primary/60 shadow-[0_0_30px_var(--accent-primary)]' : 'border-border-subtle'
                 }`}
               >
-                <div className="relative w-full h-64 overflow-hidden border-b border-accent-primary/20"
+                <div className="relative w-full h-56 flex-shrink-0 overflow-hidden border-b border-accent-primary/20"
                   style={{ backgroundColor: '#05080f' }}
                 >
                   <img
@@ -109,14 +109,14 @@ const HardwareSystems = () => {
                   </div>
                 </div>
                 
-                <div className="p-6 flex flex-col flex-grow relative z-10 h-[calc(100%-16rem)]">
+                <div className="p-6 pb-8 flex flex-col flex-grow relative z-10 h-auto">
                   <span className="text-[9px] font-mono text-accent-primary/70 tracking-widest uppercase mb-1 block">
                     [ SYSTEM // MODULE 0{index + 1} ]
                   </span>
                   <h3 className="font-bold text-text-main text-2xl mb-4">{project.title}</h3>
                   <p className="text-text-muted text-sm leading-relaxed mb-6">{project.description}</p>
                   
-                  <div className="mt-auto">
+                  <div className="mt-auto pt-2">
                     <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2 font-mono">// Tech Stack</h4>
                     <p className="text-sm font-mono font-bold text-accent-primary/90">{project.tech}</p>
                   </div>
@@ -126,7 +126,7 @@ const HardwareSystems = () => {
                     <div className="mt-6">
                       <Link 
                         to="/hardware-systems/esp32-smart-room-monitor"
-                        className="engineering-button-secondary w-full py-2.5 text-xs font-mono font-bold uppercase tracking-wider gap-2"
+                        className="engineering-button-secondary w-full py-2.5 text-xs font-mono font-bold uppercase tracking-wider gap-2 flex justify-center items-center"
                       >
                         Explore System
                       </Link>
