@@ -14,7 +14,7 @@ const Hero = () => {
           // INITIALIZE SEQUENCE
         </p>
         
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-8 max-w-3xl leading-tight tracking-tight drop-shadow-md">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-text-main mb-8 max-w-4xl leading-tight tracking-tight drop-shadow-md">
           Building scalable software, embedded hardware projects, and backend systems with an engineering-first mindset.
         </h1>
         
